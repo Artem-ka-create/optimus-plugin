@@ -20,7 +20,7 @@ class MissingAltRule : AccessibilityRule {
     override val supportedExtensions = setOf(FileExtension.JS, FileExtension.JSX, FileExtension.TS, FileExtension.TSX)
 
     companion object {
-        private val IMG_PATTERN = Regex("""<img\b[^>]*?/?>""", RegexOption.IGNORE_CASE)
+        private val IMG_PATTERN = Regex("""<\s*img\b[^>]*?/?>""", RegexOption.IGNORE_CASE)
         private val ALT_PATTERN = Regex("""\balt\s*=""", RegexOption.IGNORE_CASE)
     }
 

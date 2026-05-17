@@ -20,7 +20,7 @@ class InputWithoutLabelRule : AccessibilityRule {
     override val supportedExtensions = setOf(FileExtension.JS, FileExtension.JSX, FileExtension.TS, FileExtension.TSX)
 
     companion object {
-        private val INPUT_PATTERN = Regex("""<input\b[^>]*?/?>""", RegexOption.IGNORE_CASE)
+        private val INPUT_PATTERN = Regex("""<\s*input\b[^>]*?/?>""", RegexOption.IGNORE_CASE)
         private val LABEL_PATTERN = Regex("""\b(aria-label|aria-labelledby|id)\s*=""", RegexOption.IGNORE_CASE)
         private val TYPE_HIDDEN = Regex("""type\s*=\s*["']hidden["']""", RegexOption.IGNORE_CASE)
     }

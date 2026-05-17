@@ -45,7 +45,7 @@ class MyToolWindowFactory : ToolWindowFactory {
                     checkbox.alignmentX = 0f
                     checkbox.addActionListener {
                         registry.setEnabled(rule.id, checkbox.isSelected)
-                        // Перезапускаємо аналіз відкритих файлів
+                        // restart analysis
                         restartAnalysis()
                     }
                     add(checkbox)

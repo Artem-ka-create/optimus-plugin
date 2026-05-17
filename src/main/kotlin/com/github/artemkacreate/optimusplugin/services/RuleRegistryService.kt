@@ -23,7 +23,7 @@ class RuleRegistryService {
     private val enabledRules = mutableSetOf<String>()
 
     init {
-        // Реєструємо всі правила
+        // Rules registration
         register(MissingAltRule())
         register(InputWithoutLabelRule())
     }
