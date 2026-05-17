@@ -1,0 +1,47 @@
+package com.github.artemkacreate.optimusplugin.services
+
+import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
+import com.github.artemkacreate.optimusplugin.inspections.rules.InputWithoutLabelRule
+import com.github.artemkacreate.optimusplugin.inspections.rules.MissingAltRule
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.components.Service
+
+/**
+ * Application-level Service to collect rules and activation status
+ * Checkboxes in ToolWindow are changing state, annotator reads rules from this class.
+ */
+@Service(Service.Level.APP)
+class RuleRegistryService {
+
+    companion object {
+        fun getInstance(): RuleRegistryService =
+            ApplicationManager.getApplication().getService(RuleRegistryService::class.java)
+    }
+
+    private val rules = mutableListOf<AccessibilityRule>()
+    private val enabledRules = mutableSetOf<String>()
+
+    init {
+        // Реєструємо всі правила
+        register(MissingAltRule())
+        register(InputWithoutLabelRule())
+    }
+
+    private fun register(rule: AccessibilityRule) {
+        rules.add(rule)
+        enabledRules.add(rule.id)
+    }
+
+    fun getAllRules(): List<AccessibilityRule> = rules.toList()
+
+    fun isEnabled(ruleId: String): Boolean = ruleId in enabledRules
+
+    fun setEnabled(ruleId: String, enabled: Boolean) {
+        if (enabled) enabledRules.add(ruleId) else enabledRules.remove(ruleId)
+    }
+
+    fun getEnabledRulesForExtension(ext: FileExtension): List<AccessibilityRule> {
+        return rules.filter { it.id in enabledRules && ext in it.supportedExtensions }
+    }
+}

@@ -13,7 +13,8 @@
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.artemkacreate.optimusplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <toolWindow factoryClass="com.github.artemkacreate.optimusplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow" anchor="right"/>
         <postStartupActivity implementation="com.github.artemkacreate.optimusplugin.startup.MyProjectActivity" />
+        <externalAnnotator language="" implementationClass="com.github.artemkacreate.optimusplugin.inspections.AccessibilityAnnotator"/>
     </extensions>
 </idea-plugin>
