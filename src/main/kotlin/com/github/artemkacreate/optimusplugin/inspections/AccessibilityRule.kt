@@ -1,17 +1,12 @@
 package com.github.artemkacreate.optimusplugin.inspections
 
 import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
-import com.intellij.codeInsight.intention.IntentionAction
-import com.intellij.openapi.util.TextRange
-
-data class AccessibilityProblem(
-    val range: TextRange,
-    val message: String,
-    val fix: IntentionAction? = null
-)
+import com.intellij.codeInspection.ProblemsHolder
+import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 
 /**
- * Rules accessibility-analysis.
+ * Base interface for accessibility rules.
  */
 interface AccessibilityRule {
     val id: String
@@ -20,6 +15,9 @@ interface AccessibilityRule {
 
     val supportedExtensions: Set<FileExtension>
 
-    fun analyze(text: String): List<AccessibilityProblem>
+    /**
+     * Check a single PSI element and register problems if found.
+     * Called once per element during a single tree traversal.
+     */
+    fun checkElementByRule(element: PsiElement, file: PsiFile, holder: ProblemsHolder)
 }
-

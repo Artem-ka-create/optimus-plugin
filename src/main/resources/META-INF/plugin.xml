@@ -15,6 +15,12 @@
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow factoryClass="com.github.artemkacreate.optimusplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow" anchor="right"/>
         <postStartupActivity implementation="com.github.artemkacreate.optimusplugin.startup.MyProjectActivity" />
-        <externalAnnotator language="" implementationClass="com.github.artemkacreate.optimusplugin.inspections.AccessibilityAnnotator"/>
+        <localInspection
+                shortName="GlobalAccessibilityInspection"
+                displayName="Optimus Accessibility: Check a11y rules"
+                groupName="Accessibility"
+                enabledByDefault="true"
+                level="WARNING"
+                implementationClass="com.github.artemkacreate.optimusplugin.inspections.GlobalAccessibilityInspection"/>
     </extensions>
 </idea-plugin>
