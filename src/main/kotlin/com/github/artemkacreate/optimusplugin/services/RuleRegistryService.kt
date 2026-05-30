@@ -4,6 +4,7 @@ import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.rules.AnchorHasContentRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.AnchorIsValidRule
+import com.github.artemkacreate.optimusplugin.inspections.rules.HtmlHasLangRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.IframeHasTitleRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.InputWithoutLabelRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.MissingAltRule
@@ -32,6 +33,7 @@ class RuleRegistryService {
         register(AnchorHasContentRule())
         register(AnchorIsValidRule())
         register(IframeHasTitleRule())
+        register(HtmlHasLangRule())
     }
 
     private fun register(rule: AccessibilityRule) {
