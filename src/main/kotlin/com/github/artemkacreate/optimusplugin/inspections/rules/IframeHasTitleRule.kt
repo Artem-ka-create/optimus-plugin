@@ -34,7 +34,7 @@ class IframeHasTitleRule : AccessibilityRule {
 
     override fun checkElementByRule(element: PsiElement, file: PsiFile, holder: ProblemsHolder) {
         if (element !is XmlTag) return
-        if (!element.name.equals("iframe", ignoreCase = true)) return
+        if (!element.name.equals("iframe", true)) return
 
         val titleAttr = element.attributes.find { it.name.lowercase() in TITLE_ATTRIBUTES }
 
@@ -62,7 +62,7 @@ class AddIframeHasTitleQuickFix : LocalQuickFix {
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
         val element = descriptor.psiElement
         if (element is XmlTag && element.isValid) {
-            element.setAttribute("title", "")
+            element.setAttribute("title", "title-example")
         }
     }
 }
