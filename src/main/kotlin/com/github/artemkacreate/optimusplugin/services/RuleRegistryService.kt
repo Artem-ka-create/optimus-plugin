@@ -3,6 +3,7 @@ package com.github.artemkacreate.optimusplugin.services
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.rules.AnchorHasContentRule
+import com.github.artemkacreate.optimusplugin.inspections.rules.AnchorIsValidRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.InputWithoutLabelRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.MissingAltRule
 import com.intellij.openapi.application.ApplicationManager
@@ -28,6 +29,7 @@ class RuleRegistryService {
         register(MissingAltRule())
         register(InputWithoutLabelRule())
         register(AnchorHasContentRule())
+        register(AnchorIsValidRule())
     }
 
     private fun register(rule: AccessibilityRule) {
