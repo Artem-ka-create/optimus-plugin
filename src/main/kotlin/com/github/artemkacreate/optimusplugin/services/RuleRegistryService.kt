@@ -10,6 +10,7 @@ import com.github.artemkacreate.optimusplugin.inspections.rules.IframeHasTitleRu
 import com.github.artemkacreate.optimusplugin.inspections.rules.ImgRedundantAltRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.InputWithoutLabelRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.MissingAltRule
+import com.github.artemkacreate.optimusplugin.inspections.rules.NoAutofocusRule
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.Service
 
@@ -29,7 +30,7 @@ class RuleRegistryService {
     private val enabledRules = mutableSetOf<String>()
 
     init {
-        // Rules registration
+        // Rules registration Tier 1
         register(MissingAltRule())
         register(InputWithoutLabelRule())
         register(AnchorHasContentRule())
@@ -38,6 +39,7 @@ class RuleRegistryService {
         register(HtmlHasLangRule())
         register(HeadingHasContentRule())
         register(ImgRedundantAltRule())
+        register(NoAutofocusRule())
     }
 
     private fun register(rule: AccessibilityRule) {
