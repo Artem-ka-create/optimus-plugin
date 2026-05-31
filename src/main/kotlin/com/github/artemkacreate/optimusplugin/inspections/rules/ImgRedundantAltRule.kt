@@ -13,7 +13,7 @@ import com.intellij.psi.xml.XmlTag
 /**
  * Rule: <img> alt attribute should not contain redundant words like "image", "photo", "picture".
  * Screen readers already announce the element as an image, so these words add no value.
- * Supports static alt and dynamic bindings (:alt, v-bind:alt, [alt]) with literal string values.
+ * Supports static alt and dynamic bindings (:alt, v-bind:alt, \[alt\]) with literal string values.
  */
 class ImgRedundantAltRule : AccessibilityRule {
 
