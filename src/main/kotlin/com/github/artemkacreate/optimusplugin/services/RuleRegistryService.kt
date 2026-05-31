@@ -7,6 +7,7 @@ import com.github.artemkacreate.optimusplugin.inspections.rules.AnchorIsValidRul
 import com.github.artemkacreate.optimusplugin.inspections.rules.HeadingHasContentRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.HtmlHasLangRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.IframeHasTitleRule
+import com.github.artemkacreate.optimusplugin.inspections.rules.ImgRedundantAltRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.InputWithoutLabelRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.MissingAltRule
 import com.intellij.openapi.application.ApplicationManager
@@ -36,6 +37,7 @@ class RuleRegistryService {
         register(IframeHasTitleRule())
         register(HtmlHasLangRule())
         register(HeadingHasContentRule())
+        register(ImgRedundantAltRule())
     }
 
     private fun register(rule: AccessibilityRule) {
