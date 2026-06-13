@@ -15,7 +15,7 @@ import com.intellij.psi.xml.XmlTag
  * Autofocus can cause usability issues for keyboard and screen reader users
  * by unexpectedly moving focus when a page loads.
  * Applies to any HTML element, not just form controls.
- * Supports Vue (:autofocus, v-bind:autofocus) and Angular (\[autofocus], \[attr.autofocus]) bindings.
+ * Supports Vue (:autofocus, v-bind:autofocus) and Angular ([autofocus], [attr.autofocus]) bindings.
  */
 class NoAutofocusRule : AccessibilityRule {
 
@@ -27,7 +27,6 @@ class NoAutofocusRule : AccessibilityRule {
     )
 
     companion object {
-        // All forms of autofocus attribute across frameworks
         private val AUTOFOCUS_ATTRIBUTES = setOf(
             "autofocus",                          // HTML standard
             ":autofocus", "v-bind:autofocus",     // Vue
@@ -39,8 +38,7 @@ class NoAutofocusRule : AccessibilityRule {
     override fun checkElementByRule(element: PsiElement, file: PsiFile, holder: ProblemsHolder) {
         if (element !is XmlTag) return
 
-        val hasAutofocus = element.attributes.any { it.name.lowercase() in AUTOFOCUS_ATTRIBUTES }
-        if (hasAutofocus) {
+        if (element.attributes.any { it.name.lowercase() in AUTOFOCUS_ATTRIBUTES }) {
             holder.registerProblem(element, MESSAGE, RemoveAutofocusQuickFix())
         }
     }
@@ -52,11 +50,19 @@ class NoAutofocusRule : AccessibilityRule {
 class RemoveAutofocusQuickFix : LocalQuickFix {
     override fun getName(): String = "Remove autofocus attribute"
     override fun getFamilyName(): String = "Accessibility fixes"
+
+    companion object {
+        private val AUTOFOCUS_ATTRIBUTES = setOf(
+            "autofocus", ":autofocus", "v-bind:autofocus",
+            "[autofocus]", "[attr.autofocus]"
+        )
+    }
+
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
         val element = descriptor.psiElement
         if (element is XmlTag && element.isValid) {
             element.attributes
-                .filter { it.name.lowercase() in setOf("autofocus", ":autofocus", "v-bind:autofocus", "[autofocus]", "[attr.autofocus]") }
+                .filter { it.name.lowercase() in AUTOFOCUS_ATTRIBUTES }
                 .forEach { it.delete() }
         }
     }

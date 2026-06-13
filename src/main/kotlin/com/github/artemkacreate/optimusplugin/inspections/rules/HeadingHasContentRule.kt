@@ -2,6 +2,7 @@ package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
+import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -19,20 +20,12 @@ class HeadingHasContentRule : AccessibilityRule {
     override val id = "headingHasContent"
     override val displayName = "Heading must have content"
     override val supportedExtensions = setOf(
-        FileExtension.HTML,
-        FileExtension.JS,
-        FileExtension.JSX,
-        FileExtension.TS,
-        FileExtension.TSX,
-        FileExtension.VUE
+        FileExtension.HTML, FileExtension.JS, FileExtension.JSX,
+        FileExtension.TS, FileExtension.TSX, FileExtension.VUE
     )
 
     companion object {
         private val HEADING_TAGS = setOf("h1", "h2", "h3", "h4", "h5", "h6")
-        private val ARIA_LABEL_ATTRIBUTES = setOf(
-            "aria-label", ":aria-label", "v-bind:aria-label", "[aria-label]",
-            "aria-labelledby", ":aria-labelledby", "v-bind:aria-labelledby", "[aria-labelledby]"
-        )
         // Vue/Angular directives that provide dynamic content
         private val DYNAMIC_CONTENT_ATTRIBUTES = setOf(
             "v-text", "v-html",           // Vue
@@ -46,12 +39,11 @@ class HeadingHasContentRule : AccessibilityRule {
         if (element !is XmlTag) return
         if (element.name.lowercase() !in HEADING_TAGS) return
 
-        val hasAriaLabel = element.attributes.any { it.name.lowercase() in ARIA_LABEL_ATTRIBUTES }
-        val hasTextContent = element.value.trimmedText.isNotBlank()
-        val hasChildElements = element.subTags.isNotEmpty()
+        val hasAriaLabel = ExtractionTool.hasAriaLabel(element)
+        val hasContent = ExtractionTool.hasTextContent(element)
         val hasDynamicContent = element.attributes.any { it.name.lowercase() in DYNAMIC_CONTENT_ATTRIBUTES }
 
-        if (!hasAriaLabel && !hasTextContent && !hasChildElements && !hasDynamicContent) {
+        if (!hasAriaLabel && !hasContent && !hasDynamicContent) {
             holder.registerProblem(element, MESSAGE, AddHeadingAriaLabelQuickFix())
         }
     }

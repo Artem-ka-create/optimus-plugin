@@ -13,7 +13,7 @@ import com.intellij.psi.xml.XmlTag
 /**
  * Rule: Elements should not use the accessKey attribute.
  * Applies to any HTML element, not just form controls.
- * Supports Vue (:accessKey, v-bind:accessKey) and Angular (\[accessKey], \[attr.accessKey]) bindings.
+ * Supports Vue (:accessKey, v-bind:accessKey) and Angular ([accessKey], [attr.accessKey]) bindings.
  */
 class NoAccessKeyRule : AccessibilityRule {
 
@@ -25,7 +25,6 @@ class NoAccessKeyRule : AccessibilityRule {
     )
 
     companion object {
-        // All forms of accessKey attribute across frameworks
         private val ACCESSKEY_ATTRIBUTES = setOf(
             "accesskey",                          // HTML standard
             ":accesskey", "v-bind:accesskey",     // Vue
@@ -37,8 +36,7 @@ class NoAccessKeyRule : AccessibilityRule {
     override fun checkElementByRule(element: PsiElement, file: PsiFile, holder: ProblemsHolder) {
         if (element !is XmlTag) return
 
-        val hasAccessKey = element.attributes.any { it.name.lowercase() in ACCESSKEY_ATTRIBUTES }
-        if (hasAccessKey) {
+        if (element.attributes.any { it.name.lowercase() in ACCESSKEY_ATTRIBUTES }) {
             holder.registerProblem(element, MESSAGE, RemoveAccessKeyQuickFix())
         }
     }
@@ -50,11 +48,19 @@ class NoAccessKeyRule : AccessibilityRule {
 class RemoveAccessKeyQuickFix : LocalQuickFix {
     override fun getName(): String = "Remove accessKey attribute"
     override fun getFamilyName(): String = "Accessibility fixes"
+
+    companion object {
+        private val ACCESSKEY_ATTRIBUTES = setOf(
+            "accesskey", ":accesskey", "v-bind:accesskey",
+            "[accesskey]", "[attr.accesskey]"
+        )
+    }
+
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
         val element = descriptor.psiElement
         if (element is XmlTag && element.isValid) {
             element.attributes
-                .filter { it.name.lowercase() in setOf("accesskey", ":accesskey", "v-bind:accesskey", "[accesskey]", "[attr.accesskey]") }
+                .filter { it.name.lowercase() in ACCESSKEY_ATTRIBUTES }
                 .forEach { it.delete() }
         }
     }

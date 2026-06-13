@@ -19,12 +19,7 @@ class IframeHasTitleRule : AccessibilityRule {
     override val id = "iframeHasTitle"
     override val displayName = "Iframe must have title"
     override val supportedExtensions = setOf(
-        FileExtension.HTML,
-        FileExtension.JS,
-        FileExtension.JSX,
-        FileExtension.TS,
-        FileExtension.TSX,
-        FileExtension.VUE
+        FileExtension.HTML, FileExtension.JS, FileExtension.JSX, FileExtension.TS, FileExtension.TSX, FileExtension.VUE
     )
 
     companion object {

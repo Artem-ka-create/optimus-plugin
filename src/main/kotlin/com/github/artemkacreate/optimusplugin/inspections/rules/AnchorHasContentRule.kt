@@ -2,6 +2,7 @@ package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
+import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -22,16 +23,6 @@ class AnchorHasContentRule : AccessibilityRule {
     )
 
     companion object {
-        private val ARIA_LABEL_ATTRIBUTES = setOf(
-            "aria-label",
-            ":aria-label",
-            "v-bind:aria-label",
-            "[aria-label]",
-            "aria-labelledby",
-            ":aria-labelledby",
-            "v-bind:aria-labelledby",
-            "[aria-labelledby]"
-        )
         private const val MESSAGE = "Accessibility: <a> must have accessible text content"
     }
 
@@ -39,10 +30,7 @@ class AnchorHasContentRule : AccessibilityRule {
         if (element !is XmlTag) return
         if (!element.name.equals("a", ignoreCase = true)) return
 
-        val hasAlt = element.attributes.any { it.name.lowercase() in ARIA_LABEL_ATTRIBUTES }
-        val hasContent =
-            element.value.children.size > 0 || element.subTags.isNotEmpty() || element.value.trimmedText.isNotBlank()
-        if (!hasAlt && !hasContent) {
+        if (!ExtractionTool.hasAriaLabel(element) && !ExtractionTool.hasTextContent(element)) {
             holder.registerProblem(element, MESSAGE, AddAnchorHasContentAttributeQuickFix())
         }
     }
