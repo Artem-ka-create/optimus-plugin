@@ -10,6 +10,7 @@ import com.github.artemkacreate.optimusplugin.inspections.rules.IframeHasTitleRu
 import com.github.artemkacreate.optimusplugin.inspections.rules.ImgRedundantAltRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.InputWithoutLabelRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.MissingAltRule
+import com.github.artemkacreate.optimusplugin.inspections.rules.NoAccessKeyRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.NoAutofocusRule
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.Service
@@ -40,6 +41,7 @@ class RuleRegistryService {
         register(HeadingHasContentRule())
         register(ImgRedundantAltRule())
         register(NoAutofocusRule())
+        register(NoAccessKeyRule())
     }
 
     private fun register(rule: AccessibilityRule) {
