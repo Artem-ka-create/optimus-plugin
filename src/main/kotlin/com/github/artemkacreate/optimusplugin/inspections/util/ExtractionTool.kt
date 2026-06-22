@@ -16,7 +16,7 @@ object ExtractionTool {
 
     /**
      * Checks if an attribute name represents a dynamic binding (Vue/Angular).
-     * E.g., ":href", "v-bind:alt", "[tabindex]"
+     * E.g., ":href", "v-bind:alt", "\[tabindex\]"
      */
     fun isDynamicBinding(attrName: String): Boolean {
         val lower = attrName.lowercase()
