@@ -10,13 +10,6 @@ import com.intellij.psi.xml.XmlTag
  */
 object ExtractionTool {
 
-    private val DYNAMIC_PREFIXES = listOf(":", "v-bind:", "[")
-
-    private val ARIA_LABEL_ATTRIBUTES = setOf(
-        "aria-label", ":aria-label", "v-bind:aria-label", "[aria-label]",
-        "aria-labelledby", ":aria-labelledby", "v-bind:aria-labelledby", "[aria-labelledby]"
-    )
-
     // ──────────────────────────────────────────────
     // Dynamic binding detection & extraction
     // ──────────────────────────────────────────────
@@ -27,7 +20,7 @@ object ExtractionTool {
      */
     fun isDynamicBinding(attrName: String): Boolean {
         val lower = attrName.lowercase()
-        return DYNAMIC_PREFIXES.any { lower.startsWith(it) }
+        return CommonValues.DYNAMIC_PREFIXES.any { lower.startsWith(it) }
     }
 
     /**
@@ -101,7 +94,8 @@ object ExtractionTool {
         // Handle Vue double braces: {{value}}
         if (inner.startsWith("{") && inner.endsWith("}")) {
             val vueInner = inner.substring(1, inner.length - 1).trim()
-            return extractLiteralFromBinding(vueInner) ?: vueInner.takeIf { it.toIntOrNull() != null || isSimpleValue(it) }
+            return extractLiteralFromBinding(vueInner)
+                ?: vueInner.takeIf { it.toIntOrNull() != null || isSimpleValue(it) }
         }
 
         // Try to extract string literal from inside: {'text'} or {"text"} or {`text`}
@@ -152,6 +146,21 @@ object ExtractionTool {
         return null
     }
 
+    fun normalizeAttrName(attrName: String): String {
+        val attrNameToLower = attrName.lowercase()
+            .replace("\"", "")
+            .replace("" + "\'", "")
+        return when {
+            attrNameToLower.startsWith("v-bind:") -> attrNameToLower.removePrefix("v-bind:")  // v-bind:aria-label → aria-label
+            attrNameToLower.startsWith(":") -> attrNameToLower.removePrefix(":")              // :aria-label → aria-label
+            attrNameToLower.startsWith("[attr.") && attrNameToLower.endsWith("]") -> attrNameToLower.removePrefix("[attr.")
+                .removeSuffix("]")            // [attr.aria-label] → aria-label
+            attrNameToLower.startsWith("[") && attrNameToLower.endsWith("]") -> attrNameToLower.removePrefix("[")
+                .removeSuffix("]")                 // [aria-label] → aria-label
+            else -> attrNameToLower                                                 // aria-label → aria-label
+        }
+    }
+
     // ──────────────────────────────────────────────
     // Content & ARIA checks
     // ──────────────────────────────────────────────
@@ -160,15 +169,13 @@ object ExtractionTool {
      * Checks if an XmlTag has visible text content (text nodes, child tags, or trimmed text).
      */
     fun hasTextContent(element: XmlTag): Boolean {
-        return element.value.children.isNotEmpty()
-                || element.subTags.isNotEmpty()
-                || element.value.trimmedText.isNotBlank()
+        return element.value.children.isNotEmpty() || element.subTags.isNotEmpty() || element.value.trimmedText.isNotBlank()
     }
 
     /**
      * Checks if element has aria-label or aria-labelledby (in any binding form).
      */
     fun hasAriaLabel(element: XmlTag): Boolean {
-        return element.attributes.any { it.name.lowercase() in ARIA_LABEL_ATTRIBUTES }
+        return element.attributes.any { it.name.lowercase() in CommonValues.ARIA_LABEL_ATTRIBUTES }
     }
 }

@@ -4,6 +4,7 @@ import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.rules.AnchorHasContentRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.AnchorIsValidRule
+import com.github.artemkacreate.optimusplugin.inspections.rules.AriaPropsRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.HeadingHasContentRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.HtmlHasLangRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.IframeHasTitleRule
@@ -44,6 +45,9 @@ class RuleRegistryService {
         register(NoAutofocusRule())
         register(NoAccessKeyRule())
         register(TabIndexNoPositiveRule())
+
+        // Rules registration Tier 2
+        register(AriaPropsRule())
     }
 
     private fun register(rule: AccessibilityRule) {
