@@ -150,6 +150,7 @@ object ExtractionTool {
         val attrNameToLower = attrName.lowercase()
             .replace("\"", "")
             .replace("" + "\'", "")
+        // maybe add replace - to ""
         return when {
             attrNameToLower.startsWith("v-bind:") -> attrNameToLower.removePrefix("v-bind:")  // v-bind:aria-label → aria-label
             attrNameToLower.startsWith(":") -> attrNameToLower.removePrefix(":")              // :aria-label → aria-label

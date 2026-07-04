@@ -5,6 +5,7 @@ import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.rules.AnchorHasContentRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.AnchorIsValidRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.AriaPropsRule
+import com.github.artemkacreate.optimusplugin.inspections.rules.AriaRoleRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.HeadingHasContentRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.HtmlHasLangRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.IframeHasTitleRule
@@ -48,6 +49,7 @@ class RuleRegistryService {
 
         // Rules registration Tier 2
         register(AriaPropsRule())
+        register(AriaRoleRule())
     }
 
     private fun register(rule: AccessibilityRule) {
