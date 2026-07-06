@@ -64,7 +64,11 @@ object ExtractionTool {
 
         // Vue/Angular dynamic binding
         if (isDynamicBinding(attr.name)) {
+            // Prefer a quoted string literal (:aria-hidden="'true'"), but also
+            // support bare simple values like booleans/numbers/identifiers
+            // (:aria-hidden="true", :tabindex="0").
             return extractLiteralFromBinding(rawValue)
+                ?: rawValue.trim().takeIf { isSimpleValue(it) }
         }
 
         // JSX expression: alt={"some text"} or tabIndex={5}

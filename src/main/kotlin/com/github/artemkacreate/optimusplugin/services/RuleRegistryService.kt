@@ -11,8 +11,11 @@ import com.github.artemkacreate.optimusplugin.inspections.rules.HtmlHasLangRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.IframeHasTitleRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.ImgRedundantAltRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.InputWithoutLabelRule
+import com.github.artemkacreate.optimusplugin.inspections.rules.LabelHasForRule
+import com.github.artemkacreate.optimusplugin.inspections.rules.LangRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.MissingAltRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.NoAccessKeyRule
+import com.github.artemkacreate.optimusplugin.inspections.rules.NoAriaHiddenOnFocusableRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.NoAutofocusRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.TabIndexNoPositiveRule
 import com.intellij.openapi.application.ApplicationManager
@@ -50,6 +53,9 @@ class RuleRegistryService {
         // Rules registration Tier 2
         register(AriaPropsRule())
         register(AriaRoleRule())
+        register(NoAriaHiddenOnFocusableRule())
+        register(LangRule())
+        register(LabelHasForRule())
     }
 
     private fun register(rule: AccessibilityRule) {

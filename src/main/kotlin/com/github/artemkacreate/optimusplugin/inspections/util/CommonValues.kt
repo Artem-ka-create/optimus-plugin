@@ -72,29 +72,106 @@ object CommonValues {
         "aria-roledescription"
     )
 
-    val ARIA_ROLE_ATTRIBUTE= "role"
+    val ARIA_ROLE_ATTRIBUTE = "role"
 
     val VALID_ARIA_ROLE_VALUES = setOf(
         // Widgets
-        "button", "checkbox", "gridcell", "link", "menuitem", "menuitemcheckbox",
-        "menuitemradio", "option", "progressbar", "radio", "scrollbar", "searchbox",
-        "separator", "slider", "spinbutton", "switch", "tab", "tabpanel", "textbox", "treeitem",
+        "button",
+        "checkbox",
+        "gridcell",
+        "link",
+        "menuitem",
+        "menuitemcheckbox",
+        "menuitemradio",
+        "option",
+        "progressbar",
+        "radio",
+        "scrollbar",
+        "searchbox",
+        "separator",
+        "slider",
+        "spinbutton",
+        "switch",
+        "tab",
+        "tabpanel",
+        "textbox",
+        "treeitem",
 
         // Composite
-        "combobox", "grid", "listbox", "menu", "menubar", "radiogroup", "tablist", "tree", "treegrid",
+        "combobox",
+        "grid",
+        "listbox",
+        "menu",
+        "menubar",
+        "radiogroup",
+        "tablist",
+        "tree",
+        "treegrid",
 
         // Landmarks
-        "banner", "complementary", "contentinfo", "form", "main", "navigation", "region", "search",
+        "banner",
+        "complementary",
+        "contentinfo",
+        "form",
+        "main",
+        "navigation",
+        "region",
+        "search",
 
         // Live regions
-        "alert", "alertdialog", "log", "marquee", "status", "timer",
+        "alert",
+        "alertdialog",
+        "log",
+        "marquee",
+        "status",
+        "timer",
 
         // Document structure
-        "application", "article", "blockquote", "caption", "cell", "code", "columnheader",
-        "definition", "deletion", "directory", "document", "emphasis", "feed", "figure",
-        "group", "heading", "img", "insertion", "list", "listitem", "math", "meter",
-        "none", "presentation", "note", "paragraph", "row", "rowgroup", "rowheader",
-        "strong", "subscript", "superscript", "table", "term", "time", "toolbar", "tooltip"
+        "application",
+        "article",
+        "blockquote",
+        "caption",
+        "cell",
+        "code",
+        "columnheader",
+        "definition",
+        "deletion",
+        "directory",
+        "document",
+        "emphasis",
+        "feed",
+        "figure",
+        "group",
+        "heading",
+        "img",
+        "insertion",
+        "list",
+        "listitem",
+        "math",
+        "meter",
+        "none",
+        "presentation",
+        "note",
+        "paragraph",
+        "row",
+        "rowgroup",
+        "rowheader",
+        "strong",
+        "subscript",
+        "superscript",
+        "table",
+        "term",
+        "time",
+        "toolbar",
+        "tooltip"
     )
+
+    val DEFAULT_FOCUSABLE_ELEMENTS = setOf(
+        "button", "input", "select", "textarea", "audio", "video"
+    )
+
+    val FOR_ATTRIBUTES = setOf("for", "htmlfor")
+
+    val FIELD_LABEL_ATTRIBUTES = setOf("label", "output")
 
 }
