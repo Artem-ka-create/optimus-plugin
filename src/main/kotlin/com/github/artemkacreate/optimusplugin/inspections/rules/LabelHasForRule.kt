@@ -71,7 +71,7 @@ class AddForAttributeQuickFix : LocalQuickFix {
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
         val element = descriptor.psiElement
         if (element is XmlTag && element.isValid) {
-            element.setAttribute("for", "")
+            element.setAttribute("for", "generatedId")
         }
     }
 }
@@ -85,7 +85,7 @@ class AddHtmlForAttributeQuickFix : LocalQuickFix {
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
         val element = descriptor.psiElement
         if (element is XmlTag && element.isValid) {
-            element.setAttribute("htmlFor", "")
+            element.setAttribute("htmlFor", "generatedId")
         }
     }
 }
