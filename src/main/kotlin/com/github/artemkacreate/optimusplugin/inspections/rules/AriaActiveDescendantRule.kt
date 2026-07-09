@@ -37,7 +37,6 @@ class AriaActiveDescendantRule : AccessibilityRule {
         )
     }
 
-    //TODO: make flexible for angular, vue, react
     override fun checkElementByRule(
         element: PsiElement, file: PsiFile, holder: ProblemsHolder
     ) {
