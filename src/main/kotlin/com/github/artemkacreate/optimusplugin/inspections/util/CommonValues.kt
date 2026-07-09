@@ -49,6 +49,7 @@ object CommonValues {
         "aria-relevant",
 
         // 3. Relationship Attributes
+        "aria-activedescendant",
         "aria-colcount",
         "aria-colindex",
         "aria-colindextext",
@@ -57,6 +58,7 @@ object CommonValues {
         "aria-describedby",
         "aria-description",
         "aria-details",
+        "aria-errormessage",
         "aria-flowto",
         "aria-owns",
         "aria-posinset",
@@ -67,9 +69,15 @@ object CommonValues {
         "aria-setsize",
 
         // 4. Global Attributes
+        "aria-braillelabel",
+        "aria-brailleroledescription",
         "aria-current",
         "aria-keyshortcuts",
-        "aria-roledescription"
+        "aria-roledescription",
+
+        // 5. Drag-and-Drop Attributes (deprecated in ARIA 1.1 but still valid)
+        "aria-dropeffect",
+        "aria-grabbed"
     )
 
     val ARIA_ROLE_ATTRIBUTE = "role"

@@ -52,15 +52,13 @@ class LabelHasForRule : AccessibilityRule {
                 return
             } else {
                 holder.registerProblem(
-                    element,
-                    MESSAGE_ACCESSIBILITY_CONTENT,
-                    *getFixesByPsFile(file, true)
+                    element, MESSAGE_ACCESSIBILITY_CONTENT, *getFixesByPsFile(file, true)
                 )
             }
             return
         }
         holder.registerProblem(
-            element, MESSAGE, *getFixesByPsFile(file,  false)
+            element, MESSAGE, *getFixesByPsFile(file, false)
         )
     }
 
@@ -75,8 +73,7 @@ class LabelHasForRule : AccessibilityRule {
             else -> AddForVanilaHtmlAttributeQuickFix()
         }
 
-        val nestedTagFix: LocalQuickFix =
-            if (hasNestedField) AddNestedSpanTextQuickFix() else AddNestedInputQuickFix()
+        val nestedTagFix: LocalQuickFix = if (hasNestedField) AddNestedSpanTextQuickFix() else AddNestedInputQuickFix()
 
         return arrayOf(attributeFix, nestedTagFix)
     }
@@ -167,4 +164,3 @@ class AddNestedSpanTextQuickFix : LocalQuickFix {
         }
     }
 }
-
