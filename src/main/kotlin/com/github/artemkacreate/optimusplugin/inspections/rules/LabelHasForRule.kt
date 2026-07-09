@@ -122,7 +122,7 @@ class AddHtmlForVueAttributeQuickFix : LocalQuickFix {
 }
 
 /**
- * QuickFix: adds an `[for]=""` attribute to the tag (JSX / React).
+ * QuickFix: adds an `\[for]=""` attribute to the tag (JSX / React).
  */
 class AddHtmlForAngularAttributeQuickFix : LocalQuickFix {
     override fun getName(): String = "Add htmlFor=\"\" attribute"
