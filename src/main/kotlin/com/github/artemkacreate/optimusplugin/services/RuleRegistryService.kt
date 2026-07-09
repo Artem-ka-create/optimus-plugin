@@ -4,6 +4,7 @@ import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.rules.AnchorHasContentRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.AnchorIsValidRule
+import com.github.artemkacreate.optimusplugin.inspections.rules.ControlHasAssociatedLabelRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.AriaPropsRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.AriaRoleRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.HeadingHasContentRule
@@ -56,6 +57,7 @@ class RuleRegistryService {
         register(NoAriaHiddenOnFocusableRule())
         register(LangRule())
         register(LabelHasForRule())
+        register(ControlHasAssociatedLabelRule())
     }
 
     private fun register(rule: AccessibilityRule) {
