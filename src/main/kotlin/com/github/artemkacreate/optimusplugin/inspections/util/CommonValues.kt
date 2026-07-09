@@ -172,6 +172,9 @@ object CommonValues {
 
     val FOR_ATTRIBUTES = setOf("for", "htmlfor")
 
-    val FIELD_LABEL_ATTRIBUTES = setOf("label", "output")
+    val FIELD_LABEL_ATTRIBUTES = setOf("label")
 
+    val INTERACTIVE_TAG = setOf(
+        "button", "a", "input", "textarea", "select"
+    )
 }

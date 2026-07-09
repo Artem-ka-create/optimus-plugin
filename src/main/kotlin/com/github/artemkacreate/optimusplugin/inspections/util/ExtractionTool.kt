@@ -1,7 +1,12 @@
 package com.github.artemkacreate.optimusplugin.inspections.util
 
+import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
+import com.github.artemkacreate.optimusplugin.inspections.enums.TechnologyType
+import com.intellij.psi.PsiFile
+import com.intellij.psi.SyntaxTraverser
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlTag
+import com.intellij.psi.xml.XmlText
 
 /**
  * Shared utility methods for accessibility rules.
@@ -67,8 +72,7 @@ object ExtractionTool {
             // Prefer a quoted string literal (:aria-hidden="'true'"), but also
             // support bare simple values like booleans/numbers/identifiers
             // (:aria-hidden="true", :tabindex="0").
-            return extractLiteralFromBinding(rawValue)
-                ?: rawValue.trim().takeIf { isSimpleValue(it) }
+            return extractLiteralFromBinding(rawValue) ?: rawValue.trim().takeIf { isSimpleValue(it) }
         }
 
         // JSX expression: alt={"some text"} or tabIndex={5}
@@ -151,9 +155,7 @@ object ExtractionTool {
     }
 
     fun normalizeAttrName(attrName: String): String {
-        val attrNameToLower = attrName.lowercase()
-            .replace("\"", "")
-            .replace("" + "\'", "")
+        val attrNameToLower = attrName.lowercase().replace("\"", "").replace("" + "\'", "")
         // maybe add replace - to ""
         return when {
             attrNameToLower.startsWith("v-bind:") -> attrNameToLower.removePrefix("v-bind:")  // v-bind:aria-label → aria-label
@@ -177,10 +179,63 @@ object ExtractionTool {
         return element.value.children.isNotEmpty() || element.subTags.isNotEmpty() || element.value.trimmedText.isNotBlank()
     }
 
+    fun XmlTag.containsXmlTextNonRecursive(): Boolean {
+        return SyntaxTraverser.psiTraverser(this).filter(XmlText::class.java).firstOrNull() != null
+    }
+
+    fun PsiFile.getFileTechnologyType(): TechnologyType {
+        val fileName = this.name.lowercase().trim()
+
+        val isAngularFile =
+            fileName.endsWith(".component.${FileExtension.TS.extName}") || fileName.endsWith(".component.${FileExtension.JS.extName}")
+        val isVueFile = fileName.endsWith(".${FileExtension.VUE.extName}")
+        val isReactFile =
+            fileName.endsWith(".${FileExtension.TSX.extName}") || fileName.endsWith(".${FileExtension.JSX.extName}") || fileName.endsWith(
+                ".${FileExtension.JS.extName}"
+            )
+
+        return when {
+            isAngularFile -> TechnologyType.ANGULAR
+            isVueFile -> TechnologyType.VUE
+            isReactFile -> TechnologyType.REACT
+            else -> TechnologyType.VANILLA
+        }
+    }
+
+
     /**
      * Checks if element has aria-label or aria-labelledby (in any binding form).
      */
     fun hasAriaLabel(element: XmlTag): Boolean {
         return element.attributes.any { it.name.lowercase() in CommonValues.ARIA_LABEL_ATTRIBUTES }
+    }
+
+    // ──────────────────────────────────────────────
+    // Tag nesting helpers
+    // ──────────────────────────────────────────────
+
+    /**
+     * Walks UP the tree and checks whether \[element\] is nested inside a tag
+     * whose name matches \[ancestorTagName\] (case-insensitive).
+     * E.g. an <input> nested inside a <label>.
+     */
+    fun isNestedInsideTag(element: XmlTag, ancestorTagName: String): Boolean {
+        var parent = element.parentTag
+        while (parent != null) {
+            if (parent.name.equals(ancestorTagName, ignoreCase = true)) return true
+            parent = parent.parentTag
+        }
+        return false
+    }
+
+    /**
+     * Walks DOWN the tree and checks whether \[element\] contains any descendant tag
+     * whose name (lowercased) is in \[tagNames\].
+     * E.g. a <label> containing a nested <input>/<select>/<textarea>.
+     */
+    fun hasNestedTag(element: XmlTag, tagNames: Set<String>): Boolean {
+        return generateSequence(element.subTags.asList()) { tags ->
+            tags.flatMap { it.subTags.asList() }.takeIf { it.isNotEmpty() }
+        }.flatten().any { it.name.lowercase() in tagNames }
     }
 }
