@@ -11,8 +11,8 @@ dependencies {
 
     // doc: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-dependencies-extension.html
     intellijPlatform {
-        intellijIdea("2026.1.2")
-//        webstorm("2026.1.2")
+//        intellijIdea("2026.1.2")
+        webstorm("2026.1.2")
         bundledPlugin("JavaScript")
         testFramework(TestFrameworkType.Platform)
     }
