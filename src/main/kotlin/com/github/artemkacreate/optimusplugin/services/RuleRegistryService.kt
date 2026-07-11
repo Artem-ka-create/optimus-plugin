@@ -21,6 +21,7 @@ import com.github.artemkacreate.optimusplugin.inspections.rules.NoAccessKeyRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.NoAriaHiddenOnFocusableRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.NoAutofocusRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.NoDistractingElementsRule
+import com.github.artemkacreate.optimusplugin.inspections.rules.NoNonIntElementToIntRoleRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.NonIntElementToNonIntRoleRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.TabIndexNoPositiveRule
 import com.intellij.openapi.application.ApplicationManager
@@ -66,6 +67,7 @@ class RuleRegistryService {
         register(AnchorAmbigousTextRule())
         register(NoDistractingElementsRule())
         register(NonIntElementToNonIntRoleRule())
+        register(NoNonIntElementToIntRoleRule())
     }
 
     private fun register(rule: AccessibilityRule) {

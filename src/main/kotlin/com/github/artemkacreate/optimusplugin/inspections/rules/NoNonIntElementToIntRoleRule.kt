@@ -1,0 +1,87 @@
+package com.github.artemkacreate.optimusplugin.inspections.rules
+
+import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
+import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
+import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
+import com.intellij.codeInspection.LocalQuickFix
+import com.intellij.codeInspection.ProblemDescriptor
+import com.intellij.codeInspection.ProblemsHolder
+import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
+import com.intellij.psi.xml.XmlTag
+
+class NoNonIntElementToIntRoleRule : AccessibilityRule {
+    override val id: String = "noNonIntElementToIntRoleRule"
+    override val displayName: String = "Non-interactive element must not have an interactive role"
+    override val supportedExtensions: Set<FileExtension> = setOf(
+        FileExtension.HTML, FileExtension.JS, FileExtension.JSX, FileExtension.TS, FileExtension.TSX, FileExtension.VUE
+    )
+
+    companion object {
+        private const val MESSAGE =
+            "Accessibility: non-interactive element has an interactive role. " +
+                "Use a native interactive element (e.g. <button>) or remove the role."
+    }
+
+    override fun checkElementByRule(
+        element: PsiElement, file: PsiFile, holder: ProblemsHolder
+    ) {
+        if (element !is XmlTag) return
+
+        // Only non-interactive elements are subject to this rule.
+        if (element.name.lowercase().trim() !in CommonValues.STRICT_NON_INTERACTIVE_TAGS) return
+
+        val roleAttribute =
+            element.attributes.find { ExtractionTool.normalizeAttrName(it.name) == CommonValues.ARIA_ROLE_ATTRIBUTE }
+                ?: return
+
+        // Normalize: role can be a space-separated token list; the first token wins.
+        val roleValue = ExtractionTool.resolveAttributeValue(roleAttribute)
+            ?.lowercase()?.trim()?.split(Regex("\\s+"))?.firstOrNull()
+            ?: return
+
+        if (roleValue in CommonValues.ALL_INTERACTIVE_ROLES) {
+            holder.registerProblem(
+                element,
+                MESSAGE,
+                RemoveInteractiveRoleQuickFix(),
+                ChangeNonInteractiveElementToDivQuickFix()
+            )
+        }
+    }
+}
+
+/**
+ * QuickFix: removes the interactive role so the element keeps its native
+ * non-interactive semantics.
+ */
+private class RemoveInteractiveRoleQuickFix : LocalQuickFix {
+    override fun getName(): String = "Remove interactive role"
+    override fun getFamilyName(): String = "Accessibility fixes"
+
+    override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
+        val tag = descriptor.psiElement
+        if (tag is XmlTag && tag.isValid) {
+            tag.getAttribute(CommonValues.ARIA_ROLE_ATTRIBUTE)?.delete()
+        }
+    }
+}
+
+/**
+ * QuickFix: replaces the non-interactive element with a generic <div>, which may
+ * legitimately carry an interactive role.
+ */
+private class ChangeNonInteractiveElementToDivQuickFix : LocalQuickFix {
+    override fun getName(): String = "Change element to <div>"
+    override fun getFamilyName(): String = "Accessibility fixes"
+
+    override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
+        val tag = descriptor.psiElement
+        if (tag is XmlTag && tag.isValid) {
+            tag.name = "div"
+        }
+    }
+}
+
