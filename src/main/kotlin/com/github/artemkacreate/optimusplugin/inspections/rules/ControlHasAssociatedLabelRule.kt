@@ -63,7 +63,7 @@ class ControlHasAssociatedLabelRule : AccessibilityRule {
 
         // 3. button / <a> are OK when they contain inner text content
         if (tagName in INNER_TEXT_TAGS) {
-            if (element.containsXmlTextNonRecursive()) {
+            if (!element.containsXmlTextNonRecursive()) {
                 holder.registerProblem(element, INNER_TEXT_MESSAGE)
             }
             return
