@@ -20,6 +20,7 @@ import com.github.artemkacreate.optimusplugin.inspections.rules.MissingAltRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.NoAccessKeyRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.NoAriaHiddenOnFocusableRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.NoAutofocusRule
+import com.github.artemkacreate.optimusplugin.inspections.rules.NoDistractingElementsRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.TabIndexNoPositiveRule
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.Service
@@ -62,6 +63,7 @@ class RuleRegistryService {
         register(ControlHasAssociatedLabelRule())
         register(AriaActiveDescendantRule())
         register(AnchorAmbigousTextRule())
+        register(NoDistractingElementsRule())
     }
 
     private fun register(rule: AccessibilityRule) {
