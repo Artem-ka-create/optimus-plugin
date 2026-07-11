@@ -182,7 +182,98 @@ object CommonValues {
 
     val FIELD_LABEL_ATTRIBUTES = setOf("label")
 
-    val INTERACTIVE_TAG = setOf(
+    val LABEL_REQUIRED_NATIVE_TAGS = setOf(
         "button", "a", "input", "textarea", "select"
     )
+
+    val ALL_INTERACTIVE_TAGS = setOf(
+        "button",
+        "a",
+        "input",
+        "select",
+        "textarea",
+        "option",
+        "details",
+        "summary",
+        "area",
+        "audio",
+        "video",
+        "embed",
+        "iframe",
+        "object"
+    )
+
+    val ALL_NON_INTERACTIVE_ROLES = setOf(
+        // --- Presentational / Decorative ---
+        "presentation",
+        "none",
+
+        // --- Document Structure ---
+        "article",
+        "blockquote",
+        "caption",
+        "code",
+        "definition",
+        "deletion",
+        "doc-abstract",
+        "doc-acknowledgments",
+        "doc-afterword",
+        "doc-appendix",
+        "doc-bibliography",
+        "doc-chapter",
+        "doc-conclusion",
+        "doc-credits",
+        "doc-endnotes",
+        "doc-epigraph",
+        "doc-epilogue",
+        "doc-foreword",
+        "doc-glossary",
+        "doc-introduction",
+        "doc-part",
+        "doc-preface",
+        "doc-prologue",
+        "doc-toc",
+        "document",
+        "emphasis",
+        "figure",
+        "generic",
+        "group",
+        "heading",
+        "img",
+        "insertion",
+        "list",
+        "listitem",
+        "mark",
+        "math",
+        "note",
+        "paragraph",
+        "row",
+        "rowgroup",
+        "rowheader", // Metadata header for a row, not an interactive cell
+        "strong",
+        "subscript",
+        "superscript",
+        "suggestion",
+        "term",
+        "time",
+        "timer",
+
+        // --- Landmarks & Main Regions ---
+        "banner",
+        "complementary",
+        "contentinfo",
+        "form", // Static form container, not an interactive control itself
+        "main",
+        "navigation",
+        "region",
+        "search",
+
+        // --- Status & Live Regions (Informational) ---
+        "alert",
+        "log",
+        "marquee",
+        "status"
+    )
+
+
 }

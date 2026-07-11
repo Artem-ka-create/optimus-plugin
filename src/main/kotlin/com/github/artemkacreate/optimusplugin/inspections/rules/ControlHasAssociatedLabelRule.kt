@@ -37,7 +37,7 @@ class ControlHasAssociatedLabelRule : AccessibilityRule {
         if (element !is XmlTag) return
 
         val tagName = element.name.lowercase().trim()
-        val isInteractiveTag = tagName in CommonValues.INTERACTIVE_TAG
+        val isInteractiveTag = tagName in CommonValues.LABEL_REQUIRED_NATIVE_TAGS
         if (!isInteractiveTag) return
 
         // 1. Aria label handling
