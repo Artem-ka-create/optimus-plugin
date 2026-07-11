@@ -275,7 +275,7 @@ object CommonValues {
         "status"
     )
 
-    val STRICT_NON_INTERACTIVE_TAGS = setOf(
+    val NON_INTERACTIVE_TAGS = setOf(
         "p",
         "article",
         "section",

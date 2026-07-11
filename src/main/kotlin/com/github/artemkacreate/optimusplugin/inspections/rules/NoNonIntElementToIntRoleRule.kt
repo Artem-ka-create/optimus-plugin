@@ -30,9 +30,21 @@ class NoNonIntElementToIntRoleRule : AccessibilityRule {
     ) {
         if (element !is XmlTag) return
 
-        // Only non-interactive elements are subject to this rule.
-        if (element.name.lowercase().trim() !in CommonValues.STRICT_NON_INTERACTIVE_TAGS) return
+        val isNonInteractive = when (val tagName = element.name.lowercase().trim()) {
+            "a" -> {
+                val hasHref = element.getAttribute("href") != null || element.attributes.any {
+                    val clean = ExtractionTool.normalizeAttrName(it.name)
+                    clean == "routerlink" || clean == "to"
+                }
+                !hasHref
+            }
+            "audio", "video" -> element.getAttribute("controls") == null
+            "form" -> false
+            else -> tagName in CommonValues.NON_INTERACTIVE_TAGS
+        }
 
+        // Якщо елемент НЕ належить до суворо неінтерактивних — виходимо
+        if (!isNonInteractive) return
         val roleAttribute =
             element.attributes.find { ExtractionTool.normalizeAttrName(it.name) == CommonValues.ARIA_ROLE_ATTRIBUTE }
                 ?: return

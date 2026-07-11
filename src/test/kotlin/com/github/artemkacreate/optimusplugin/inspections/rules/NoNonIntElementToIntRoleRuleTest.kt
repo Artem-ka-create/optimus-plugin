@@ -47,6 +47,17 @@ class NoNonIntElementToIntRoleRuleTest : BasePlatformTestCase() {
         assertTrue("Should flag first token of a role list", isFlagged())
     }
 
+    fun testHtml_anchorWithoutHrefWithButtonRole_flag() {
+        // <a> without href is non-interactive, so an interactive role is a violation.
+        myFixture.configureByText("test.html", """<a role="button">Click</a>""")
+        assertTrue("Should flag <a> without href + interactive role", isFlagged())
+    }
+
+    fun testHtml_audioWithoutControlsWithButtonRole_flag() {
+        myFixture.configureByText("test.html", """<audio role="button"></audio>""")
+        assertTrue("Should flag <audio> without controls + interactive role", isFlagged())
+    }
+
     // ==================== Should NOT flag ====================
 
     fun testHtml_liWithNonInteractiveRole_noFlag() {
@@ -57,6 +68,18 @@ class NoNonIntElementToIntRoleRuleTest : BasePlatformTestCase() {
     fun testHtml_liWithoutRole_noFlag() {
         myFixture.configureByText("test.html", """<li>Item</li>""")
         assertFalse("Should NOT flag element without role", isFlagged())
+    }
+
+    fun testHtml_anchorWithHrefWithButtonRole_noFlag() {
+        // <a href> is interactive → not this rule's concern.
+        myFixture.configureByText("test.html", """<a href="/x" role="button">Click</a>""")
+        assertFalse("Should NOT flag <a href> (interactive)", isFlagged())
+    }
+
+    fun testHtml_audioWithControlsWithButtonRole_noFlag() {
+        // <audio controls> is interactive → not this rule's concern.
+        myFixture.configureByText("test.html", """<audio controls role="button"></audio>""")
+        assertFalse("Should NOT flag <audio controls> (interactive)", isFlagged())
     }
 
     fun testHtml_divWithButtonRole_noFlag() {
