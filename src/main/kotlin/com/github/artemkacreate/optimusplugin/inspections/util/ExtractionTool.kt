@@ -183,6 +183,16 @@ object ExtractionTool {
         return SyntaxTraverser.psiTraverser(this).filter(XmlText::class.java).firstOrNull() != null
     }
 
+    /**
+     * Collects and concatenates the visible text of all nested XmlText elements,
+     * normalized to a single space-separated, trimmed string.
+     * E.g. `<a>Click <span>here</span></a>` → "Click here"
+     */
+    fun XmlTag.collectNestedText(): String {
+        return SyntaxTraverser.psiTraverser(this).filter(XmlText::class.java)
+            .mapNotNull { it.value.trim().takeIf(String::isNotEmpty) }.joinToString(" ").trim()
+    }
+
     fun PsiFile.getFileTechnologyType(): TechnologyType {
         val fileName = this.name.lowercase().trim()
 

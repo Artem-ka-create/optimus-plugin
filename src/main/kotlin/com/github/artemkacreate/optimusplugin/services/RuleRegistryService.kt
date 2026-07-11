@@ -2,6 +2,7 @@ package com.github.artemkacreate.optimusplugin.services
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
+import com.github.artemkacreate.optimusplugin.inspections.rules.AnchorAmbigousTextRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.AnchorHasContentRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.AnchorIsValidRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.AriaActiveDescendantRule
@@ -60,6 +61,7 @@ class RuleRegistryService {
         register(LabelHasForRule())
         register(ControlHasAssociatedLabelRule())
         register(AriaActiveDescendantRule())
+        register(AnchorAmbigousTextRule())
     }
 
     private fun register(rule: AccessibilityRule) {
