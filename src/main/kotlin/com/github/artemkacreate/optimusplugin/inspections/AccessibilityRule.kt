@@ -14,6 +14,10 @@ interface AccessibilityRule {
     val displayName: String
 
     val supportedExtensions: Set<FileExtension>
+        get() = setOf(
+            FileExtension.HTML, FileExtension.JS, FileExtension.JSX, FileExtension.TS, FileExtension.TSX, FileExtension.VUE
+        )
+
 
     /**
      * Check a single PSI element and register problems if found.

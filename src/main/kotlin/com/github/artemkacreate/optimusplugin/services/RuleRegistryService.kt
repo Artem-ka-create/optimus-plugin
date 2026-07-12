@@ -24,6 +24,7 @@ import com.github.artemkacreate.optimusplugin.inspections.rules.NoDistractingEle
 import com.github.artemkacreate.optimusplugin.inspections.rules.NoNonIntElementToIntRoleRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.NoRedudantRolesRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.NonIntElementToNonIntRoleRule
+import com.github.artemkacreate.optimusplugin.inspections.rules.PreferTagOverRoleRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.TabIndexNoPositiveRule
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.Service
@@ -70,6 +71,7 @@ class RuleRegistryService {
         register(NonIntElementToNonIntRoleRule())
         register(NoNonIntElementToIntRoleRule())
         register(NoRedudantRolesRule())
+        register(PreferTagOverRoleRule())
     }
 
     private fun register(rule: AccessibilityRule) {

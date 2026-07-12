@@ -420,4 +420,17 @@ object CommonValues {
         "optgroup" to "group",
         "details" to "group"
     )
+
+    val ROLE_TO_PREFERRED_TAGS: Map<String, List<String>> =
+        REDUNDANT_TAGS_ROLES_MAP.entries.groupBy({ it.value }, { it.key })
+            .mapValues { (_, tags) -> tags.sorted() } + mapOf(
+            // input-type based roles (not in the tag->role map)
+            "checkbox" to listOf("input[type=checkbox]"),
+            "radio" to listOf("input[type=radio]"),
+            "slider" to listOf("input[type=range]"),
+            "spinbutton" to listOf("input[type=number]"),
+            "searchbox" to listOf("input[type=search]"),
+            "textbox" to listOf("input[type=text]", "textarea"),
+            "link" to listOf("a[href]"),
+        )
 }
