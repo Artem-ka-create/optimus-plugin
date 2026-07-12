@@ -74,7 +74,3 @@ private class ConvertToTagQuickFix(private val tag: String) : LocalQuickFix {
         tagEl.name = tag
     }
 }
-
-
-
-
