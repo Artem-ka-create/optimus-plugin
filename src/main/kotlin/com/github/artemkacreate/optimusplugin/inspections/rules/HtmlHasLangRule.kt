@@ -12,7 +12,7 @@ import com.intellij.psi.xml.XmlTag
 
 /**
  * Rule: <html> must have a lang attribute for accessibility.
- * Checks for title (static), :title (Vue shorthand), v-bind:title (Vue), and [title] (Angular).
+ * Checks for title (static), :title (Vue shorthand), v-bind:title (Vue), and \[title\] (Angular).
  * Ensures the title is not empty/blank.
  */
 class HtmlHasLangRule : AccessibilityRule {
@@ -53,7 +53,7 @@ class HtmlHasLangRule : AccessibilityRule {
 /**
  * QuickFix: adds lang="en" attribute to <html> tag
  */
-class AddHtmlHasLangQuickFix : LocalQuickFix {
+private class AddHtmlHasLangQuickFix : LocalQuickFix {
     override fun getName(): String = "Add lang=\"\" attribute"
     override fun getFamilyName(): String = "Accessibility fixes"
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {

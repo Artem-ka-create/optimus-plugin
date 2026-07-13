@@ -13,7 +13,7 @@ import com.intellij.psi.xml.XmlTag
 /**
  * Rule: Elements should not use the accessKey attribute.
  * Applies to any HTML element, not just form controls.
- * Supports Vue (:accessKey, v-bind:accessKey) and Angular ([accessKey], [attr.accessKey]) bindings.
+ * Supports Vue (:accessKey, v-bind:accessKey) and Angular (\[accessKey\], \[attr.accessKey\]) bindings.
  */
 class NoAccessKeyRule : AccessibilityRule {
 
@@ -45,7 +45,7 @@ class NoAccessKeyRule : AccessibilityRule {
 /**
  * QuickFix: removes the accessKey attribute from the element
  */
-class RemoveAccessKeyQuickFix : LocalQuickFix {
+private class RemoveAccessKeyQuickFix : LocalQuickFix {
     override fun getName(): String = "Remove accessKey attribute"
     override fun getFamilyName(): String = "Accessibility fixes"
 

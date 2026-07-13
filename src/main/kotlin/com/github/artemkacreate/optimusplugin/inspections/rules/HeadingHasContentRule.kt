@@ -14,7 +14,7 @@ import com.intellij.psi.xml.XmlTag
 /**
  * Rule: Headings (<h1>-<h6>) must have accessible text content.
  * Checks for text content, child elements, aria-label, aria-labelledby,
- * and framework-specific dynamic content directives (Vue: v-text/v-html, Angular: [innerText]/[innerHTML]).
+ * and framework-specific dynamic content directives (Vue: v-text/v-html, Angular: \[innerText\]/\[innerHTML\]).
  */
 class HeadingHasContentRule : AccessibilityRule {
     override val id = "headingHasContent"
@@ -52,7 +52,7 @@ class HeadingHasContentRule : AccessibilityRule {
 /**
  * QuickFix: adds aria-label="" attribute to heading tag
  */
-class AddHeadingAriaLabelQuickFix : LocalQuickFix {
+private class AddHeadingAriaLabelQuickFix : LocalQuickFix {
     override fun getName(): String = "Add aria-label=\"\" attribute"
     override fun getFamilyName(): String = "Accessibility fixes"
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {

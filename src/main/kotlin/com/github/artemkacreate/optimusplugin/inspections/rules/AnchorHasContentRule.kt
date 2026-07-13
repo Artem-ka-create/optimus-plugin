@@ -36,7 +36,7 @@ class AnchorHasContentRule : AccessibilityRule {
     }
 }
 
-class AddAnchorHasContentAttributeQuickFix : LocalQuickFix {
+private class AddAnchorHasContentAttributeQuickFix : LocalQuickFix {
     override fun getName(): String = "Add aria-label=\"\" attribute to <a> tag"
     override fun getFamilyName(): String = "Accessibility fixes"
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {

@@ -49,7 +49,7 @@ class InputWithoutLabelRule : AccessibilityRule {
 /**
  * QuickFix: adds aria-label="" attribute to <input> tag
  */
-class AddAriaLabelQuickFix : LocalQuickFix {
+private class AddAriaLabelQuickFix : LocalQuickFix {
     override fun getName(): String = "Add aria-label=\"\" attribute"
     override fun getFamilyName(): String = "Accessibility fixes"
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {

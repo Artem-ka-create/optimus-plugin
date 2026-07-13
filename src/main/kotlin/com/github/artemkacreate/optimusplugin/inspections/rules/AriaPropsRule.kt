@@ -53,7 +53,7 @@ class AriaPropsRule : AccessibilityRule {
 /**
  * QuickFix: removes the invalid ARIA attribute from the element.
  */
-class RemoveInvalidAriaAttrQuickFix : LocalQuickFix {
+private class RemoveInvalidAriaAttrQuickFix : LocalQuickFix {
     override fun getName(): String = "Remove invalid ARIA attribute"
     override fun getFamilyName(): String = "Accessibility fixes"
 

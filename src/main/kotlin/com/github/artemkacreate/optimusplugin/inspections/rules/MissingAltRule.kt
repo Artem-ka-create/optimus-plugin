@@ -45,7 +45,7 @@ class MissingAltRule : AccessibilityRule {
 /**
  * QuickFix: adds alt="" attribute to <img> tag
  */
-class AddAltAttributeQuickFix : LocalQuickFix {
+private class AddAltAttributeQuickFix : LocalQuickFix {
     override fun getName(): String = "Add alt=\"\" attribute"
     override fun getFamilyName(): String = "Accessibility fixes"
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {

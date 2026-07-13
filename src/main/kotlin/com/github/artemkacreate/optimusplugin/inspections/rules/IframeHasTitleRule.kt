@@ -12,7 +12,7 @@ import com.intellij.psi.xml.XmlTag
 
 /**
  * Rule: <iframe> must have a title attribute for accessibility.
- * Checks for title (static), :title (Vue shorthand), v-bind:title (Vue), and [title] (Angular).
+ * Checks for title (static), :title (Vue shorthand), v-bind:title (Vue), and \[title\] (Angular).
  * Ensures the title is not empty/blank.
  */
 class IframeHasTitleRule : AccessibilityRule {
@@ -51,7 +51,7 @@ class IframeHasTitleRule : AccessibilityRule {
 /**
  * QuickFix: adds title="" attribute to <iframe> tag
  */
-class AddIframeHasTitleQuickFix : LocalQuickFix {
+private class AddIframeHasTitleQuickFix : LocalQuickFix {
     override fun getName(): String = "Add title=\"\" attribute"
     override fun getFamilyName(): String = "Accessibility fixes"
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {

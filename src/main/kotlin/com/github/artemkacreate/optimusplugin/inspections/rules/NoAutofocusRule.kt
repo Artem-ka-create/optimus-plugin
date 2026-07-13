@@ -15,7 +15,7 @@ import com.intellij.psi.xml.XmlTag
  * Autofocus can cause usability issues for keyboard and screen reader users
  * by unexpectedly moving focus when a page loads.
  * Applies to any HTML element, not just form controls.
- * Supports Vue (:autofocus, v-bind:autofocus) and Angular ([autofocus], [attr.autofocus]) bindings.
+ * Supports Vue (:autofocus, v-bind:autofocus) and Angular (\[autofocus\], \[attr.autofocus\]) bindings.
  */
 class NoAutofocusRule : AccessibilityRule {
 
@@ -47,7 +47,7 @@ class NoAutofocusRule : AccessibilityRule {
 /**
  * QuickFix: removes the autofocus attribute from the element
  */
-class RemoveAutofocusQuickFix : LocalQuickFix {
+private class RemoveAutofocusQuickFix : LocalQuickFix {
     override fun getName(): String = "Remove autofocus attribute"
     override fun getFamilyName(): String = "Accessibility fixes"
 

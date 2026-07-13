@@ -14,7 +14,7 @@ import com.intellij.psi.xml.XmlTag
 /**
  * Rule: <a> must have a valid href attribute value.
  * Flags href="#", href="", and href="javascript:..." as invalid.
- * Supports static href and dynamic bindings (:href, v-bind:href, [href]) with literal string values.
+ * Supports static href and dynamic bindings (:href, v-bind:href, \[href\]) with literal string values.
  */
 class AnchorIsValidRule : AccessibilityRule {
 
@@ -52,7 +52,7 @@ class AnchorIsValidRule : AccessibilityRule {
 /**
  * QuickFix: replaces invalid href with "/" placeholder
  */
-class ReplaceHrefQuickFix : LocalQuickFix {
+private class ReplaceHrefQuickFix : LocalQuickFix {
     override fun getName(): String = "Replace invalid href with \"/\""
     override fun getFamilyName(): String = "Accessibility fixes"
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {

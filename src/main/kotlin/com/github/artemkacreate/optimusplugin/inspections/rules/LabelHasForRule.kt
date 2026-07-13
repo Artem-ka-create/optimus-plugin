@@ -82,7 +82,7 @@ class LabelHasForRule : AccessibilityRule {
 /**
  * QuickFix: adds a `for=""` attribute to the tag (HTML / Vue).
  */
-class AddForVanilaHtmlAttributeQuickFix : LocalQuickFix {
+private class AddForVanilaHtmlAttributeQuickFix : LocalQuickFix {
     override fun getName(): String = "Add for=\"\" attribute"
     override fun getFamilyName(): String = "Accessibility fixes"
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
@@ -96,7 +96,7 @@ class AddForVanilaHtmlAttributeQuickFix : LocalQuickFix {
 /**
  * QuickFix: adds an `htmlFor=""` attribute to the tag (JSX / React).
  */
-class AddHtmlForReactAttributeQuickFix : LocalQuickFix {
+private class AddHtmlForReactAttributeQuickFix : LocalQuickFix {
     override fun getName(): String = "Add htmlFor=\"\" attribute"
     override fun getFamilyName(): String = "Accessibility fixes"
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
@@ -110,7 +110,7 @@ class AddHtmlForReactAttributeQuickFix : LocalQuickFix {
 /**
  * QuickFix: adds an `:for=""` attribute to the tag (JSX / React).
  */
-class AddHtmlForVueAttributeQuickFix : LocalQuickFix {
+private class AddHtmlForVueAttributeQuickFix : LocalQuickFix {
     override fun getName(): String = "Add htmlFor=\"\" attribute"
     override fun getFamilyName(): String = "Accessibility fixes"
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
@@ -124,7 +124,7 @@ class AddHtmlForVueAttributeQuickFix : LocalQuickFix {
 /**
  * QuickFix: adds an `\[for]=""` attribute to the tag (JSX / React).
  */
-class AddHtmlForAngularAttributeQuickFix : LocalQuickFix {
+private class AddHtmlForAngularAttributeQuickFix : LocalQuickFix {
     override fun getName(): String = "Add htmlFor=\"\" attribute"
     override fun getFamilyName(): String = "Accessibility fixes"
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
@@ -138,7 +138,7 @@ class AddHtmlForAngularAttributeQuickFix : LocalQuickFix {
 /**
  * QuickFix: adds a nested `<input />` field inside the tag.
  */
-class AddNestedInputQuickFix : LocalQuickFix {
+private class AddNestedInputQuickFix : LocalQuickFix {
     override fun getName(): String = "Add nested <input> field"
     override fun getFamilyName(): String = "Accessibility fixes"
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
@@ -153,7 +153,7 @@ class AddNestedInputQuickFix : LocalQuickFix {
 /**
  * QuickFix: adds a nested `<input />` field inside the tag.
  */
-class AddNestedSpanTextQuickFix : LocalQuickFix {
+private class AddNestedSpanTextQuickFix : LocalQuickFix {
     override fun getName(): String = "Add nested <span> field"
     override fun getFamilyName(): String = "Accessibility fixes"
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {

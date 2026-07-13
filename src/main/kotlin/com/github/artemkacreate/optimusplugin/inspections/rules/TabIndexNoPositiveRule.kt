@@ -16,7 +16,7 @@ import com.intellij.psi.xml.XmlTag
  * Rule: tabindex should not be greater than 0.
  * Positive tabindex values disrupt the natural tab order and create usability issues.
  * Use tabindex="0" (natural order) or tabindex="-1" (programmatic focus only).
- * Supports Vue (:tabindex, v-bind:tabindex) and Angular ([attr.tabindex]) bindings.
+ * Supports Vue (:tabindex, v-bind:tabindex) and Angular (\[attr.tabindex\]) bindings.
  */
 class TabIndexNoPositiveRule : AccessibilityRule {
 
@@ -58,7 +58,7 @@ class TabIndexNoPositiveRule : AccessibilityRule {
 /**
  * QuickFix: finds tabindex attributes with positive values and sets them to "0"
  */
-class SetTabIndexToZeroQuickFix : LocalQuickFix {
+private class SetTabIndexToZeroQuickFix : LocalQuickFix {
     override fun getName(): String = "Set tabindex to \"0\""
     override fun getFamilyName(): String = "Accessibility fixes"
 

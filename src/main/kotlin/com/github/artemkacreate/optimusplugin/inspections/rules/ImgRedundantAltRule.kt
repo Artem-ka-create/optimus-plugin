@@ -14,7 +14,7 @@ import com.intellij.psi.xml.XmlTag
 /**
  * Rule: <img> alt attribute should not contain redundant words like "image", "photo", "picture".
  * Screen readers already announce the element as an image, so these words add no value.
- * Supports static alt and dynamic bindings (:alt, v-bind:alt, [alt]) with literal string values.
+ * Supports static alt and dynamic bindings (:alt, v-bind:alt, \[alt\]) with literal string values.
  */
 class ImgRedundantAltRule : AccessibilityRule {
 
@@ -52,7 +52,7 @@ class ImgRedundantAltRule : AccessibilityRule {
 /**
  * QuickFix: clears redundant alt text so the developer can replace it with a meaningful description
  */
-class ClearRedundantAltQuickFix : LocalQuickFix {
+private class ClearRedundantAltQuickFix : LocalQuickFix {
     override fun getName(): String = "Clear redundant alt text attribute"
     override fun getFamilyName(): String = "Accessibility fixes"
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {

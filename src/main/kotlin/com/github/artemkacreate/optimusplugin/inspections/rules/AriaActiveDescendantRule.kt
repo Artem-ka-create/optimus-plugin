@@ -102,7 +102,7 @@ class AriaActiveDescendantRule : AccessibilityRule {
     }
 }
 
-class AddAriaActiveDescendantTabIndexZeroQuickFix : LocalQuickFix {
+private class AddAriaActiveDescendantTabIndexZeroQuickFix : LocalQuickFix {
     override fun getName(): String = "Add tabindex=\"0\" attribute"
     override fun getFamilyName(): String = "Accessibility fixes"
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
@@ -113,7 +113,7 @@ class AddAriaActiveDescendantTabIndexZeroQuickFix : LocalQuickFix {
     }
 }
 
-class AddReactAriaActiveDescendantTabIndexZeroQuickFix : LocalQuickFix {
+private class AddReactAriaActiveDescendantTabIndexZeroQuickFix : LocalQuickFix {
     override fun getName(): String = "Add tabIndex=\"0\" attribute"
     override fun getFamilyName(): String = "Accessibility fixes"
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
@@ -124,7 +124,7 @@ class AddReactAriaActiveDescendantTabIndexZeroQuickFix : LocalQuickFix {
     }
 }
 
-class AddVueAriaActiveDescendantTabIndexZeroQuickFix : LocalQuickFix {
+private class AddVueAriaActiveDescendantTabIndexZeroQuickFix : LocalQuickFix {
     override fun getName(): String = "Add :tabindex=\"0\" attribute"
     override fun getFamilyName(): String = "Accessibility fixes"
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
@@ -135,7 +135,7 @@ class AddVueAriaActiveDescendantTabIndexZeroQuickFix : LocalQuickFix {
     }
 }
 
-class AddAngularAriaActiveDescendantTabIndexZeroQuickFix : LocalQuickFix {
+private class AddAngularAriaActiveDescendantTabIndexZeroQuickFix : LocalQuickFix {
     override fun getName(): String = "Add [tabindex]=\"0\" attribute"
     override fun getFamilyName(): String = "Accessibility fixes"
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {

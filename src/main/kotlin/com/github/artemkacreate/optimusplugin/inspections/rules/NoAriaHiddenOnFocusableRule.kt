@@ -80,7 +80,7 @@ class NoAriaHiddenOnFocusableRule : AccessibilityRule {
 /**
  * QuickFix: removes the aria-hidden attribute from the focusable element.
  */
-class RemoveAriaHiddenQuickFix : LocalQuickFix {
+private class RemoveAriaHiddenQuickFix : LocalQuickFix {
 
     override fun getName(): String = "Remove aria-hidden attribute"
     override fun getFamilyName(): String = "Accessibility fixes"

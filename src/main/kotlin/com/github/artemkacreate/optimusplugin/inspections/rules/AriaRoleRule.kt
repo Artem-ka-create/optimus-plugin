@@ -67,7 +67,7 @@ class AriaRoleRule : AccessibilityRule {
 /**
  * QuickFix: clears the invalid role attribute value.
  */
-class RemoveInvalidAriaRoleAttrQuickFix : LocalQuickFix {
+private class RemoveInvalidAriaRoleAttrQuickFix : LocalQuickFix {
     override fun getName(): String = "Remove invalid ARIA role value"
     override fun getFamilyName(): String = "Accessibility fixes"
 
