@@ -2,6 +2,7 @@ package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
+import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.isHtmlTag
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -34,7 +35,7 @@ class HtmlHasLangRule : AccessibilityRule {
 
     override fun checkElementByRule(element: PsiElement, file: PsiFile, holder: ProblemsHolder) {
         if (element !is XmlTag) return
-        if (!element.name.equals("html", true)) return
+        if (!element.isHtmlTag("html")) return
 
         val langAttr = element.attributes.find { it.name.lowercase() in LANG_ATTRIBUTES }
 

@@ -5,6 +5,7 @@ import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.containsXmlTextNonRecursive
+import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
@@ -36,7 +37,7 @@ class ControlHasAssociatedLabelRule : AccessibilityRule {
     ) {
         if (element !is XmlTag) return
 
-        val tagName = element.name.lowercase().trim()
+        val tagName = element.nativeTagNameOrNull() ?: return
         val isInteractiveTag = tagName in CommonValues.LABEL_REQUIRED_NATIVE_TAGS
         if (!isInteractiveTag) return
 

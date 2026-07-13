@@ -2,6 +2,7 @@ package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
+import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -29,7 +30,7 @@ class NoDistractingElementsRule : AccessibilityRule {
     ) {
         if (element !is XmlTag) return
 
-        if (element.name.lowercase().trim() in DISTRACTING_ELEMENTS) {
+        if (element.nativeTagNameOrNull() in DISTRACTING_ELEMENTS) {
             holder.registerProblem(element, MESSAGE, RemoveDistractingElementQuickFix())
         }
     }

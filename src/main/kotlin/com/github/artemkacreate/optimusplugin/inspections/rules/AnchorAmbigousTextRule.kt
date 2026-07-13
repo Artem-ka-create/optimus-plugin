@@ -5,6 +5,7 @@ import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.collectNestedText
+import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.isHtmlTag
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
@@ -42,7 +43,7 @@ class AnchorAmbigousTextRule : AccessibilityRule {
         holder: ProblemsHolder
     ) {
         if (element !is XmlTag) return
-        if (!element.name.equals("a", ignoreCase = true)) return
+        if (!element.isHtmlTag("a")) return
 
         val ariaLabelAttribute = element.attributes.find {
             ExtractionTool.normalizeAttrName(it.name) in CommonValues.ARIA_LABEL_ATTRIBUTES

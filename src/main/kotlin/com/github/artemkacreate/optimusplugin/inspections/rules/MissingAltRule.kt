@@ -2,6 +2,7 @@ package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
+import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.isHtmlTag
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -33,7 +34,7 @@ class MissingAltRule : AccessibilityRule {
 
     override fun checkElementByRule(element: PsiElement, file: PsiFile, holder: ProblemsHolder) {
         if (element !is XmlTag) return
-        if (!element.name.equals("img", ignoreCase = true)) return
+        if (!element.isHtmlTag("img")) return
 
         val hasAlt = element.attributes.any { it.name.lowercase() in ALT_ATTRIBUTES }
         if (!hasAlt) {

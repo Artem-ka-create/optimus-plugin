@@ -4,6 +4,7 @@ import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
+import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -30,7 +31,7 @@ class NoNonIntElementToIntRoleRule : AccessibilityRule {
     ) {
         if (element !is XmlTag) return
 
-        val isNonInteractive = when (val tagName = element.name.lowercase().trim()) {
+        val isNonInteractive = when (val tagName = element.nativeTagNameOrNull() ?: return) {
             "a" -> {
                 val hasHref = element.getAttribute("href") != null || element.attributes.any {
                     val clean = ExtractionTool.normalizeAttrName(it.name)

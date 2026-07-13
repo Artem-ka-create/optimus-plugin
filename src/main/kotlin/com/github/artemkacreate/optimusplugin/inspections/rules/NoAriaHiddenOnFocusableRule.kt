@@ -4,6 +4,7 @@ import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
+import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -53,7 +54,7 @@ class NoAriaHiddenOnFocusableRule : AccessibilityRule {
     }
 
     private fun isFocusable(element: XmlTag): Boolean {
-        val tagName = element.name.lowercase()
+        val tagName = element.nativeTagNameOrNull()
 
         // Natively focusable elements
         if (tagName in CommonValues.DEFAULT_FOCUSABLE_ELEMENTS) return true

@@ -168,6 +168,44 @@ object ExtractionTool {
         }
     }
 
+    /**
+     * Returns `true` when this tag is a *native* HTML element, and `false` when
+     * it is a framework component that only looks like one in a case-insensitive
+     * comparison (React/Vue `<Input>`, `<Button>`; web components / Angular /
+     * Vue kebab-case `<app-input>`, `<my-button>`).
+     *
+     * Detection combines three signals so it works for HTML, Vue, Angular and
+     * React across `.html`, `.vue`, `.jsx` and `.tsx` files:
+     *  1. **Hyphen** → custom element / web component (the HTML spec *requires*
+     *     custom elements to contain a `-`). Never native.
+     *  2. **Casing** → in JSX/Vue/Angular a name with an uppercase letter is a
+     *     component reference (`<Input>`, `<Button>`), so native names must be
+     *     lowercase there. Plain HTML is case-insensitive per spec, so uppercase
+     *     native tags like `<MARQUEE>` are still recognized (whitelist only).
+     *  3. **Whitelist** → the (lowercased) name must be a known HTML element in
+     *     \[CommonValues.NATIVE_HTML_TAGS\].
+     */
+    fun XmlTag.isNativeHtmlElement(): Boolean {
+        val raw = name
+        if (raw.isEmpty() || '-' in raw ) return false
+
+        val isComponentFramework = when (containingFile?.getFileTechnologyType()) {
+            TechnologyType.REACT, TechnologyType.VUE, TechnologyType.ANGULAR -> true
+            else -> false // VANILLA / plain HTML
+        }
+        if (isComponentFramework && raw != raw.lowercase()) return false
+        return raw.lowercase() in CommonValues.NATIVE_HTML_TAGS
+    }
+
+    fun XmlTag.isHtmlTag(vararg tagNames: String): Boolean {
+        if (!isNativeHtmlElement()) return false
+        val normalized = name.lowercase()
+        return tagNames.any { it == normalized }
+    }
+
+    fun XmlTag.nativeTagNameOrNull(): String? =
+        if (isNativeHtmlElement()) name.lowercase() else null
+
     // ──────────────────────────────────────────────
     // Content & ARIA checks
     // ──────────────────────────────────────────────

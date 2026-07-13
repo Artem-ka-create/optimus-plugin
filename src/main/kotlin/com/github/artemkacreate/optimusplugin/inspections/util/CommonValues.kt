@@ -4,6 +4,55 @@ object CommonValues {
 
     val DYNAMIC_PREFIXES = listOf(":", "v-bind:", "[")
 
+    /**
+     * The complete set of *native* HTML element names (always lowercase).
+     *
+     * This whitelist is the source of truth used to distinguish a real HTML
+     * element (`<input>`, `<button>`, `<img>`) from a framework component that
+     * merely shares its name in a case-insensitive comparison
+     * (React/Vue `<Input>`, `<Button>`, web components / Angular `<app-input>`).
+     *
+     * Only names in this set — and only when written all-lowercase and without a
+     * hyphen — are treated as native tags by the accessibility rules.
+     */
+    val NATIVE_HTML_TAGS: Set<String> = setOf(
+        // Document / metadata
+        "html", "head", "title", "base", "link", "meta", "style", "body",
+        // Sectioning & content
+        "address", "article", "aside", "footer", "header", "h1", "h2", "h3",
+        "h4", "h5", "h6", "hgroup", "main", "nav", "section", "search",
+        // Text content
+        "blockquote", "dd", "div", "dl", "dt", "figcaption", "figure", "hr",
+        "li", "menu", "ol", "p", "pre", "ul",
+        // Inline text semantics
+        "a", "abbr", "b", "bdi", "bdo", "br", "cite", "code", "data", "dfn",
+        "em", "i", "kbd", "mark", "q", "rp", "rt", "ruby", "s", "samp",
+        "small", "span", "strong", "sub", "sup", "time", "u", "var", "wbr",
+        // Image & multimedia
+        "area", "audio", "img", "map", "track", "video",
+        // Embedded content
+        "embed", "iframe", "object", "picture", "portal", "source",
+        // SVG & MathML
+        "svg", "math",
+        // Scripting
+        "canvas", "noscript", "script",
+        // Demarcating edits
+        "del", "ins",
+        // Table content
+        "caption", "col", "colgroup", "table", "tbody", "td", "tfoot", "th",
+        "thead", "tr",
+        // Forms
+        "button", "datalist", "fieldset", "form", "input", "label", "legend",
+        "meter", "optgroup", "option", "output", "progress", "select",
+        "textarea",
+        // Interactive elements
+        "details", "dialog", "summary",
+        // Web components host
+        "slot", "template",
+        // Obsolete but still parsed (targeted by no-distracting-elements etc.)
+        "marquee", "blink"
+    )
+
     val ARIA_LABEL_ATTRIBUTES = setOf(
         "aria-label",
         ":aria-label",

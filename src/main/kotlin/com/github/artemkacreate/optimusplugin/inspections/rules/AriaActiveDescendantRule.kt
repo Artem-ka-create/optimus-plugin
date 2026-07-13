@@ -5,6 +5,7 @@ import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.enums.TechnologyType
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.getFileTechnologyType
+import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -49,7 +50,7 @@ class AriaActiveDescendantRule : AccessibilityRule {
 
         val tagName = element.name.lowercase().trim()
 
-        val isNativeValid = tagName in VALID_NATIVE_TAGS
+        val isNativeValid = element.nativeTagNameOrNull() in VALID_NATIVE_TAGS
         if (isNativeValid) return
 
         val roleAttr = attributes.find { ExtractionTool.normalizeAttrName(it.name) == "role" }

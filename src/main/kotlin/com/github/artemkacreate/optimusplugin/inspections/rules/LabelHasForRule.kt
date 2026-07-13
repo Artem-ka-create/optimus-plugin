@@ -7,6 +7,7 @@ import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.containsXmlTextNonRecursive
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.getFileTechnologyType
+import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -34,8 +35,8 @@ class LabelHasForRule : AccessibilityRule {
     ) {
         if (element !is XmlTag) return
 
-        // Only apply to <label> and <output> tags
-        val tagName = ExtractionTool.normalizeAttrName(element.name)
+        // Only apply to the native <label> tag (not a <Label> component).
+        val tagName = element.nativeTagNameOrNull() ?: return
         if (tagName !in CommonValues.FIELD_LABEL_ATTRIBUTES) return
 
         val forAttribute =
