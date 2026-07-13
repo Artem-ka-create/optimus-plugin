@@ -1,7 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
@@ -14,10 +13,6 @@ import com.intellij.psi.xml.XmlTag
 class NoDistractingElementsRule : AccessibilityRule {
     override val id = "noDistractingElements"
     override val displayName = "There should not be any distracting elements"
-    override val supportedExtensions = setOf(
-        FileExtension.HTML, FileExtension.JS, FileExtension.JSX, FileExtension.TS, FileExtension.TSX, FileExtension.VUE
-
-    )
 
     companion object {
         private val DISTRACTING_ELEMENTS = setOf("marquee", "blink")

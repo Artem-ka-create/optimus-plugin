@@ -1,7 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.enums.TechnologyType
 import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
@@ -20,9 +19,6 @@ class LabelHasForRule : AccessibilityRule {
 
     override val id: String = "labelHasForRule"
     override val displayName: String = "Label should have 'for' attribute ot have nested field"
-    override val supportedExtensions: Set<FileExtension> = setOf(
-        FileExtension.HTML, FileExtension.JS, FileExtension.JSX, FileExtension.TS, FileExtension.TSX, FileExtension.VUE
-    )
 
     companion object {
         private const val MESSAGE = "Accessibility: Label should have 'for' attribute ot have nested field"

@@ -1,7 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
@@ -22,10 +21,7 @@ class TabIndexNoPositiveRule : AccessibilityRule {
 
     override val id = "tabIndexNoPositive"
     override val displayName = "Element should not have positive tabindex"
-    override val supportedExtensions = setOf(
-        FileExtension.HTML, FileExtension.JS, FileExtension.JSX,
-        FileExtension.TS, FileExtension.TSX, FileExtension.VUE
-    )
+
 
     companion object {
         private val TABINDEX_ATTRIBUTES = setOf(

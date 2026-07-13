@@ -1,7 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.isHtmlTag
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
@@ -18,15 +17,6 @@ class InputWithoutLabelRule : AccessibilityRule {
 
     override val id = "inputWithoutLabel"
     override val displayName = "Input Without Label"
-    override val supportedExtensions = setOf(
-        FileExtension.HTML,
-        FileExtension.JS,
-        FileExtension.JSX,
-        FileExtension.TS,
-        FileExtension.TSX,
-        FileExtension.VUE
-
-    )
 
     companion object {
         private val LABEL_ATTRIBUTES = setOf("id", "aria-label", "aria-labelledby", "[aria-label]", ":aria-label")

@@ -1,7 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.enums.TechnologyType
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.getFileTechnologyType
@@ -19,9 +18,6 @@ class AriaActiveDescendantRule : AccessibilityRule {
     override val id: String = "ariaActiveDescendantRule"
     override val displayName: String =
         "aria-activedescendant must be on an element with a valid interactive role and be focusable"
-    override val supportedExtensions: Set<FileExtension> = setOf(
-        FileExtension.HTML, FileExtension.JS, FileExtension.JSX, FileExtension.TS, FileExtension.TSX, FileExtension.VUE
-    )
 
     companion object {
         private const val INVALID_ROLE_MESSAGE =

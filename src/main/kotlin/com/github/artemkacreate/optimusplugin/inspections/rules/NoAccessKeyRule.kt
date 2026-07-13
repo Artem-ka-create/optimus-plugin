@@ -1,7 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -19,10 +18,6 @@ class NoAccessKeyRule : AccessibilityRule {
 
     override val id = "noAccessKey"
     override val displayName = "Element should not use accessKey"
-    override val supportedExtensions = setOf(
-        FileExtension.HTML, FileExtension.JS, FileExtension.JSX,
-        FileExtension.TS, FileExtension.TSX, FileExtension.VUE
-    )
 
     companion object {
         private val ACCESSKEY_ATTRIBUTES = setOf(

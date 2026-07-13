@@ -1,7 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -21,10 +20,6 @@ class NoAutofocusRule : AccessibilityRule {
 
     override val id = "noAutofocus"
     override val displayName = "Element should not use autofocus"
-    override val supportedExtensions = setOf(
-        FileExtension.HTML, FileExtension.JS, FileExtension.JSX,
-        FileExtension.TS, FileExtension.TSX, FileExtension.VUE
-    )
 
     companion object {
         private val AUTOFOCUS_ATTRIBUTES = setOf(

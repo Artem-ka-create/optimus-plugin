@@ -1,7 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.isHtmlTag
 import com.intellij.codeInspection.LocalQuickFix
@@ -21,10 +20,6 @@ class ImgRedundantAltRule : AccessibilityRule {
 
     override val id = "imgRedundantAlt"
     override val displayName = "img alt should not contain redundant words"
-    override val supportedExtensions = setOf(
-        FileExtension.HTML, FileExtension.JS, FileExtension.JSX,
-        FileExtension.TS, FileExtension.TSX, FileExtension.VUE
-    )
 
     companion object {
         private val REDUNDANT_WORDS = setOf("image", "photo", "picture", "icon", "graphic")

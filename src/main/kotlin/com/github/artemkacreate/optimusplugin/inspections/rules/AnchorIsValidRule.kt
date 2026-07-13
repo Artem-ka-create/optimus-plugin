@@ -1,7 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.isHtmlTag
 import com.intellij.codeInspection.LocalQuickFix
@@ -21,9 +20,6 @@ class AnchorIsValidRule : AccessibilityRule {
 
     override val id = "anchorIsValid"
     override val displayName = "Anchor must have valid href"
-    override val supportedExtensions = setOf(
-        FileExtension.HTML, FileExtension.JS, FileExtension.JSX, FileExtension.TS, FileExtension.TSX, FileExtension.VUE
-    )
 
     companion object {
         private val HREF_ATTRIBUTES = setOf("href", ":href", "v-bind:href", "[href]")

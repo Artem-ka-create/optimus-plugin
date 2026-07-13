@@ -1,7 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.collectNestedText
@@ -15,14 +14,6 @@ class AnchorAmbigousTextRule : AccessibilityRule {
 
     override val id = "anchorAmbiguousText"
     override val displayName = "Anchor Ambiguous Text"
-    override val supportedExtensions = setOf(
-        FileExtension.HTML,
-        FileExtension.JS,
-        FileExtension.JSX,
-        FileExtension.TS,
-        FileExtension.TSX,
-        FileExtension.VUE
-    )
 
     companion object {
         private const val MESSAGE =

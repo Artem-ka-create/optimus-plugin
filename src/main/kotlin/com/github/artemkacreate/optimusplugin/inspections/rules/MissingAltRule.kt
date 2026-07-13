@@ -1,7 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.isHtmlTag
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
@@ -18,14 +17,6 @@ class MissingAltRule : AccessibilityRule {
 
     override val id = "missingAlt"
     override val displayName = "Missing alt"
-    override val supportedExtensions = setOf(
-        FileExtension.HTML,
-        FileExtension.JS,
-        FileExtension.JSX,
-        FileExtension.TS,
-        FileExtension.TSX,
-        FileExtension.VUE
-    )
 
     companion object {
         private val ALT_ATTRIBUTES = setOf("alt", ":alt", "v-bind:alt", "[alt]")

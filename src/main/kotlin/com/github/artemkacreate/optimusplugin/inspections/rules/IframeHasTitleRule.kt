@@ -1,7 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.isHtmlTag
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
@@ -19,9 +18,6 @@ import com.intellij.psi.xml.XmlTag
 class IframeHasTitleRule : AccessibilityRule {
     override val id = "iframeHasTitle"
     override val displayName = "Iframe must have title"
-    override val supportedExtensions = setOf(
-        FileExtension.HTML, FileExtension.JS, FileExtension.JSX, FileExtension.TS, FileExtension.TSX, FileExtension.VUE
-    )
 
     companion object {
         private val TITLE_ATTRIBUTES = setOf("title", ":title", "v-bind:title", "[title]")

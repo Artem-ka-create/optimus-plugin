@@ -1,7 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.normalizeAttrName
@@ -32,10 +31,6 @@ class AriaRoleRule : AccessibilityRule {
 
     override val id = "ariaRoles"
     override val displayName = "Role attribute value must be a valid WAI-ARIA role"
-    override val supportedExtensions = setOf(
-        FileExtension.HTML, FileExtension.JS, FileExtension.JSX,
-        FileExtension.TS, FileExtension.TSX, FileExtension.VUE
-    )
 
     override fun checkElementByRule(
         element: PsiElement, file: PsiFile, holder: ProblemsHolder

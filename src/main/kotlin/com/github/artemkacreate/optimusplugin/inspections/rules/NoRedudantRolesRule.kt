@@ -1,7 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
@@ -17,9 +16,6 @@ import com.intellij.psi.xml.XmlTag
 class NoRedudantRolesRule : AccessibilityRule {
     override val id: String = "noRedudantRolesRule"
     override val displayName: String = "Redundant ARIA role"
-    override val supportedExtensions: Set<FileExtension> = setOf(
-        FileExtension.HTML, FileExtension.JS, FileExtension.JSX, FileExtension.TS, FileExtension.TSX, FileExtension.VUE
-    )
 
     companion object {
         /** header→banner and footer→contentinfo only apply outside these sectioning elements. */

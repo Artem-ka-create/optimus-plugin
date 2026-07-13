@@ -1,7 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.normalizeAttrName
 import com.intellij.codeInspection.LocalQuickFix
@@ -25,10 +24,6 @@ class AriaPropsRule : AccessibilityRule {
 
     override val id = "ariaProps"
     override val displayName = "ARIA attributes must be valid based on W3C, WAI-ARIA, MDN"
-    override val supportedExtensions = setOf(
-        FileExtension.HTML, FileExtension.JS, FileExtension.JSX,
-        FileExtension.TS, FileExtension.TSX, FileExtension.VUE
-    )
 
     override fun checkElementByRule(
         element: PsiElement, file: PsiFile, holder: ProblemsHolder

@@ -1,7 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
 import com.intellij.codeInspection.LocalQuickFix
@@ -20,10 +19,6 @@ import com.intellij.psi.xml.XmlTag
 class HeadingHasContentRule : AccessibilityRule {
     override val id = "headingHasContent"
     override val displayName = "Heading must have content"
-    override val supportedExtensions = setOf(
-        FileExtension.HTML, FileExtension.JS, FileExtension.JSX,
-        FileExtension.TS, FileExtension.TSX, FileExtension.VUE
-    )
 
     companion object {
         private val HEADING_TAGS = setOf("h1", "h2", "h3", "h4", "h5", "h6")

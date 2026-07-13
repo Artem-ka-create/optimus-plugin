@@ -1,7 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
@@ -16,9 +15,6 @@ import com.intellij.psi.xml.XmlTag
 class NoNonIntElementToIntRoleRule : AccessibilityRule {
     override val id: String = "noNonIntElementToIntRoleRule"
     override val displayName: String = "Non-interactive element must not have an interactive role"
-    override val supportedExtensions: Set<FileExtension> = setOf(
-        FileExtension.HTML, FileExtension.JS, FileExtension.JSX, FileExtension.TS, FileExtension.TSX, FileExtension.VUE
-    )
 
     companion object {
         private const val MESSAGE =
