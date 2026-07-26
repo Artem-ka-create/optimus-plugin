@@ -12,28 +12,6 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.xml.XmlTag
 
-/**
- * Rule: An element with an explicit ARIA `role` must also declare every ARIA
- * state/property that the WAI-ARIA specification marks as *required* for that
- * role.
- *
- * Some roles are meaningless to assistive technologies without their required
- * attributes. For example, `role="checkbox"` describes a checkbox but does not
- * say whether it is checked — that information lives in `aria-checked`. Screen
- * readers will announce "checkbox" but cannot tell the user its state, so the
- * widget is effectively broken for them.
- *
- * Works with:
- * - HTML: role="checkbox"
- * - Vue: :role="'checkbox'" / v-bind:role="'checkbox'"
- * - Angular: \[attr.role\]="'checkbox'" / \[role\]="'checkbox'"
- * - React/JSX: role={"checkbox"} / role="checkbox"
- *
- * Examples of invalid: <div role="checkbox"></div>  (missing aria-checked)
- *                      <div role="slider"></div>     (missing aria-valuenow)
- * Examples of valid:   <div role="checkbox" aria-checked="false"></div>
- *                      <div role="slider" aria-valuenow="5"></div>
- */
 class RoleHasRequiredAriaPropsRule : AccessibilityRule {
 
     override val id = "roleHasRequiredAriaProps"

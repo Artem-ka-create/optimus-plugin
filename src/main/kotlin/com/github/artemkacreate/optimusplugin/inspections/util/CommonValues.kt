@@ -146,6 +146,176 @@ object CommonValues {
         "switch" to setOf("aria-checked")
     )
 
+    /**
+     * Global ARIA states/properties that are supported by **every** role
+     * (they are inherited from the base `roletype` role in WAI-ARIA 1.2).
+     *
+     * Any element, regardless of its role, may legally carry these attributes,
+     * so `role-supports-aria-props` must always treat them as allowed.
+     */
+    val GLOBAL_ARIA_ATTRIBUTES: Set<String> = setOf(
+        "aria-atomic",
+        "aria-busy",
+        "aria-controls",
+        "aria-current",
+        "aria-describedby",
+        "aria-description",
+        "aria-details",
+        "aria-disabled",
+        "aria-dropeffect",   // deprecated in 1.1 but still valid
+        "aria-errormessage",
+        "aria-flowto",
+        "aria-grabbed",      // deprecated in 1.1 but still valid
+        "aria-haspopup",
+        "aria-hidden",
+        "aria-invalid",
+        "aria-keyshortcuts",
+        "aria-label",
+        "aria-labelledby",
+        "aria-live",
+        "aria-owns",
+        "aria-relevant",
+        "aria-roledescription",
+        "aria-braillelabel",
+        "aria-brailleroledescription"
+    )
+
+    /**
+     * Map of ARIA role -> the **extra** role-specific ARIA states/properties it
+     * supports, *in addition to* two lists that are reused automatically:
+     *   - [GLOBAL_ARIA_ATTRIBUTES]  (supported by every role), and
+     *   - [ROLE_REQUIRED_ARIA_PROPS] (a required prop is, by definition, supported).
+     *
+     * To avoid duplication, attributes already present in those two lists are NOT
+     * repeated here. Use [supportedAriaPropsForRole] to obtain the full, merged
+     * set of attributes allowed on an element with a given role.
+     *
+     * Any `aria-*` attribute outside that merged union is NOT supported by the
+     * role and should be flagged by `role-supports-aria-props`.
+     *
+     * Values already include properties inherited from super-class roles
+     * (e.g. `columnheader` includes what it inherits from `cell`/`gridcell`).
+     * Source: WAI-ARIA "Supported States and Properties" + aria-query.
+     */
+    val ROLE_SUPPORTED_ARIA_PROPS: Map<String, Set<String>> = mapOf(
+        // --- Widgets --- (required props omitted, they are merged from ROLE_REQUIRED_ARIA_PROPS)
+        "button" to setOf("aria-expanded", "aria-pressed"),
+        "checkbox" to setOf("aria-readonly", "aria-required"),
+        "gridcell" to setOf(
+            "aria-colindex", "aria-colspan", "aria-rowindex", "aria-rowspan",
+            "aria-expanded", "aria-readonly", "aria-required", "aria-selected"
+        ),
+        "link" to setOf("aria-expanded"),
+        "menuitem" to setOf("aria-expanded", "aria-posinset", "aria-setsize"),
+        "menuitemcheckbox" to setOf("aria-posinset", "aria-setsize", "aria-readonly"),
+        "menuitemradio" to setOf("aria-posinset", "aria-setsize", "aria-readonly"),
+        "option" to setOf("aria-checked", "aria-posinset", "aria-setsize"),
+        "progressbar" to setOf(
+            "aria-valuemax", "aria-valuemin", "aria-valuenow", "aria-valuetext"
+        ),
+        "radio" to setOf("aria-posinset", "aria-setsize"),
+        "scrollbar" to setOf(
+            "aria-orientation",
+            "aria-valuemax", "aria-valuemin", "aria-valuetext"
+        ),
+        "searchbox" to setOf(
+            "aria-activedescendant", "aria-autocomplete", "aria-multiline",
+            "aria-placeholder", "aria-readonly", "aria-required"
+        ),
+        "separator" to setOf(
+            "aria-orientation",
+            "aria-valuemax", "aria-valuemin", "aria-valuenow", "aria-valuetext"
+        ),
+        "slider" to setOf(
+            "aria-orientation", "aria-readonly",
+            "aria-valuemax", "aria-valuemin", "aria-valuetext"
+        ),
+        "spinbutton" to setOf(
+            "aria-valuemax", "aria-valuemin", "aria-valuenow", "aria-valuetext",
+            "aria-readonly", "aria-required"
+        ),
+        "switch" to setOf("aria-readonly"),
+        "tab" to setOf("aria-selected", "aria-expanded", "aria-posinset", "aria-setsize"),
+        "textbox" to setOf(
+            "aria-activedescendant", "aria-autocomplete", "aria-multiline",
+            "aria-placeholder", "aria-readonly", "aria-required"
+        ),
+        "treeitem" to setOf(
+            "aria-checked", "aria-expanded", "aria-level",
+            "aria-posinset", "aria-setsize", "aria-selected"
+        ),
+
+        // --- Composite widgets ---
+        "combobox" to setOf(
+            "aria-activedescendant", "aria-autocomplete",
+            "aria-readonly", "aria-required", "aria-orientation"
+        ),
+        "grid" to setOf(
+            "aria-level", "aria-multiselectable", "aria-readonly",
+            "aria-activedescendant", "aria-colcount", "aria-rowcount"
+        ),
+        "listbox" to setOf(
+            "aria-multiselectable", "aria-readonly", "aria-required",
+            "aria-activedescendant", "aria-orientation", "aria-expanded"
+        ),
+        "menu" to setOf("aria-activedescendant", "aria-orientation"),
+        "menubar" to setOf("aria-activedescendant", "aria-orientation"),
+        "radiogroup" to setOf(
+            "aria-activedescendant", "aria-orientation", "aria-readonly", "aria-required"
+        ),
+        "tablist" to setOf(
+            "aria-activedescendant", "aria-multiselectable", "aria-orientation", "aria-level"
+        ),
+        "tree" to setOf(
+            "aria-activedescendant", "aria-multiselectable", "aria-orientation", "aria-required"
+        ),
+        "treegrid" to setOf(
+            "aria-activedescendant", "aria-colcount", "aria-rowcount", "aria-level",
+            "aria-multiselectable", "aria-orientation", "aria-readonly"
+        ),
+
+        // --- Document structure ---
+        "article" to setOf("aria-posinset", "aria-setsize"),
+        "cell" to setOf(
+            "aria-colindex", "aria-colspan", "aria-rowindex", "aria-rowspan"
+        ),
+        "columnheader" to setOf(
+            "aria-sort", "aria-colindex", "aria-colspan", "aria-rowindex", "aria-rowspan",
+            "aria-expanded", "aria-readonly", "aria-required", "aria-selected"
+        ),
+        "group" to setOf("aria-activedescendant"),
+        "listitem" to setOf("aria-level", "aria-posinset", "aria-setsize"),
+        "meter" to setOf("aria-valuemax", "aria-valuemin", "aria-valuetext"),
+        "row" to setOf(
+            "aria-colindex", "aria-level", "aria-rowindex", "aria-selected",
+            "aria-activedescendant", "aria-expanded", "aria-setsize", "aria-posinset"
+        ),
+        "rowheader" to setOf(
+            "aria-sort", "aria-colindex", "aria-colspan", "aria-rowindex", "aria-rowspan",
+            "aria-expanded", "aria-readonly", "aria-required", "aria-selected"
+        ),
+        "table" to setOf("aria-colcount", "aria-rowcount"),
+        "toolbar" to setOf("aria-activedescendant", "aria-orientation"),
+
+        // --- Windows / dialogs ---
+        "alertdialog" to setOf("aria-modal", "aria-expanded"),
+        "dialog" to setOf("aria-modal"),
+        "application" to setOf("aria-activedescendant")
+    )
+
+    /**
+     * Returns the complete set of ARIA attributes allowed on an element with the
+     * given [role], reusing the existing lists instead of duplicating data:
+     *   GLOBAL_ARIA_ATTRIBUTES + ROLE_REQUIRED_ARIA_PROPS[role] + ROLE_SUPPORTED_ARIA_PROPS[role]
+     *
+     * Returns only the global attributes for roles that have no extra props, and
+     * for structural roles (e.g. `banner`, `main`) that support globals only.
+     */
+    fun supportedAriaPropsForRole(role: String): Set<String> =
+        GLOBAL_ARIA_ATTRIBUTES +
+            ROLE_REQUIRED_ARIA_PROPS.getOrDefault(role, emptySet()) +
+            ROLE_SUPPORTED_ARIA_PROPS.getOrDefault(role, emptySet())
+
     val VALID_ARIA_ROLE_VALUES = setOf(
         // Widgets
         "button",
