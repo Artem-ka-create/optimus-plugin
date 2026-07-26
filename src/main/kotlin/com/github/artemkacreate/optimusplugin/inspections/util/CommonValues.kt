@@ -131,6 +131,21 @@ object CommonValues {
 
     val ARIA_ROLE_ATTRIBUTE = "role"
 
+
+    val ROLE_REQUIRED_ARIA_PROPS: Map<String, Set<String>> = mapOf(
+        "checkbox" to setOf("aria-checked"),
+        "combobox" to setOf("aria-controls", "aria-expanded"),
+        "heading" to setOf("aria-level"),
+        "menuitemcheckbox" to setOf("aria-checked"),
+        "menuitemradio" to setOf("aria-checked"),
+        "meter" to setOf("aria-valuenow"),
+        "option" to setOf("aria-selected"),
+        "radio" to setOf("aria-checked"),
+        "scrollbar" to setOf("aria-controls", "aria-valuenow"),
+        "slider" to setOf("aria-valuenow"),
+        "switch" to setOf("aria-checked")
+    )
+
     val VALID_ARIA_ROLE_VALUES = setOf(
         // Widgets
         "button",

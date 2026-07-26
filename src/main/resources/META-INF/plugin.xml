@@ -21,6 +21,7 @@
                 groupName="Accessibility"
                 enabledByDefault="true"
                 level="WARNING"
-                implementationClass="com.github.artemkacreate.optimusplugin.inspections.GlobalAccessibilityInspection"/>
+                implementationClass="com.github.artemkacreate.optimusplugin.inspections.GlobalAccessibilityInspection"
+                language=""/>
     </extensions>
 </idea-plugin>
