@@ -27,6 +27,7 @@ import com.github.artemkacreate.optimusplugin.inspections.rules.NonIntElementToN
 import com.github.artemkacreate.optimusplugin.inspections.rules.PreferTagOverRoleRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.RoleHasRequiredAriaPropsRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.RoleSupportsAriaPropsRule
+import com.github.artemkacreate.optimusplugin.inspections.rules.ScopeRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.TabIndexNoPositiveRule
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.Service
@@ -76,6 +77,7 @@ class RuleRegistryService {
         register(PreferTagOverRoleRule())
         register(RoleHasRequiredAriaPropsRule())
         register(RoleSupportsAriaPropsRule())
+        register(ScopeRule())
     }
 
     private fun register(rule: AccessibilityRule) {
