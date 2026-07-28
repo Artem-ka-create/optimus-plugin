@@ -1,4 +1,4 @@
-package com.github.artemkacreate.optimusplugin.inspections.rules
+package com.github.artemkacreate.optimusplugin.inspections.rules.aria
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
