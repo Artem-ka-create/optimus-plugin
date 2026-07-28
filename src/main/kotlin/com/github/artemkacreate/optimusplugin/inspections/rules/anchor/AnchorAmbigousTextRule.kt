@@ -1,7 +1,7 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.anchor
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.AriaConstants
+import com.github.artemkacreate.optimusplugin.inspections.util.constants.AriaConstants
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.collectNestedText
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.isHtmlTag

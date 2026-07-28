@@ -1,4 +1,4 @@
-package com.github.artemkacreate.optimusplugin.inspections.util
+package com.github.artemkacreate.optimusplugin.inspections.util.constants
 
 object AriaConstants {
 
