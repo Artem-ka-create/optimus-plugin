@@ -2,11 +2,12 @@ package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.enums.TechnologyType
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.containsXmlTextNonRecursive
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.getFileTechnologyType
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
-import com.github.artemkacreate.optimusplugin.inspections.util.HtmlConstants
+import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
+import com.github.artemkacreate.optimusplugin.inspections.util.ContentInspector.containsXmlTextNonRecursive
+import com.github.artemkacreate.optimusplugin.inspections.util.TagClassifier.getFileTechnologyType
+import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator
+import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.nativeTagNameOrNull
+import com.github.artemkacreate.optimusplugin.inspections.util.constants.HtmlConstants
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -36,12 +37,12 @@ class LabelHasForRule : AccessibilityRule {
         if (tagName !in HtmlConstants.FIELD_LABEL_ATTRIBUTES) return
 
         val forAttribute =
-            element.attributes.find { ExtractionTool.normalizeAttrName(it.name) in HtmlConstants.FOR_ATTRIBUTES }
+            element.attributes.find { AttributeResolver.normalizeAttrName(it.name) in HtmlConstants.FOR_ATTRIBUTES }
 
         val forAttributeValueExists =
-            forAttribute != null && !ExtractionTool.resolveAttributeValue(forAttribute).isNullOrBlank()
+            forAttribute != null && !AttributeResolver.resolveAttributeValue(forAttribute).isNullOrBlank()
         if (forAttributeValueExists) return
-        val hasNestedFields = ExtractionTool.hasNestedTag(element, NESTED_FIELD_TAGS)
+        val hasNestedFields = TagNavigator.hasNestedTag(element, NESTED_FIELD_TAGS)
 
         if (hasNestedFields) {
             val hasAccessibleTextCont = element.containsXmlTextNonRecursive()

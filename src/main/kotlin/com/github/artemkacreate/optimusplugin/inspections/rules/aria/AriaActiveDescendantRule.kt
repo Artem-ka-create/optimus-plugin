@@ -2,9 +2,9 @@ package com.github.artemkacreate.optimusplugin.inspections.rules.aria
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.enums.TechnologyType
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.getFileTechnologyType
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
+import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
+import com.github.artemkacreate.optimusplugin.inspections.util.TagClassifier.getFileTechnologyType
+import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.nativeTagNameOrNull
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -41,7 +41,7 @@ class AriaActiveDescendantRule : AccessibilityRule {
 
         val attributes = element.attributes
         val activeDescendantAttr = attributes.find {
-            ExtractionTool.normalizeAttrName(it.name) == "aria-activedescendant"
+            AttributeResolver.normalizeAttrName(it.name) == "aria-activedescendant"
         } ?: return
 
         val tagName = element.name.lowercase().trim()
@@ -49,8 +49,8 @@ class AriaActiveDescendantRule : AccessibilityRule {
         val isNativeValid = element.nativeTagNameOrNull() in VALID_NATIVE_TAGS
         if (isNativeValid) return
 
-        val roleAttr = attributes.find { ExtractionTool.normalizeAttrName(it.name) == "role" }
-        val roleAttrValue = roleAttr?.let { ExtractionTool.resolveAttributeValue(it)?.lowercase()?.trim() }
+        val roleAttr = attributes.find { AttributeResolver.normalizeAttrName(it.name) == "role" }
+        val roleAttrValue = roleAttr?.let { AttributeResolver.resolveAttributeValue(it)?.lowercase()?.trim() }
 
         // If a role is present but its value cannot be resolved statically
         // (e.g. a dynamic binding like :role="expr" / role={expr}), skip to
@@ -67,9 +67,9 @@ class AriaActiveDescendantRule : AccessibilityRule {
         }
 
         val tabIndexAttr = attributes.find {
-            ExtractionTool.normalizeAttrName(it.name) == "tabindex"
+            AttributeResolver.normalizeAttrName(it.name) == "tabindex"
         }
-        val tabIndexValue = tabIndexAttr?.value?.let { ExtractionTool.parseNumericValue(it) }
+        val tabIndexValue = tabIndexAttr?.value?.let { AttributeResolver.parseNumericValue(it) }
 
         // If tabindex is present but its value cannot be resolved statically
         // (e.g. a dynamic binding like :tabindex="idx" / [tabindex]="expr"),

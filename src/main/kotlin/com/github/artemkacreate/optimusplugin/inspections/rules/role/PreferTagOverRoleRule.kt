@@ -1,10 +1,10 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.role
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.AriaConstants
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
-import com.github.artemkacreate.optimusplugin.inspections.util.RoleTagConstants
+import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
+import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.nativeTagNameOrNull
+import com.github.artemkacreate.optimusplugin.inspections.util.constants.AriaConstants
+import com.github.artemkacreate.optimusplugin.inspections.util.constants.RoleTagConstants
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -33,10 +33,10 @@ class PreferTagOverRoleRule : AccessibilityRule {
         val tagName = element.nativeTagNameOrNull() ?: return
 
         val roleAttribute = element.attributes.find {
-            ExtractionTool.normalizeAttrName(it.name) == AriaConstants.ARIA_ROLE_ATTRIBUTE
+            AttributeResolver.normalizeAttrName(it.name) == AriaConstants.ARIA_ROLE_ATTRIBUTE
         } ?: return
 
-        val roleValue = ExtractionTool.resolveAttributeValue(roleAttribute)
+        val roleValue = AttributeResolver.resolveAttributeValue(roleAttribute)
             ?.lowercase()?.trim()?.split(Regex("\\s+"))?.firstOrNull() ?: return
 
         val preferredTags = RoleTagConstants.ROLE_TO_PREFERRED_TAGS[roleValue] ?: return

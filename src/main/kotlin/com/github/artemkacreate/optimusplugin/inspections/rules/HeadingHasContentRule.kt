@@ -1,8 +1,8 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
+import com.github.artemkacreate.optimusplugin.inspections.util.ContentInspector
+import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.nativeTagNameOrNull
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -36,8 +36,8 @@ class HeadingHasContentRule : AccessibilityRule {
         val tagName = element.nativeTagNameOrNull() ?: return
         if (tagName !in HEADING_TAGS) return
 
-        val hasAriaLabel = ExtractionTool.hasAriaLabel(element)
-        val hasContent = ExtractionTool.hasTextContent(element)
+        val hasAriaLabel = ContentInspector.hasAriaLabel(element)
+        val hasContent = ContentInspector.hasTextContent(element)
         val hasDynamicContent = element.attributes.any { it.name.lowercase() in DYNAMIC_CONTENT_ATTRIBUTES }
 
         if (!hasAriaLabel && !hasContent && !hasDynamicContent) {

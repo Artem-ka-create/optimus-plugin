@@ -1,8 +1,8 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.isHtmlTag
+import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
+import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.isHtmlTag
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -29,7 +29,7 @@ class ScopeRule : AccessibilityRule {
         if (element.isHtmlTag("th")) return
 
         val scopeAttribute = element.attributes.firstOrNull {
-            ExtractionTool.normalizeAttrName(it.name) == "scope"
+            AttributeResolver.normalizeAttrName(it.name) == "scope"
         } ?: return
 
         holder.registerProblem(scopeAttribute, MESSAGE, ScopeRuleQuickFix())

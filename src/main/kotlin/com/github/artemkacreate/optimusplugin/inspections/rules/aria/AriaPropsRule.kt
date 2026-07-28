@@ -1,8 +1,8 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.aria
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.AriaConstants
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.normalizeAttrName
+import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver.normalizeAttrName
+import com.github.artemkacreate.optimusplugin.inspections.util.constants.AriaConstants
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder

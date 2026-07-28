@@ -1,11 +1,11 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.role
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.AriaConstants
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
-import com.github.artemkacreate.optimusplugin.inspections.util.HtmlConstants
-import com.github.artemkacreate.optimusplugin.inspections.util.RoleTagConstants
+import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
+import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.nativeTagNameOrNull
+import com.github.artemkacreate.optimusplugin.inspections.util.constants.AriaConstants
+import com.github.artemkacreate.optimusplugin.inspections.util.constants.HtmlConstants
+import com.github.artemkacreate.optimusplugin.inspections.util.constants.RoleTagConstants
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -34,7 +34,7 @@ class NonIntElementToNonIntRoleRule : AccessibilityRule {
 
         val isInteractive = when (val tagName = element.nativeTagNameOrNull() ?: return) {
             "a" -> element.getAttribute("href") != null || element.attributes.any {
-                val clean = ExtractionTool.normalizeAttrName(it.name)
+                val clean = AttributeResolver.normalizeAttrName(it.name)
                 clean == "routerlink" || clean == "to"
             }
 
@@ -46,11 +46,11 @@ class NonIntElementToNonIntRoleRule : AccessibilityRule {
         if (!isInteractive) return
 
         val roleAttribute =
-            element.attributes.find { ExtractionTool.normalizeAttrName(it.name) == AriaConstants.ARIA_ROLE_ATTRIBUTE }
+            element.attributes.find { AttributeResolver.normalizeAttrName(it.name) == AriaConstants.ARIA_ROLE_ATTRIBUTE }
                 ?: return
 
         // Normalize: role can be a space-separated token list; the first token wins.
-        val roleValue = ExtractionTool.resolveAttributeValue(roleAttribute)
+        val roleValue = AttributeResolver.resolveAttributeValue(roleAttribute)
             ?.lowercase()?.trim()?.split(Regex("\\s+"))?.firstOrNull()
             ?: return
 

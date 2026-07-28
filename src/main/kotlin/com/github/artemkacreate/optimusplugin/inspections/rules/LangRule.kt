@@ -1,7 +1,7 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
+import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
@@ -20,8 +20,8 @@ class LangRule : AccessibilityRule {
     override fun checkElementByRule(element: PsiElement, file: PsiFile, holder: ProblemsHolder) {
         if (element !is XmlTag) return
 
-        val langAttribute = element.attributes.find { ExtractionTool.normalizeAttrName(it.name) == "lang" } ?: return
-        val langValue = ExtractionTool.resolveAttributeValue(langAttribute) ?: return
+        val langAttribute = element.attributes.find { AttributeResolver.normalizeAttrName(it.name) == "lang" } ?: return
+        val langValue = AttributeResolver.resolveAttributeValue(langAttribute) ?: return
 
         if (!isValidLangTag(langValue)) {
             holder.registerProblem(langAttribute, MESSAGE)

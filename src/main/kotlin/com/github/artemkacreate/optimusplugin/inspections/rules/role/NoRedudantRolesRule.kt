@@ -1,10 +1,11 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.role
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.AriaConstants
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
-import com.github.artemkacreate.optimusplugin.inspections.util.RoleTagConstants
+import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
+import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator
+import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.nativeTagNameOrNull
+import com.github.artemkacreate.optimusplugin.inspections.util.constants.AriaConstants
+import com.github.artemkacreate.optimusplugin.inspections.util.constants.RoleTagConstants
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -30,13 +31,13 @@ class NoRedudantRolesRule : AccessibilityRule {
         val tagName = element.nativeTagNameOrNull() ?: return
 
         val roleAttribute =
-            element.attributes.find { ExtractionTool.normalizeAttrName(it.name) == AriaConstants.ARIA_ROLE_ATTRIBUTE }
+            element.attributes.find { AttributeResolver.normalizeAttrName(it.name) == AriaConstants.ARIA_ROLE_ATTRIBUTE }
                 ?: return
-        val roleValue = ExtractionTool.resolveAttributeValue(roleAttribute)?.lowercase()?.trim()
+        val roleValue = AttributeResolver.resolveAttributeValue(roleAttribute)?.lowercase()?.trim()
         val expectedImplicitRole = when (tagName) {
             "a" -> {
                 val hasHref = element.getAttribute("href") != null || element.attributes.any {
-                    val clean = ExtractionTool.normalizeAttrName(it.name)
+                    val clean = AttributeResolver.normalizeAttrName(it.name)
                     clean == "routerlink" || clean == "to"
                 }
                 if (hasHref) "link" else null
@@ -59,7 +60,7 @@ class NoRedudantRolesRule : AccessibilityRule {
 
             // header→banner / footer→contentinfo only when NOT inside sectioning content.
             "header", "footer" -> {
-                if (SECTIONING_ANCESTORS.any { ExtractionTool.isNestedInsideTag(element, it) }) null
+                if (SECTIONING_ANCESTORS.any { TagNavigator.isNestedInsideTag(element, it) }) null
                 else RoleTagConstants.REDUNDANT_TAGS_ROLES_MAP[tagName]
             }
 

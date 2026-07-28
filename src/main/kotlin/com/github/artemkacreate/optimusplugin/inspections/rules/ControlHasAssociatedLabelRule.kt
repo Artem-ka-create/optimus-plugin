@@ -1,11 +1,12 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.AriaConstants
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.containsXmlTextNonRecursive
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
-import com.github.artemkacreate.optimusplugin.inspections.util.HtmlConstants
+import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
+import com.github.artemkacreate.optimusplugin.inspections.util.ContentInspector.containsXmlTextNonRecursive
+import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator
+import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.nativeTagNameOrNull
+import com.github.artemkacreate.optimusplugin.inspections.util.constants.AriaConstants
+import com.github.artemkacreate.optimusplugin.inspections.util.constants.HtmlConstants
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
@@ -40,10 +41,10 @@ class ControlHasAssociatedLabelRule : AccessibilityRule {
 
         // 1. Aria label handling
         val ariaLabelAttributes = element.attributes
-            .filter { ExtractionTool.normalizeAttrName(it.name) in AriaConstants.ARIA_LABEL_ATTRIBUTES }
+            .filter { AttributeResolver.normalizeAttrName(it.name) in AriaConstants.ARIA_LABEL_ATTRIBUTES }
 
         // a) present with a non-empty value → already labelled → OK
-        if (ariaLabelAttributes.any { !ExtractionTool.resolveAttributeValue(it).isNullOrBlank() }) return
+        if (ariaLabelAttributes.any { !AttributeResolver.resolveAttributeValue(it).isNullOrBlank() }) return
 
         // b) present but empty → dedicated message
         if (ariaLabelAttributes.isNotEmpty()) {
@@ -75,12 +76,12 @@ class ControlHasAssociatedLabelRule : AccessibilityRule {
      */
     private fun hasConnectedLabel(element: XmlTag, file: PsiFile): Boolean {
         // a) nested inside a <label>
-        if (ExtractionTool.isNestedInsideTag(element, "label")) return true
+        if (TagNavigator.isNestedInsideTag(element, "label")) return true
 
         // b) a <label for="id"> that references this element's id
         val elementId = element.attributes
-            .find { ExtractionTool.normalizeAttrName(it.name) in ID_ATTRIBUTES }
-            ?.let { ExtractionTool.resolveAttributeValue(it)?.trim() }
+            .find { AttributeResolver.normalizeAttrName(it.name) in ID_ATTRIBUTES }
+            ?.let { AttributeResolver.resolveAttributeValue(it)?.trim() }
             ?.takeIf { it.isNotBlank() }
             ?: return false
 
@@ -88,8 +89,8 @@ class ControlHasAssociatedLabelRule : AccessibilityRule {
             .filter { it.name.equals("label", true) }
             .any { label ->
                 label.attributes
-                    .find { ExtractionTool.normalizeAttrName(it.name) in HtmlConstants.FOR_ATTRIBUTES }
-                    ?.let { ExtractionTool.resolveAttributeValue(it)?.trim() } == elementId
+                    .find { AttributeResolver.normalizeAttrName(it.name) in HtmlConstants.FOR_ATTRIBUTES }
+                    ?.let { AttributeResolver.resolveAttributeValue(it)?.trim() } == elementId
             }
     }
 }

@@ -1,8 +1,8 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.anchor
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.isHtmlTag
+import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
+import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.isHtmlTag
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -34,10 +34,10 @@ class AnchorIsValidRule : AccessibilityRule {
         val hrefAttr = element.attributes.find { it.name.lowercase() in HREF_ATTRIBUTES } ?: return
 
         // Resolve effective value (handles dynamic bindings automatically)
-        val hrefValue = ExtractionTool.resolveAttributeValue(hrefAttr)
+        val hrefValue = AttributeResolver.resolveAttributeValue(hrefAttr)
 
         // If dynamic and we can't extract a literal — skip (complex expression)
-        if (ExtractionTool.isDynamicBinding(hrefAttr.name) && hrefValue == null) return
+        if (AttributeResolver.isDynamicBinding(hrefAttr.name) && hrefValue == null) return
 
         // Validate the href value
         if (hrefValue.isNullOrBlank() || hrefValue == "#" || hrefValue.lowercase().startsWith("javascript:")) {

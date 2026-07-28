@@ -1,9 +1,9 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.aria
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.AriaConstants
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.normalizeAttrName
+import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
+import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver.normalizeAttrName
+import com.github.artemkacreate.optimusplugin.inspections.util.constants.AriaConstants
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -44,7 +44,7 @@ class AriaRoleRule : AccessibilityRule {
             // Resolve the value (handles Vue ':role', Angular '[attr.role]', JSX role={"x"})
             // If resolveAttributeValue returns null (dynamic expression), fall back to raw value
             // if it looks like a simple role identifier (e.g., "button", "nav", "buton")
-            val roleValue = ExtractionTool.resolveAttributeValue(attr)
+            val roleValue = AttributeResolver.resolveAttributeValue(attr)
                 ?: attr.value?.takeIf { it.matches(Regex("^[a-z][a-z-]*$")) }
                 ?: continue  // complex expression (function call, variable with dots, etc.) — skip
 

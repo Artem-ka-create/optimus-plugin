@@ -1,10 +1,10 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.role
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.AriaConstants
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.normalizeAttrName
-import com.github.artemkacreate.optimusplugin.inspections.util.RoleTagConstants
+import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
+import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver.normalizeAttrName
+import com.github.artemkacreate.optimusplugin.inspections.util.constants.AriaConstants
+import com.github.artemkacreate.optimusplugin.inspections.util.constants.RoleTagConstants
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -27,7 +27,7 @@ class RoleHasRequiredAriaPropsRule : AccessibilityRule {
 
         // Resolve the role value (handles Vue ':role', Angular '[attr.role]', JSX role={"x"}).
         // Fall back to the raw value if it looks like a simple role identifier.
-        val roleValue = (ExtractionTool.resolveAttributeValue(roleAttr)
+        val roleValue = (AttributeResolver.resolveAttributeValue(roleAttr)
             ?: roleAttr.value?.takeIf { it.isNotBlank() }
             ?: return)
             .trim()

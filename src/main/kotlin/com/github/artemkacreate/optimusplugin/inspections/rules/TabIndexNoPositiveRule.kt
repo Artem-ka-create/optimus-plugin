@@ -1,7 +1,7 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
+import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -40,7 +40,7 @@ class TabIndexNoPositiveRule : AccessibilityRule {
         if (tabindexAttrs.isEmpty()) return
 
         val hasPositive = tabindexAttrs.any { attr ->
-            val resolved = ExtractionTool.resolveAttributeValue(attr) ?: return@any false
+            val resolved = AttributeResolver.resolveAttributeValue(attr) ?: return@any false
             val numericValue = resolved.trim().toIntOrNull() ?: return@any false
             numericValue > 0
         }
@@ -72,7 +72,7 @@ private class SetTabIndexToZeroQuickFix : LocalQuickFix {
         // Find all tabindex attributes with positive values and set them to "0"
         element.attributes
             .filter { it.name.lowercase() in TABINDEX_ATTRIBUTES }
-            .filter { attr: XmlAttribute -> (ExtractionTool.parseNumericValue(attr.value ?: "") ?: 0) > 0 }
+            .filter { attr: XmlAttribute -> (AttributeResolver.parseNumericValue(attr.value ?: "") ?: 0) > 0 }
             .forEach { attr: XmlAttribute -> attr.setValue("0") }
     }
 }

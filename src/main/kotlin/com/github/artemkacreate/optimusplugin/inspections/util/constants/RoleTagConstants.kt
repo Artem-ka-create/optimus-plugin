@@ -1,7 +1,4 @@
-package com.github.artemkacreate.optimusplugin.inspections.util
-
-import com.github.artemkacreate.optimusplugin.inspections.util.AriaConstants.GLOBAL_ARIA_ATTRIBUTES
-import kotlin.collections.plus
+package com.github.artemkacreate.optimusplugin.inspections.util.constants
 
 object RoleTagConstants {
 
@@ -186,7 +183,7 @@ object RoleTagConstants {
     /**
      * Map of ARIA role -> the **extra** role-specific ARIA states/properties it
      * supports, *in addition to* two lists that are reused automatically:
-     *   - [GLOBAL_ARIA_ATTRIBUTES]  (supported by every role), and
+     *   - [AriaConstants.GLOBAL_ARIA_ATTRIBUTES]  (supported by every role), and
      *   - [ROLE_REQUIRED_ARIA_PROPS] (a required prop is, by definition, supported).
      *
      * To avoid duplication, attributes already present in those two lists are NOT
@@ -356,7 +353,7 @@ object RoleTagConstants {
      * for structural roles (e.g. `banner`, `main`) that support globals only.
      */
     fun supportedAriaPropsForRole(role: String): Set<String> =
-        GLOBAL_ARIA_ATTRIBUTES + ROLE_REQUIRED_ARIA_PROPS.getOrDefault(
+        AriaConstants.GLOBAL_ARIA_ATTRIBUTES + ROLE_REQUIRED_ARIA_PROPS.getOrDefault(
             role, emptySet()
         ) + ROLE_SUPPORTED_ARIA_PROPS.getOrDefault(role, emptySet())
 

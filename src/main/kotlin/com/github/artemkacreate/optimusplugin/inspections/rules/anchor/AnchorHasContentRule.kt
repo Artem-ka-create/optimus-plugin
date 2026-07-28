@@ -1,8 +1,9 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.anchor
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.isHtmlTag
+import com.github.artemkacreate.optimusplugin.inspections.util.ContentInspector.hasAriaLabel
+import com.github.artemkacreate.optimusplugin.inspections.util.ContentInspector.hasTextContent
+import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.isHtmlTag
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -27,7 +28,7 @@ class AnchorHasContentRule : AccessibilityRule {
         if (element !is XmlTag) return
         if (!element.isHtmlTag("a")) return
 
-        if (!ExtractionTool.hasAriaLabel(element) && !ExtractionTool.hasTextContent(element)) {
+        if (!hasAriaLabel(element) && !hasTextContent(element)) {
             holder.registerProblem(element, MESSAGE, AddAnchorHasContentAttributeQuickFix())
         }
     }

@@ -1,9 +1,9 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.aria
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
-import com.github.artemkacreate.optimusplugin.inspections.util.HtmlConstants
+import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
+import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.nativeTagNameOrNull
+import com.github.artemkacreate.optimusplugin.inspections.util.constants.HtmlConstants
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -38,10 +38,10 @@ class NoAriaHiddenOnFocusableRule : AccessibilityRule {
         if (element !is XmlTag) return
 
         val ariaHiddenAttribute = element.attributes
-            .find { ExtractionTool.normalizeAttrName(it.name) == "aria-hidden" } ?: return
+            .find { AttributeResolver.normalizeAttrName(it.name) == "aria-hidden" } ?: return
 
         // Only flag when aria-hidden resolves to "true"
-        val ariaHiddenValue = ExtractionTool.resolveAttributeValue(ariaHiddenAttribute)?.trim()
+        val ariaHiddenValue = AttributeResolver.resolveAttributeValue(ariaHiddenAttribute)?.trim()
         if (ariaHiddenValue != "true") return
 
         if (isFocusable(element)) {
@@ -57,16 +57,16 @@ class NoAriaHiddenOnFocusableRule : AccessibilityRule {
 
         // Anchors/areas are focusable only when they have an href
         if (tagName == "a" || tagName == "area") {
-            val hasHref = element.attributes.any { ExtractionTool.normalizeAttrName(it.name) == "href" }
+            val hasHref = element.attributes.any { AttributeResolver.normalizeAttrName(it.name) == "href" }
             if (hasHref) return true
         }
 
         // Any element with a non-negative tabindex is focusable
         val tabindexAttr = element.attributes
-            .find { ExtractionTool.normalizeAttrName(it.name) == "tabindex" }
+            .find { AttributeResolver.normalizeAttrName(it.name) == "tabindex" }
         if (tabindexAttr != null) {
-            val tabindex = ExtractionTool.resolveAttributeValue(tabindexAttr)
-                ?.let { ExtractionTool.parseNumericValue(it) }
+            val tabindex = AttributeResolver.resolveAttributeValue(tabindexAttr)
+                ?.let { AttributeResolver.parseNumericValue(it) }
             if (tabindex != null && tabindex >= 0) return true
         }
 

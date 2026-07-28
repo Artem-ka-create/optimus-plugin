@@ -1,10 +1,11 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.anchor
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.AriaConstants
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.collectNestedText
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.isHtmlTag
+import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
+import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.isHtmlTag
+import com.github.artemkacreate.optimusplugin.inspections.util.ContentInspector.collectNestedText
+
+import com.github.artemkacreate.optimusplugin.inspections.util.constants.AriaConstants
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
@@ -37,9 +38,9 @@ class AnchorAmbigousTextRule : AccessibilityRule {
         if (!element.isHtmlTag("a")) return
 
         val ariaLabelAttribute = element.attributes.find {
-            ExtractionTool.normalizeAttrName(it.name) in AriaConstants.ARIA_LABEL_ATTRIBUTES
+            AttributeResolver.normalizeAttrName(it.name) in AriaConstants.ARIA_LABEL_ATTRIBUTES
         }
-        val ariaLabelValue = ariaLabelAttribute?.let { ExtractionTool.resolveAttributeValue(it) } ?: ""
+        val ariaLabelValue = ariaLabelAttribute?.let { AttributeResolver.resolveAttributeValue(it) } ?: ""
 
         val (textToValidate, targetForHighlight) = if (ariaLabelValue.isNotBlank()) {
             ariaLabelValue to (ariaLabelAttribute ?: element)

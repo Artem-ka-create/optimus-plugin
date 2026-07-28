@@ -1,8 +1,8 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
-import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.isHtmlTag
+import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
+import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.isHtmlTag
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -35,7 +35,7 @@ class ImgRedundantAltRule : AccessibilityRule {
         val altAttr = element.attributes.find { it.name.lowercase() in ALT_ATTRIBUTES } ?: return
 
         // Resolve value (handles dynamic bindings automatically)
-        val altValue = ExtractionTool.resolveAttributeValue(altAttr) ?: return
+        val altValue = AttributeResolver.resolveAttributeValue(altAttr) ?: return
 
         // Check if alt contains any redundant words
         val altLower = altValue.trim().lowercase()
