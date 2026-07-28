@@ -1,9 +1,10 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.role
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
+import com.github.artemkacreate.optimusplugin.inspections.util.AriaConstants
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.normalizeAttrName
+import com.github.artemkacreate.optimusplugin.inspections.util.RoleTagConstants
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -21,7 +22,7 @@ class RoleHasRequiredAriaPropsRule : AccessibilityRule {
         if (element !is XmlTag) return
 
         val roleAttr = element.attributes.firstOrNull {
-            normalizeAttrName(it.name) == CommonValues.ARIA_ROLE_ATTRIBUTE
+            normalizeAttrName(it.name) == AriaConstants.ARIA_ROLE_ATTRIBUTE
         } ?: return
 
         // Resolve the role value (handles Vue ':role', Angular '[attr.role]', JSX role={"x"}).
@@ -32,7 +33,7 @@ class RoleHasRequiredAriaPropsRule : AccessibilityRule {
             .trim()
             .lowercase()
 
-        val requiredProps = CommonValues.ROLE_REQUIRED_ARIA_PROPS.get(roleValue) ?: return
+        val requiredProps = RoleTagConstants.ROLE_REQUIRED_ARIA_PROPS.get(roleValue) ?: return
 
         val presentAttrs = element.attributes
             .map { normalizeAttrName(it.name) }

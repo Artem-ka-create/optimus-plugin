@@ -1,7 +1,7 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.aria
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
+import com.github.artemkacreate.optimusplugin.inspections.util.AriaConstants
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.normalizeAttrName
 import com.intellij.codeInspection.LocalQuickFix
@@ -39,7 +39,7 @@ class AriaRoleRule : AccessibilityRule {
 
         for (attr in element.attributes) {
             val normalized = normalizeAttrName(attr.name)
-            if (normalized != CommonValues.ARIA_ROLE_ATTRIBUTE) continue
+            if (normalized != AriaConstants.ARIA_ROLE_ATTRIBUTE) continue
 
             // Resolve the value (handles Vue ':role', Angular '[attr.role]', JSX role={"x"})
             // If resolveAttributeValue returns null (dynamic expression), fall back to raw value
@@ -48,7 +48,7 @@ class AriaRoleRule : AccessibilityRule {
                 ?: attr.value?.takeIf { it.matches(Regex("^[a-z][a-z-]*$")) }
                 ?: continue  // complex expression (function call, variable with dots, etc.) — skip
 
-            if (roleValue.isBlank() || roleValue !in CommonValues.VALID_ARIA_ROLE_VALUES) {
+            if (roleValue.isBlank() || roleValue !in AriaConstants.VALID_ARIA_ROLE_VALUES) {
                 holder.registerProblem(
                     attr,
                     "Accessibility: '$roleValue' is not a valid ARIA role.",

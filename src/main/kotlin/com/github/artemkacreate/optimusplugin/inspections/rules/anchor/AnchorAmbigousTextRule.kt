@@ -1,7 +1,7 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.anchor
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
+import com.github.artemkacreate.optimusplugin.inspections.util.AriaConstants
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.collectNestedText
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.isHtmlTag
@@ -37,7 +37,7 @@ class AnchorAmbigousTextRule : AccessibilityRule {
         if (!element.isHtmlTag("a")) return
 
         val ariaLabelAttribute = element.attributes.find {
-            ExtractionTool.normalizeAttrName(it.name) in CommonValues.ARIA_LABEL_ATTRIBUTES
+            ExtractionTool.normalizeAttrName(it.name) in AriaConstants.ARIA_LABEL_ATTRIBUTES
         }
         val ariaLabelValue = ariaLabelAttribute?.let { ExtractionTool.resolveAttributeValue(it) } ?: ""
 

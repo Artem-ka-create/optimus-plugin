@@ -2,11 +2,11 @@ package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.enums.TechnologyType
-import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.containsXmlTextNonRecursive
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.getFileTechnologyType
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
+import com.github.artemkacreate.optimusplugin.inspections.util.HtmlConstants
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -33,10 +33,10 @@ class LabelHasForRule : AccessibilityRule {
 
         // Only apply to the native <label> tag (not a <Label> component).
         val tagName = element.nativeTagNameOrNull() ?: return
-        if (tagName !in CommonValues.FIELD_LABEL_ATTRIBUTES) return
+        if (tagName !in HtmlConstants.FIELD_LABEL_ATTRIBUTES) return
 
         val forAttribute =
-            element.attributes.find { ExtractionTool.normalizeAttrName(it.name) in CommonValues.FOR_ATTRIBUTES }
+            element.attributes.find { ExtractionTool.normalizeAttrName(it.name) in HtmlConstants.FOR_ATTRIBUTES }
 
         val forAttributeValueExists =
             forAttribute != null && !ExtractionTool.resolveAttributeValue(forAttribute).isNullOrBlank()

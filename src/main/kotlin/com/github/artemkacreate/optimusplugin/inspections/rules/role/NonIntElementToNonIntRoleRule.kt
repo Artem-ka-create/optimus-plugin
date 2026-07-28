@@ -1,9 +1,11 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.role
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
+import com.github.artemkacreate.optimusplugin.inspections.util.AriaConstants
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
+import com.github.artemkacreate.optimusplugin.inspections.util.HtmlConstants
+import com.github.artemkacreate.optimusplugin.inspections.util.RoleTagConstants
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -38,13 +40,13 @@ class NonIntElementToNonIntRoleRule : AccessibilityRule {
 
             "audio", "video" -> element.getAttribute("controls") != null
             "input" -> element.getAttributeValue("type")?.lowercase()?.trim() != "hidden"
-            else -> tagName in CommonValues.ALL_INTERACTIVE_TAGS
+            else -> tagName in HtmlConstants.ALL_INTERACTIVE_TAGS
         }
 
         if (!isInteractive) return
 
         val roleAttribute =
-            element.attributes.find { ExtractionTool.normalizeAttrName(it.name) == CommonValues.ARIA_ROLE_ATTRIBUTE }
+            element.attributes.find { ExtractionTool.normalizeAttrName(it.name) == AriaConstants.ARIA_ROLE_ATTRIBUTE }
                 ?: return
 
         // Normalize: role can be a space-separated token list; the first token wins.
@@ -52,7 +54,7 @@ class NonIntElementToNonIntRoleRule : AccessibilityRule {
             ?.lowercase()?.trim()?.split(Regex("\\s+"))?.firstOrNull()
             ?: return
 
-        if (roleValue in CommonValues.ALL_NON_INTERACTIVE_ROLES) {
+        if (roleValue in RoleTagConstants.ALL_NON_INTERACTIVE_ROLES) {
             holder.registerProblem(
                 element,
                 MESSAGE,
@@ -90,7 +92,7 @@ private class ChangeRoleToInteractiveQuickFix(private val role: String) : LocalQ
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
         val tag = descriptor.psiElement
         if (tag is XmlTag && tag.isValid) {
-            tag.setAttribute(CommonValues.ARIA_ROLE_ATTRIBUTE, role)
+            tag.setAttribute(AriaConstants.ARIA_ROLE_ATTRIBUTE, role)
         }
     }
 }

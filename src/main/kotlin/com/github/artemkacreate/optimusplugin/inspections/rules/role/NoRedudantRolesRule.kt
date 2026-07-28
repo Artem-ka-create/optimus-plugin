@@ -1,9 +1,10 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.role
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
+import com.github.artemkacreate.optimusplugin.inspections.util.AriaConstants
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
+import com.github.artemkacreate.optimusplugin.inspections.util.RoleTagConstants
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -29,7 +30,7 @@ class NoRedudantRolesRule : AccessibilityRule {
         val tagName = element.nativeTagNameOrNull() ?: return
 
         val roleAttribute =
-            element.attributes.find { ExtractionTool.normalizeAttrName(it.name) == CommonValues.ARIA_ROLE_ATTRIBUTE }
+            element.attributes.find { ExtractionTool.normalizeAttrName(it.name) == AriaConstants.ARIA_ROLE_ATTRIBUTE }
                 ?: return
         val roleValue = ExtractionTool.resolveAttributeValue(roleAttribute)?.lowercase()?.trim()
         val expectedImplicitRole = when (tagName) {
@@ -59,10 +60,10 @@ class NoRedudantRolesRule : AccessibilityRule {
             // header→banner / footer→contentinfo only when NOT inside sectioning content.
             "header", "footer" -> {
                 if (SECTIONING_ANCESTORS.any { ExtractionTool.isNestedInsideTag(element, it) }) null
-                else CommonValues.REDUNDANT_TAGS_ROLES_MAP[tagName]
+                else RoleTagConstants.REDUNDANT_TAGS_ROLES_MAP[tagName]
             }
 
-            else -> CommonValues.REDUNDANT_TAGS_ROLES_MAP[tagName]
+            else -> RoleTagConstants.REDUNDANT_TAGS_ROLES_MAP[tagName]
         }
 
         if (!expectedImplicitRole.isNullOrBlank() && expectedImplicitRole.equals(roleValue, true)) {

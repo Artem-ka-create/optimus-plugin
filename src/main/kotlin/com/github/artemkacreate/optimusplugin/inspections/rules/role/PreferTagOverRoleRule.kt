@@ -1,9 +1,10 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.role
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
+import com.github.artemkacreate.optimusplugin.inspections.util.AriaConstants
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
+import com.github.artemkacreate.optimusplugin.inspections.util.RoleTagConstants
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -32,13 +33,13 @@ class PreferTagOverRoleRule : AccessibilityRule {
         val tagName = element.nativeTagNameOrNull() ?: return
 
         val roleAttribute = element.attributes.find {
-            ExtractionTool.normalizeAttrName(it.name) == CommonValues.ARIA_ROLE_ATTRIBUTE
+            ExtractionTool.normalizeAttrName(it.name) == AriaConstants.ARIA_ROLE_ATTRIBUTE
         } ?: return
 
         val roleValue = ExtractionTool.resolveAttributeValue(roleAttribute)
             ?.lowercase()?.trim()?.split(Regex("\\s+"))?.firstOrNull() ?: return
 
-        val preferredTags = CommonValues.ROLE_TO_PREFERRED_TAGS[roleValue] ?: return
+        val preferredTags = RoleTagConstants.ROLE_TO_PREFERRED_TAGS[roleValue] ?: return
 
         // Skip if the element is ALREADY a native tag for this role (redundant-roles' job).
         val baseTags = preferredTags.map { it.substringBefore("[") }

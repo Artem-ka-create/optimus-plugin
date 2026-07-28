@@ -25,7 +25,7 @@ object ExtractionTool {
      */
     fun isDynamicBinding(attrName: String): Boolean {
         val lower = attrName.lowercase()
-        return CommonValues.DYNAMIC_PREFIXES.any { lower.startsWith(it) }
+        return HtmlConstants.DYNAMIC_PREFIXES.any { lower.startsWith(it) }
     }
 
     /**
@@ -194,7 +194,7 @@ object ExtractionTool {
             else -> false // VANILLA / plain HTML
         }
         if (isComponentFramework && raw != raw.lowercase()) return false
-        return raw.lowercase() in CommonValues.NATIVE_HTML_TAGS
+        return raw.lowercase() in HtmlConstants.NATIVE_HTML_TAGS
     }
 
     fun XmlTag.isHtmlTag(vararg tagNames: String): Boolean {
@@ -255,7 +255,7 @@ object ExtractionTool {
      * Checks if element has aria-label or aria-labelledby (in any binding form).
      */
     fun hasAriaLabel(element: XmlTag): Boolean {
-        return element.attributes.any { it.name.lowercase() in CommonValues.ARIA_LABEL_ATTRIBUTES }
+        return element.attributes.any { it.name.lowercase() in AriaConstants.ARIA_LABEL_ATTRIBUTES }
     }
 
     // ──────────────────────────────────────────────

@@ -1,9 +1,10 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.role
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
+import com.github.artemkacreate.optimusplugin.inspections.util.AriaConstants
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.normalizeAttrName
+import com.github.artemkacreate.optimusplugin.inspections.util.RoleTagConstants
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
@@ -22,7 +23,7 @@ class RoleSupportsAriaPropsRule : AccessibilityRule {
         if (element !is XmlTag) return
 
         val roleAttr = element.attributes.firstOrNull {
-            normalizeAttrName(it.name) == CommonValues.ARIA_ROLE_ATTRIBUTE
+            normalizeAttrName(it.name) == AriaConstants.ARIA_ROLE_ATTRIBUTE
         } ?: return
 
         // Resolve the role value (handles Vue ':role', Angular '[attr.role]', JSX role={"x"}).
@@ -33,9 +34,9 @@ class RoleSupportsAriaPropsRule : AccessibilityRule {
             .lowercase()
 
         // Only check roles we actually recognize; unknown roles are handled elsewhere.
-        if (roleValue !in CommonValues.VALID_ARIA_ROLE_VALUES) return
+        if (roleValue !in AriaConstants.VALID_ARIA_ROLE_VALUES) return
 
-        val supportedProps = CommonValues.supportedAriaPropsForRole(roleValue)
+        val supportedProps = RoleTagConstants.supportedAriaPropsForRole(roleValue)
 
         for (attr in element.attributes) {
             val normalized = normalizeAttrName(attr.name)
@@ -43,7 +44,7 @@ class RoleSupportsAriaPropsRule : AccessibilityRule {
             // Only inspect aria-* attributes.
             if (!normalized.startsWith("aria-")) continue
             // Skip invalid aria-* names — those are reported by AriaPropsRule.
-            if (normalized !in CommonValues.VALID_ARIA_ATTRIBUTES) continue
+            if (normalized !in AriaConstants.VALID_ARIA_ATTRIBUTES) continue
             // Supported by this role (own + required + global) — fine.
             if (normalized in supportedProps) continue
 

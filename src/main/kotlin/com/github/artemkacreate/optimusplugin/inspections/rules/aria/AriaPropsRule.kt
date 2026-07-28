@@ -1,7 +1,7 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.aria
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
+import com.github.artemkacreate.optimusplugin.inspections.util.AriaConstants
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.normalizeAttrName
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
@@ -34,7 +34,7 @@ class AriaPropsRule : AccessibilityRule {
             val normalized = normalizeAttrName(attr.name)
             if (!normalized.startsWith("aria-")) continue
 
-            if (normalized !in CommonValues.VALID_ARIA_ATTRIBUTES) {
+            if (normalized !in AriaConstants.VALID_ARIA_ATTRIBUTES) {
                 holder.registerProblem(
                     attr,
                     "Accessibility: '$normalized' is not a valid ARIA attribute.",

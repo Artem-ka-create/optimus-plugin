@@ -1,10 +1,11 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
 import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
-import com.github.artemkacreate.optimusplugin.inspections.util.CommonValues
+import com.github.artemkacreate.optimusplugin.inspections.util.AriaConstants
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.containsXmlTextNonRecursive
 import com.github.artemkacreate.optimusplugin.inspections.util.ExtractionTool.nativeTagNameOrNull
+import com.github.artemkacreate.optimusplugin.inspections.util.HtmlConstants
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
@@ -34,12 +35,12 @@ class ControlHasAssociatedLabelRule : AccessibilityRule {
         if (element !is XmlTag) return
 
         val tagName = element.nativeTagNameOrNull() ?: return
-        val isInteractiveTag = tagName in CommonValues.LABEL_REQUIRED_NATIVE_TAGS
+        val isInteractiveTag = tagName in HtmlConstants.LABEL_REQUIRED_NATIVE_TAGS
         if (!isInteractiveTag) return
 
         // 1. Aria label handling
         val ariaLabelAttributes = element.attributes
-            .filter { ExtractionTool.normalizeAttrName(it.name) in CommonValues.ARIA_LABEL_ATTRIBUTES }
+            .filter { ExtractionTool.normalizeAttrName(it.name) in AriaConstants.ARIA_LABEL_ATTRIBUTES }
 
         // a) present with a non-empty value → already labelled → OK
         if (ariaLabelAttributes.any { !ExtractionTool.resolveAttributeValue(it).isNullOrBlank() }) return
@@ -87,7 +88,7 @@ class ControlHasAssociatedLabelRule : AccessibilityRule {
             .filter { it.name.equals("label", true) }
             .any { label ->
                 label.attributes
-                    .find { ExtractionTool.normalizeAttrName(it.name) in CommonValues.FOR_ATTRIBUTES }
+                    .find { ExtractionTool.normalizeAttrName(it.name) in HtmlConstants.FOR_ATTRIBUTES }
                     ?.let { ExtractionTool.resolveAttributeValue(it)?.trim() } == elementId
             }
     }
