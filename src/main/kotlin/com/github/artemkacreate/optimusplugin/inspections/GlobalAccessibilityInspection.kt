@@ -37,11 +37,7 @@ class GlobalAccessibilityInspection : LocalInspectionTool() {
                             rule.checkElementByRule(element, file, holder)
                         }
 
-                        // Check injected fragments (HTML in JS/TS template literals)
-                        val elementName = element.javaClass.simpleName
-                        if (elementName.contains("Literal", ignoreCase = true) ||
-                            elementName.contains("String", ignoreCase = true)
-                        ) {
+                        if (injectionManager.getInjectedPsiFiles(element) != null) {
                             injectionManager.enumerate(element) { injectedFile, _ ->
                                 injectedFile.accept(object : PsiRecursiveElementWalkingVisitor() {
                                     override fun visitElement(injectedElement: PsiElement) {
