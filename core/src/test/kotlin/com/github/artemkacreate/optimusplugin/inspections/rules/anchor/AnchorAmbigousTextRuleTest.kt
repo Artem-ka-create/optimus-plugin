@@ -1,4 +1,4 @@
-package com.github.artemkacreate.optimusplugin.inspections.rules
+package com.github.artemkacreate.optimusplugin.inspections.rules.anchor
 
 import com.github.artemkacreate.optimusplugin.inspections.GlobalAccessibilityInspection
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
