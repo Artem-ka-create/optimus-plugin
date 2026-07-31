@@ -8,20 +8,13 @@
         <p>The main goal of this template is to speed up the setup phase of plugin development for both new and experienced developers by preconfiguring the project scaffold and CI, linking to the proper documentation pages, and keeping everything organized.</p>
     ]]></description>
 
+    <depends>JavaScript</depends>
+    <depends>com.intellij.modules.xml</depends>
     <depends>com.intellij.modules.platform</depends>
 
-    <resource-bundle>messages.MyBundle</resource-bundle>
+    <content>
+        <module name="optimusplugin.core" loading="required" />
+<!--        <module name="mincssrel.css" loading="optional" />-->
+    </content>
 
-    <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.artemkacreate.optimusplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow" anchor="right"/>
-        <postStartupActivity implementation="com.github.artemkacreate.optimusplugin.startup.MyProjectActivity" />
-        <localInspection
-                shortName="GlobalAccessibilityInspection"
-                displayName="Optimus Accessibility: Check a11y rules"
-                groupName="Accessibility"
-                enabledByDefault="true"
-                level="WARNING"
-                implementationClass="com.github.artemkacreate.optimusplugin.inspections.GlobalAccessibilityInspection"
-                language=""/>
-    </extensions>
 </idea-plugin>
