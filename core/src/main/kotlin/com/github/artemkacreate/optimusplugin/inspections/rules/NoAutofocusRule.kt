@@ -1,6 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
-import com.github.artemkacreate.optimusplugin.inspections.accessibility.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.base.AccessibilityRule
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder

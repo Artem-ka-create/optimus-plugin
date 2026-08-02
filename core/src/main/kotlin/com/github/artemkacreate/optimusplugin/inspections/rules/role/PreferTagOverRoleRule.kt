@@ -1,18 +1,14 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.role
 
-import com.github.artemkacreate.optimusplugin.inspections.accessibility.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.base.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.fixes.RenameTagQuickFix
 import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
 import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.nativeTagNameOrNull
 import com.github.artemkacreate.optimusplugin.inspections.util.constants.AriaConstants
 import com.github.artemkacreate.optimusplugin.inspections.util.constants.RoleTagConstants
-import com.intellij.codeInspection.LocalQuickFix
-import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
-import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlTag
 
 /**
@@ -64,18 +60,5 @@ class PreferTagOverRoleRule : AccessibilityRule {
         } else {
             holder.registerProblem(roleAttribute, message)
         }
-    }
-}
-
-private class ConvertToTagQuickFix(private val tag: String) : LocalQuickFix {
-    override fun getName(): String = "Change element to <$tag> and remove role"
-    override fun getFamilyName(): String = "Accessibility fixes"
-
-    override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
-        val attr = descriptor.psiElement as? XmlAttribute ?: return
-        val tagEl = attr.parent
-        if (tagEl !is XmlTag || !tagEl.isValid) return
-        attr.delete()
-        tagEl.name = tag
     }
 }

@@ -1,6 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.role
 
-import com.github.artemkacreate.optimusplugin.inspections.accessibility.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.base.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
 import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.nativeTagNameOrNull
 import com.github.artemkacreate.optimusplugin.inspections.util.constants.AriaConstants

@@ -1,4 +1,4 @@
-package com.github.artemkacreate.optimusplugin.inspections.accessibility
+package com.github.artemkacreate.optimusplugin.inspections.base
 
 import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.intellij.codeInspection.ProblemsHolder

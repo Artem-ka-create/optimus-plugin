@@ -1,6 +1,6 @@
 package com.github.artemkacreate.optimusplugin.services
 
-import com.github.artemkacreate.optimusplugin.inspections.accessibility.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.base.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
 import com.github.artemkacreate.optimusplugin.inspections.rules.anchor.AnchorAmbigousTextRule
 import com.github.artemkacreate.optimusplugin.inspections.rules.anchor.AnchorHasContentRule

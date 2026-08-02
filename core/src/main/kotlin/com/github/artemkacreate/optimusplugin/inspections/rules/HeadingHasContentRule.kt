@@ -1,12 +1,10 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
-import com.github.artemkacreate.optimusplugin.inspections.accessibility.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.base.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.fixes.AddAttributeQuickFix
 import com.github.artemkacreate.optimusplugin.inspections.util.ContentInspector
 import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.nativeTagNameOrNull
-import com.intellij.codeInspection.LocalQuickFix
-import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
-import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.xml.XmlTag
@@ -41,21 +39,7 @@ class HeadingHasContentRule : AccessibilityRule {
         val hasDynamicContent = element.attributes.any { it.name.lowercase() in DYNAMIC_CONTENT_ATTRIBUTES }
 
         if (!hasAriaLabel && !hasContent && !hasDynamicContent) {
-            holder.registerProblem(element, MESSAGE, AddHeadingAriaLabelQuickFix())
-        }
-    }
-}
-
-/**
- * QuickFix: adds aria-label="" attribute to heading tag
- */
-private class AddHeadingAriaLabelQuickFix : LocalQuickFix {
-    override fun getName(): String = "Add aria-label=\"\" attribute"
-    override fun getFamilyName(): String = "Accessibility fixes"
-    override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
-        val element = descriptor.psiElement
-        if (element is XmlTag && element.isValid) {
-            element.setAttribute("aria-label", "")
+            holder.registerProblem(element, MESSAGE, AddAttributeQuickFix("aria-label", "heading-text"))
         }
     }
 }
