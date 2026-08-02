@@ -1,6 +1,7 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
-import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.accessibility.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.fixes.RemoveElementQuickFix
 import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.nativeTagNameOrNull
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
@@ -26,20 +27,7 @@ class NoDistractingElementsRule : AccessibilityRule {
         if (element !is XmlTag) return
 
         if (element.nativeTagNameOrNull() in DISTRACTING_ELEMENTS) {
-            holder.registerProblem(element, MESSAGE, RemoveDistractingElementQuickFix())
-        }
-    }
-}
-
-private class RemoveDistractingElementQuickFix : LocalQuickFix {
-
-    override fun getName(): String = "Remove distracting element"
-    override fun getFamilyName(): String = "Accessibility fixes"
-
-    override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
-        val tag = descriptor.psiElement
-        if (tag is XmlTag && tag.isValid) {
-            tag.delete()
+            holder.registerProblem(element, MESSAGE, RemoveElementQuickFix("Remove distracting element"))
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.anchor
 
-import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.accessibility.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.util.ContentInspector.hasAriaLabel
 import com.github.artemkacreate.optimusplugin.inspections.util.ContentInspector.hasTextContent
 import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.isHtmlTag

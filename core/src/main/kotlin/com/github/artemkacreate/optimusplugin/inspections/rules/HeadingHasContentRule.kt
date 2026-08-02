@@ -1,6 +1,6 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
-import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.accessibility.AccessibilityRule
 import com.github.artemkacreate.optimusplugin.inspections.util.ContentInspector
 import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.nativeTagNameOrNull
 import com.intellij.codeInspection.LocalQuickFix
