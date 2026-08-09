@@ -1,6 +1,7 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.role
 
 import com.github.artemkacreate.optimusplugin.inspections.base.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.enums.RuleCategory
 import com.github.artemkacreate.optimusplugin.inspections.fixes.RemoveAttributeQuickFix
 import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
 import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator
@@ -15,6 +16,7 @@ import com.intellij.psi.xml.XmlTag
 class NoRedudantRolesRule : AccessibilityRule {
     override val id: String = "noRedudantRolesRule"
     override val displayName: String = "Redundant ARIA role"
+    override val category = RuleCategory.ROLE
 
     companion object {
         /** header→banner and footer→contentinfo only apply outside these sectioning elements. */

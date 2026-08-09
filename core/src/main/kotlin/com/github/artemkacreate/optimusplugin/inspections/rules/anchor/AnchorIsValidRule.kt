@@ -1,6 +1,7 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.anchor
 
 import com.github.artemkacreate.optimusplugin.inspections.base.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.enums.RuleCategory
 import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
 import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.isHtmlTag
 import com.intellij.codeInspection.LocalQuickFix
@@ -20,6 +21,7 @@ class AnchorIsValidRule : AccessibilityRule {
 
     override val id = "anchorIsValid"
     override val displayName = "Anchor must have valid href"
+    override val category = RuleCategory.ANCHOR
 
     companion object {
         private val HREF_ATTRIBUTES = setOf("href", ":href", "v-bind:href", "[href]")

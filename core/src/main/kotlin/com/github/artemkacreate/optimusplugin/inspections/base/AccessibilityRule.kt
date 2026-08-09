@@ -1,6 +1,7 @@
 package com.github.artemkacreate.optimusplugin.inspections.base
 
 import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
+import com.github.artemkacreate.optimusplugin.inspections.enums.RuleCategory
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
@@ -13,11 +14,13 @@ interface AccessibilityRule {
 
     val displayName: String
 
+    val category: RuleCategory
+        get() = RuleCategory.GENERAL
+
     val supportedExtensions: Set<FileExtension>
         get() = setOf(
             FileExtension.HTML, FileExtension.JS, FileExtension.JSX, FileExtension.TS, FileExtension.TSX, FileExtension.VUE
         )
-
 
     /**
      * Check a single PSI element and register problems if found.

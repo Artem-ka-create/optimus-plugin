@@ -53,12 +53,12 @@ class MyToolWindowFactory : ToolWindowFactory {
             }
 
             add(titleLabel, BorderLayout.NORTH)
-            add(checkboxContainer, BorderLayout.CENTER)
+//            add(checkboxContainer, BorderLayout.CENTER)
         }
 
         private fun restartAnalysis() {
             // Notify daemon that highlighting settings changed to trigger safe re-highlighting.
-            DaemonCodeAnalyzerEx.getInstanceEx(project).settingsChanged()
+//            DaemonCodeAnalyzerEx.getInstanceEx(project).settingsChanged()
         }
     }
 }

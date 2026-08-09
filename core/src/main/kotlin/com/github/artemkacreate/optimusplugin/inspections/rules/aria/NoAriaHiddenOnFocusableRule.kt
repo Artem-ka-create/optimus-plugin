@@ -1,6 +1,7 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.aria
 
 import com.github.artemkacreate.optimusplugin.inspections.base.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.enums.RuleCategory
 import com.github.artemkacreate.optimusplugin.inspections.fixes.RemoveAttributeQuickFix
 import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
 import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.nativeTagNameOrNull
@@ -23,6 +24,7 @@ class NoAriaHiddenOnFocusableRule : AccessibilityRule {
 
     override val id = "noAriaHiddenOnFocusable"
     override val displayName = "aria-hidden must not be set on a focusable element"
+    override val category = RuleCategory.ARIA
 
     companion object {
         private const val MESSAGE = "Accessibility: aria-hidden=\"true\" must not be set on a focusable element"

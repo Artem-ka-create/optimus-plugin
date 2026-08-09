@@ -1,6 +1,7 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.role
 
 import com.github.artemkacreate.optimusplugin.inspections.base.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.enums.RuleCategory
 import com.github.artemkacreate.optimusplugin.inspections.fixes.RenameTagQuickFix
 import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
 import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.nativeTagNameOrNull
@@ -22,6 +23,7 @@ import com.intellij.psi.xml.XmlTag
 class PreferTagOverRoleRule : AccessibilityRule {
     override val id: String = "preferTagOverRole"
     override val displayName: String = "Prefer native HTML tag over ARIA role"
+    override val category = RuleCategory.ROLE
 
     override fun checkElementByRule(
         element: PsiElement, file: PsiFile, holder: ProblemsHolder

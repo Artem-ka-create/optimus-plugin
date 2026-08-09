@@ -1,6 +1,7 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.anchor
 
 import com.github.artemkacreate.optimusplugin.inspections.base.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.enums.RuleCategory
 import com.github.artemkacreate.optimusplugin.inspections.fixes.AddAttributeQuickFix
 import com.github.artemkacreate.optimusplugin.inspections.util.ContentInspector.hasAriaLabel
 import com.github.artemkacreate.optimusplugin.inspections.util.ContentInspector.hasTextContent
@@ -17,6 +18,7 @@ class AnchorHasContentRule : AccessibilityRule {
 
     override val id = "anchorHasContent"
     override val displayName = "Must have text content (or aria-label)"
+    override val category = RuleCategory.ANCHOR
 
     companion object {
         private const val MESSAGE = "Accessibility: <a> must have accessible text content"

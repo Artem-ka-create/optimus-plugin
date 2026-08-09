@@ -1,6 +1,7 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.aria
 
 import com.github.artemkacreate.optimusplugin.inspections.base.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.enums.RuleCategory
 import com.github.artemkacreate.optimusplugin.inspections.enums.TechnologyType
 import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
 import com.github.artemkacreate.optimusplugin.inspections.util.TagClassifier.getFileTechnologyType
@@ -18,6 +19,7 @@ class AriaActiveDescendantRule : AccessibilityRule {
     override val id: String = "ariaActiveDescendantRule"
     override val displayName: String =
         "aria-activedescendant must be on an element with a valid interactive role and be focusable"
+    override val category = RuleCategory.ARIA
 
     companion object {
         private const val INVALID_ROLE_MESSAGE =
