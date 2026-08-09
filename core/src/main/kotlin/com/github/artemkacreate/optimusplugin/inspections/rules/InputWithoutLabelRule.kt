@@ -1,11 +1,9 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
-import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.base.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.fixes.AddAttributeQuickFix
 import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.isHtmlTag
-import com.intellij.codeInspection.LocalQuickFix
-import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
-import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.xml.XmlTag
@@ -32,21 +30,7 @@ class InputWithoutLabelRule : AccessibilityRule {
 
         val hasLabel = element.attributes.any { it.name.lowercase() in LABEL_ATTRIBUTES }
         if (!hasLabel) {
-            holder.registerProblem(element, MESSAGE, AddAriaLabelQuickFix())
-        }
-    }
-}
-
-/**
- * QuickFix: adds aria-label="" attribute to <input> tag
- */
-private class AddAriaLabelQuickFix : LocalQuickFix {
-    override fun getName(): String = "Add aria-label=\"\" attribute"
-    override fun getFamilyName(): String = "Accessibility fixes"
-    override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
-        val element = descriptor.psiElement
-        if (element is XmlTag && element.isValid) {
-            element.setAttribute("aria-label", "")
+            holder.registerProblem(element, MESSAGE, AddAttributeQuickFix("aria-label", "input-label-text"))
         }
     }
 }

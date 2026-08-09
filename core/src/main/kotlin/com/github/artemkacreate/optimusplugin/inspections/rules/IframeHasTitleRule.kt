@@ -1,11 +1,9 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
-import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.base.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.fixes.AddAttributeQuickFix
 import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.isHtmlTag
-import com.intellij.codeInspection.LocalQuickFix
-import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
-import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.xml.XmlTag
@@ -40,21 +38,7 @@ class IframeHasTitleRule : AccessibilityRule {
         }
 
         if (!hasValidTitle) {
-            holder.registerProblem(element, MESSAGE, AddIframeHasTitleQuickFix())
-        }
-    }
-}
-
-/**
- * QuickFix: adds title="" attribute to <iframe> tag
- */
-private class AddIframeHasTitleQuickFix : LocalQuickFix {
-    override fun getName(): String = "Add title=\"\" attribute"
-    override fun getFamilyName(): String = "Accessibility fixes"
-    override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
-        val element = descriptor.psiElement
-        if (element is XmlTag && element.isValid) {
-            element.setAttribute("title", "title-example")
+            holder.registerProblem(element, MESSAGE, AddAttributeQuickFix("title", "title-example"))
         }
     }
 }

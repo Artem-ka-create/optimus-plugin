@@ -1,6 +1,7 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.role
 
-import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.base.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.enums.RuleCategory
 import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
 import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.nativeTagNameOrNull
 import com.github.artemkacreate.optimusplugin.inspections.util.constants.AriaConstants
@@ -17,6 +18,7 @@ import com.intellij.psi.xml.XmlTag
 class NoNonIntElementToIntRoleRule : AccessibilityRule {
     override val id: String = "noNonIntElementToIntRoleRule"
     override val displayName: String = "Non-interactive element must not have an interactive role"
+    override val category = RuleCategory.ROLE
 
     companion object {
         private const val MESSAGE =

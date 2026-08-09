@@ -1,6 +1,7 @@
 package com.github.artemkacreate.optimusplugin.inspections
 
 import com.github.artemkacreate.optimusplugin.inspections.enums.FileExtension
+import com.github.artemkacreate.optimusplugin.options.RuleSettingsState
 import com.github.artemkacreate.optimusplugin.services.RuleRegistryService
 import com.intellij.codeInspection.LocalInspectionTool
 import com.intellij.codeInspection.ProblemsHolder
@@ -21,6 +22,9 @@ class GlobalAccessibilityInspection : LocalInspectionTool() {
     override fun buildVisitor(holder: ProblemsHolder, isOnTheFly: Boolean): PsiElementVisitor {
         val ext = holder.file.virtualFile?.extension?.lowercase() ?: return PsiElementVisitor.EMPTY_VISITOR
         val fileExtension = FileExtension.fromExtension(ext) ?: return PsiElementVisitor.EMPTY_VISITOR
+
+        val settings = RuleSettingsState.getInstance()
+        if (!settings.state.isLinterCheckEnabled) return PsiElementVisitor.EMPTY_VISITOR
 
         val rules = ruleRegistry.getEnabledRulesForExtension(fileExtension)
         if (rules.isEmpty()) return PsiElementVisitor.EMPTY_VISITOR

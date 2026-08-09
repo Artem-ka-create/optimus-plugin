@@ -1,16 +1,14 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.aria
 
-import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.base.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.enums.RuleCategory
+import com.github.artemkacreate.optimusplugin.inspections.fixes.RemoveAttributeQuickFix
 import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
 import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.nativeTagNameOrNull
 import com.github.artemkacreate.optimusplugin.inspections.util.constants.HtmlConstants
-import com.intellij.codeInspection.LocalQuickFix
-import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
-import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlTag
 
 /**
@@ -26,10 +24,10 @@ class NoAriaHiddenOnFocusableRule : AccessibilityRule {
 
     override val id = "noAriaHiddenOnFocusable"
     override val displayName = "aria-hidden must not be set on a focusable element"
+    override val category = RuleCategory.ARIA
 
     companion object {
-        private const val MESSAGE =
-            "Accessibility: aria-hidden=\"true\" must not be set on a focusable element"
+        private const val MESSAGE = "Accessibility: aria-hidden=\"true\" must not be set on a focusable element"
     }
 
     override fun checkElementByRule(
@@ -37,15 +35,18 @@ class NoAriaHiddenOnFocusableRule : AccessibilityRule {
     ) {
         if (element !is XmlTag) return
 
-        val ariaHiddenAttribute = element.attributes
-            .find { AttributeResolver.normalizeAttrName(it.name) == "aria-hidden" } ?: return
+        val ariaHiddenAttribute =
+            element.attributes.find { AttributeResolver.normalizeAttrName(it.name) == "aria-hidden" } ?: return
 
         // Only flag when aria-hidden resolves to "true"
         val ariaHiddenValue = AttributeResolver.resolveAttributeValue(ariaHiddenAttribute)?.trim()
         if (ariaHiddenValue != "true") return
 
         if (isFocusable(element)) {
-            holder.registerProblem(ariaHiddenAttribute, MESSAGE, RemoveAriaHiddenQuickFix())
+            holder.registerProblem(
+                ariaHiddenAttribute, MESSAGE,
+                RemoveAttributeQuickFix("Remove aria-hidden attribute")
+            )
         }
     }
 
@@ -62,11 +63,10 @@ class NoAriaHiddenOnFocusableRule : AccessibilityRule {
         }
 
         // Any element with a non-negative tabindex is focusable
-        val tabindexAttr = element.attributes
-            .find { AttributeResolver.normalizeAttrName(it.name) == "tabindex" }
+        val tabindexAttr = element.attributes.find { AttributeResolver.normalizeAttrName(it.name) == "tabindex" }
         if (tabindexAttr != null) {
-            val tabindex = AttributeResolver.resolveAttributeValue(tabindexAttr)
-                ?.let { AttributeResolver.parseNumericValue(it) }
+            val tabindex =
+                AttributeResolver.resolveAttributeValue(tabindexAttr)?.let { AttributeResolver.parseNumericValue(it) }
             if (tabindex != null && tabindex >= 0) return true
         }
 
@@ -74,18 +74,3 @@ class NoAriaHiddenOnFocusableRule : AccessibilityRule {
     }
 }
 
-/**
- * QuickFix: removes the aria-hidden attribute from the focusable element.
- */
-private class RemoveAriaHiddenQuickFix : LocalQuickFix {
-
-    override fun getName(): String = "Remove aria-hidden attribute"
-    override fun getFamilyName(): String = "Accessibility fixes"
-
-    override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
-        val attr = descriptor.psiElement
-        if (attr is XmlAttribute && attr.isValid) {
-            attr.delete()
-        }
-    }
-}

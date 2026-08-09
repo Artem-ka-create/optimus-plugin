@@ -1,11 +1,9 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules
 
-import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.base.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.fixes.AddAttributeQuickFix
 import com.github.artemkacreate.optimusplugin.inspections.util.TagNavigator.isHtmlTag
-import com.intellij.codeInspection.LocalQuickFix
-import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemsHolder
-import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.xml.XmlTag
@@ -29,21 +27,7 @@ class MissingAltRule : AccessibilityRule {
 
         val hasAlt = element.attributes.any { it.name.lowercase() in ALT_ATTRIBUTES }
         if (!hasAlt) {
-            holder.registerProblem(element, MESSAGE, AddAltAttributeQuickFix())
-        }
-    }
-}
-
-/**
- * QuickFix: adds alt="" attribute to <img> tag
- */
-private class AddAltAttributeQuickFix : LocalQuickFix {
-    override fun getName(): String = "Add alt=\"\" attribute"
-    override fun getFamilyName(): String = "Accessibility fixes"
-    override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
-        val element = descriptor.psiElement
-        if (element is XmlTag && element.isValid) {
-            element.setAttribute("alt", "")
+            holder.registerProblem(element, MESSAGE, AddAttributeQuickFix("alt", ""))
         }
     }
 }

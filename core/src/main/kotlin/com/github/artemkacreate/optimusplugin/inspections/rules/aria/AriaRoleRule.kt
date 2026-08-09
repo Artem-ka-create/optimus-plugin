@@ -1,6 +1,7 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.aria
 
-import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.base.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.enums.RuleCategory
 import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
 import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver.normalizeAttrName
 import com.github.artemkacreate.optimusplugin.inspections.util.constants.AriaConstants
@@ -31,6 +32,7 @@ class AriaRoleRule : AccessibilityRule {
 
     override val id = "ariaRoles"
     override val displayName = "Role attribute value must be a valid WAI-ARIA role"
+    override val category = RuleCategory.ARIA
 
     override fun checkElementByRule(
         element: PsiElement, file: PsiFile, holder: ProblemsHolder

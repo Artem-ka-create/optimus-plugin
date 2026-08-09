@@ -1,6 +1,7 @@
 package com.github.artemkacreate.optimusplugin.inspections.rules.role
 
-import com.github.artemkacreate.optimusplugin.inspections.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.base.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.enums.RuleCategory
 import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver
 import com.github.artemkacreate.optimusplugin.inspections.util.AttributeResolver.normalizeAttrName
 import com.github.artemkacreate.optimusplugin.inspections.util.constants.AriaConstants
@@ -17,6 +18,7 @@ class RoleHasRequiredAriaPropsRule : AccessibilityRule {
 
     override val id = "roleHasRequiredAriaProps"
     override val displayName = "Elements with an ARIA role must have all required ARIA attributes"
+    override val category = RuleCategory.ROLE
 
     override fun checkElementByRule(element: PsiElement, file: PsiFile, holder: ProblemsHolder) {
         if (element !is XmlTag) return
