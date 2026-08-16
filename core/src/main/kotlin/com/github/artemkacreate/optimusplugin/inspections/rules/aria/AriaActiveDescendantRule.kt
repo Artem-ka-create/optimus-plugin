@@ -20,6 +20,7 @@ class AriaActiveDescendantRule : AccessibilityRule {
     override val displayName: String =
         "aria-activedescendant must be on an element with a valid interactive role and be focusable"
     override val category = RuleCategory.ARIA
+    override val description = "aria-activedescendant must be on a focusable element with a valid interactive role."
 
     companion object {
         private const val INVALID_ROLE_MESSAGE =

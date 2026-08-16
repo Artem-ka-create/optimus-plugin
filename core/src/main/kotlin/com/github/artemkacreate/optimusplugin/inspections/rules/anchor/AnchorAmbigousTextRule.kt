@@ -16,6 +16,7 @@ class AnchorAmbigousTextRule : AccessibilityRule {
 
     override val id = "anchorAmbiguousText"
     override val displayName = "Anchor Ambiguous Text"
+    override val description = "Anchor text should be descriptive. Avoid ambiguous text like click here or read more."
     override val category = RuleCategory.ANCHOR
 
     companion object {

@@ -12,6 +12,7 @@ import com.intellij.psi.xml.XmlTag
 class ScopeRule : AccessibilityRule {
     override val id = "ScopeRule"
     override val displayName = "Scope could be only in <th> element"
+    override val description = "The scope attribute should only be used on th elements to define table header relationships."
 
     companion object {
         const val MESSAGE = "Accessibility: The 'scope' attribute is only valid on <th> elements"

@@ -18,6 +18,7 @@ class NoAccessKeyRule : AccessibilityRule {
 
     override val id = "noAccessKey"
     override val displayName = "Element should not use accessKey"
+    override val description = "Avoid using the accessKey attribute as it creates inconsistent keyboard shortcuts across browsers."
 
     companion object {
         private val ACCESSKEY_ATTRIBUTES = setOf(

@@ -19,6 +19,7 @@ class RoleHasRequiredAriaPropsRule : AccessibilityRule {
     override val id = "roleHasRequiredAriaProps"
     override val displayName = "Elements with an ARIA role must have all required ARIA attributes"
     override val category = RuleCategory.ROLE
+    override val description = "Elements with an ARIA role must include all required ARIA attributes for that role."
 
     override fun checkElementByRule(element: PsiElement, file: PsiFile, holder: ProblemsHolder) {
         if (element !is XmlTag) return

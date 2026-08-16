@@ -33,6 +33,7 @@ class AriaRoleRule : AccessibilityRule {
     override val id = "ariaRoles"
     override val displayName = "Role attribute value must be a valid WAI-ARIA role"
     override val category = RuleCategory.ARIA
+    override val description = "The role attribute value must be a valid WAI-ARIA role from the specification."
 
     override fun checkElementByRule(
         element: PsiElement, file: PsiFile, holder: ProblemsHolder

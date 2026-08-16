@@ -46,7 +46,9 @@ class RuleSettingsConfigurable : Configurable {
                                 getter = { settings.isRuleEnabled(rule.id) },
                                 setter = { enabled -> settings.setRuleEnabled(rule.id, enabled) }
                             )
-                            contextHelp("No description available for this rule.")
+                        }
+                        indent {
+                            row { comment(rule.description.trimIndent()) }
                         }
                     }
                 }.apply {

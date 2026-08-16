@@ -19,6 +19,7 @@ class NoNonIntElementToIntRoleRule : AccessibilityRule {
     override val id: String = "noNonIntElementToIntRoleRule"
     override val displayName: String = "Non-interactive element must not have an interactive role"
     override val category = RuleCategory.ROLE
+    override val description = "Non-interactive elements (div, span, etc.) must not be assigned interactive ARIA roles."
 
     companion object {
         private const val MESSAGE =

@@ -17,6 +17,7 @@ class NoRedudantRolesRule : AccessibilityRule {
     override val id: String = "noRedudantRolesRule"
     override val displayName: String = "Redundant ARIA role"
     override val category = RuleCategory.ROLE
+    override val description = "Do not assign ARIA roles that match the implicit semantics of the element (e.g. button with role=button)."
 
     companion object {
         /** header→banner and footer→contentinfo only apply outside these sectioning elements. */

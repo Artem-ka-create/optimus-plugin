@@ -25,6 +25,7 @@ class NoAriaHiddenOnFocusableRule : AccessibilityRule {
     override val id = "noAriaHiddenOnFocusable"
     override val displayName = "aria-hidden must not be set on a focusable element"
     override val category = RuleCategory.ARIA
+    override val description = "aria-hidden must not be used on focusable elements as it hides them from assistive technology while remaining focusable."
 
     companion object {
         private const val MESSAGE = "Accessibility: aria-hidden=\"true\" must not be set on a focusable element"

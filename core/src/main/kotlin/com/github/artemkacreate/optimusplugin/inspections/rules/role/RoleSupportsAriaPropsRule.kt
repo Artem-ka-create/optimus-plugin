@@ -20,6 +20,7 @@ class RoleSupportsAriaPropsRule : AccessibilityRule {
     override val id = "roleSupportsAriaProps"
     override val displayName = "Elements must only use ARIA attributes supported by their role"
     override val category = RuleCategory.ROLE
+    override val description = "Elements must only use ARIA attributes that are supported by their assigned role."
 
     override fun checkElementByRule(element: PsiElement, file: PsiFile, holder: ProblemsHolder) {
         if (element !is XmlTag) return

@@ -14,6 +14,12 @@ interface AccessibilityRule {
 
     val displayName: String
 
+    val description: String
+        get() = ""
+
+    val enabledByDefault: Boolean
+        get() = true
+
     val category: RuleCategory
         get() = RuleCategory.GENERAL
 

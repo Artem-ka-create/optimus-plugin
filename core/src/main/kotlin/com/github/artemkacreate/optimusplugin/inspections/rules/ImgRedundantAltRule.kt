@@ -20,6 +20,7 @@ class ImgRedundantAltRule : AccessibilityRule {
 
     override val id = "imgRedundantAlt"
     override val displayName = "img alt should not contain redundant words"
+    override val description = "Image alt text should not contain words like image, photo, or picture as screen readers already announce images."
 
     companion object {
         private val REDUNDANT_WORDS = setOf("image", "photo", "picture", "icon", "graphic")

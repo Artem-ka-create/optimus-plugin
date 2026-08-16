@@ -17,6 +17,7 @@ import com.intellij.psi.xml.XmlTag
 class HeadingHasContentRule : AccessibilityRule {
     override val id = "headingHasContent"
     override val displayName = "Heading must have content"
+    override val description = "Heading elements (h1-h6) must have text content to be accessible to screen readers."
 
     companion object {
         private val HEADING_TAGS = setOf("h1", "h2", "h3", "h4", "h5", "h6")

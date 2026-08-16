@@ -24,6 +24,7 @@ class PreferTagOverRoleRule : AccessibilityRule {
     override val id: String = "preferTagOverRole"
     override val displayName: String = "Prefer native HTML tag over ARIA role"
     override val category = RuleCategory.ROLE
+    override val description = "Use native HTML elements instead of ARIA roles where possible (e.g. use button instead of div with role=button)."
 
     override fun checkElementByRule(
         element: PsiElement, file: PsiFile, holder: ProblemsHolder

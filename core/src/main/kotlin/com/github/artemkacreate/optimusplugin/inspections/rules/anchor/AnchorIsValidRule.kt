@@ -21,6 +21,7 @@ class AnchorIsValidRule : AccessibilityRule {
 
     override val id = "anchorIsValid"
     override val displayName = "Anchor must have valid href"
+    override val description = "Anchor elements must have a valid href attribute. Avoid href=#, javascript:void(0), or empty href."
     override val category = RuleCategory.ANCHOR
 
     companion object {

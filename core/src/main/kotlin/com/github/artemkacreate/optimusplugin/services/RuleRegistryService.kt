@@ -82,7 +82,9 @@ class RuleRegistryService {
 
     private fun register(rule: AccessibilityRule) {
         rules.add(rule)
-        enabledRules.add(rule.id)
+        if (rule.enabledByDefault) {
+            enabledRules.add(rule.id)
+        }
     }
 
     fun getAllRules(): List<AccessibilityRule> = rules.toList()
