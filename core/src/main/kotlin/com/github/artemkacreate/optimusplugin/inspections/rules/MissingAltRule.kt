@@ -15,6 +15,7 @@ class MissingAltRule : AccessibilityRule {
 
     override val id = "missingAlt"
     override val displayName = "Missing alt"
+    override val description = "Image elements must have an alt attribute to provide alternative text for screen readers."
 
     companion object {
         private val ALT_ATTRIBUTES = setOf("alt", ":alt", "v-bind:alt", "[alt]")

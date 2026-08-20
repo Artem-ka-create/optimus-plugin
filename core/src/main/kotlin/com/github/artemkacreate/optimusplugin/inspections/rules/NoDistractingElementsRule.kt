@@ -11,6 +11,7 @@ import com.intellij.psi.xml.XmlTag
 class NoDistractingElementsRule : AccessibilityRule {
     override val id = "noDistractingElements"
     override val displayName = "There should not be any distracting elements"
+    override val description = "Elements like marquee and blink are distracting and should not be used."
 
     companion object {
         private val DISTRACTING_ELEMENTS = setOf("marquee", "blink")

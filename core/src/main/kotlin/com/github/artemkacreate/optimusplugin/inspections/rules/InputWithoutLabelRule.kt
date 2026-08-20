@@ -15,6 +15,7 @@ class InputWithoutLabelRule : AccessibilityRule {
 
     override val id = "inputWithoutLabel"
     override val displayName = "Input Without Label"
+    override val description = "Input elements must have an associated label so users know what data to enter."
 
     companion object {
         private val LABEL_ATTRIBUTES = setOf("id", "aria-label", "aria-labelledby", "[aria-label]", ":aria-label")

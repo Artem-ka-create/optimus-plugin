@@ -11,6 +11,7 @@ class LangRule : AccessibilityRule {
 
     override val id: String = "langValid"
     override val displayName: String = "lang attribute must be a valid BCP 47 language tag"
+    override val description = "The lang attribute value must be a valid BCP 47 language tag (e.g. en, en-US, fr)."
 
     companion object {
         val BCP47_REGEX = "^[a-z]{2,3}(-[A-Z]{2}|-[0-9]{3})?$".toRegex()

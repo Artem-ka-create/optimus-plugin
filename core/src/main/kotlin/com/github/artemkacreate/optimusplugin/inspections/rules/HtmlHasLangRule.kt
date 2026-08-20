@@ -16,6 +16,7 @@ import com.intellij.psi.xml.XmlTag
 class HtmlHasLangRule : AccessibilityRule {
     override val id = "htmlHasLangRule"
     override val displayName = "Html has lang"
+    override val description = "The html element must have a lang attribute to help assistive technologies determine the language."
 
     companion object {
         private val LANG_ATTRIBUTES = setOf("lang", ":lang", "v-bind:lang", "[lang]")

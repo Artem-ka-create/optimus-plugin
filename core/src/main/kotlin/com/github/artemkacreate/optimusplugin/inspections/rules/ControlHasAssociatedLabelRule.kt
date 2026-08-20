@@ -17,6 +17,7 @@ class ControlHasAssociatedLabelRule : AccessibilityRule {
 
     override val id: String = "controlHasAssociatedLabel"
     override val displayName: String = "Control tag should have associated label"
+    override val description = "Form controls (input, select, textarea) must have an associated label element for accessibility."
 
     companion object {
         private const val FIELD_MESSAGE =

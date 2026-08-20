@@ -21,6 +21,7 @@ class TabIndexNoPositiveRule : AccessibilityRule {
 
     override val id = "tabIndexNoPositive"
     override val displayName = "Element should not have positive tabindex"
+    override val description = "Avoid positive tabindex values as they disrupt the natural tab order of the page."
 
 
     companion object {

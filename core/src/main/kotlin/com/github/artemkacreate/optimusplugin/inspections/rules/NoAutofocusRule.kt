@@ -20,6 +20,7 @@ class NoAutofocusRule : AccessibilityRule {
 
     override val id = "noAutofocus"
     override val displayName = "Element should not use autofocus"
+    override val description = "Avoid using autofocus as it reduces usability for keyboard and screen reader users."
 
     companion object {
         private val AUTOFOCUS_ATTRIBUTES = setOf(

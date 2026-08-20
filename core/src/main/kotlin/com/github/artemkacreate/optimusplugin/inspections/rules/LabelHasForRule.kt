@@ -20,6 +20,7 @@ class LabelHasForRule : AccessibilityRule {
 
     override val id: String = "labelHasForRule"
     override val displayName: String = "Label should have 'for' attribute ot have nested field"
+    override val description = "Label elements must have a for attribute matching an input id, or contain the input element."
 
     companion object {
         private const val MESSAGE = "Accessibility: Label should have 'for' attribute ot have nested field"

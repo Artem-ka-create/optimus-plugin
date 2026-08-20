@@ -26,6 +26,7 @@ class AriaPropsRule : AccessibilityRule {
     override val id = "ariaProps"
     override val displayName = "ARIA attributes must be valid based on W3C, WAI-ARIA, MDN"
     override val category = RuleCategory.ARIA
+    override val description = "All aria-* attributes must be valid WAI-ARIA attributes per the W3C specification."
 
     override fun checkElementByRule(
         element: PsiElement, file: PsiFile, holder: ProblemsHolder

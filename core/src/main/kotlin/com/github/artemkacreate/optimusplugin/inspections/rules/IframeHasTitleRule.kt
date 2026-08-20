@@ -16,6 +16,7 @@ import com.intellij.psi.xml.XmlTag
 class IframeHasTitleRule : AccessibilityRule {
     override val id = "iframeHasTitle"
     override val displayName = "Iframe must have title"
+    override val description = "Iframe elements must have a title attribute describing their content."
 
     companion object {
         private val TITLE_ATTRIBUTES = setOf("title", ":title", "v-bind:title", "[title]")

@@ -18,6 +18,7 @@ class AnchorHasContentRule : AccessibilityRule {
 
     override val id = "anchorHasContent"
     override val displayName = "Must have text content (or aria-label)"
+    override val description = "Anchor elements must have text content or an aria-label for screen readers."
     override val category = RuleCategory.ANCHOR
 
     companion object {
