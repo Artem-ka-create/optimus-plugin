@@ -14,7 +14,7 @@
                 implementationClass="com.github.artemkacreate.optimusplugin.inspections.GlobalAccessibilityInspection"
                 language=""/>
         <applicationConfigurable
-                parentId="InspectionsGroup"
+                parentId="editor"
                 instance="com.github.artemkacreate.optimusplugin.options.RuleSettingsConfigurable"
                 id="com.github.artemkacreate.optimusplugin.settings"
                 displayName="Optimus Accessibility"/>
