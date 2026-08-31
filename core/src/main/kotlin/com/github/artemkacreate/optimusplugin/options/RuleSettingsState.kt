@@ -1,5 +1,8 @@
 package com.github.artemkacreate.optimusplugin.options
 
+import com.github.artemkacreate.optimusplugin.inspections.base.AccessibilityRule
+import com.github.artemkacreate.optimusplugin.inspections.enums.RuleSettingsMode
+import com.github.artemkacreate.optimusplugin.services.OptimusConfigFileService
 import com.github.artemkacreate.optimusplugin.services.RuleRegistryService
 import com.intellij.codeInsight.daemon.DaemonCodeAnalyzer
 import com.intellij.openapi.components.PersistentStateComponent
@@ -7,7 +10,14 @@ import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 import com.intellij.openapi.components.service
+import com.intellij.openapi.fileChooser.FileChooserFactory
+import com.intellij.openapi.fileChooser.FileSaverDescriptor
 import com.intellij.openapi.project.ProjectManager
+import com.intellij.openapi.ui.Messages
+import com.intellij.openapi.vfs.LocalFileSystem
+import com.intellij.openapi.vfs.VfsUtil
+import kotlinx.serialization.json.*
+import kotlinx.serialization.json.put
 
 @State(
     name = "RuleSettingsState", storages = [Storage("OptimusAccessibilitySettings.xml")]
@@ -19,6 +29,8 @@ class RuleSettingsState : PersistentStateComponent<RuleSettingsState.SettingsDat
         var disabledRuleIds: MutableSet<String> = mutableSetOf()
         var enabledRuleIds: MutableSet<String> = mutableSetOf()
         var isLinterCheckEnabled: Boolean = true
+        var configFilePath: String = ""
+        var configMode: RuleSettingsMode = RuleSettingsMode.IDE_CONFIG
     }
 
     companion object {
@@ -31,7 +43,7 @@ class RuleSettingsState : PersistentStateComponent<RuleSettingsState.SettingsDat
 
     override fun loadState(state: SettingsData) {
         myState = state
-        syncToRegistry()
+//        syncToRegistry()
     }
 
     fun isRuleEnabled(ruleId: String): Boolean {
@@ -57,13 +69,28 @@ class RuleSettingsState : PersistentStateComponent<RuleSettingsState.SettingsDat
     /**
      * Sync persisted state into the RuleRegistryService at load time.
      */
-    private fun syncToRegistry() {
+    fun syncToRegistry() {
         val registry = RuleRegistryService.getInstance()
-        for (ruleId in myState.disabledRuleIds) {
-            registry.setEnabled(ruleId, false)
+
+        if (myState.configMode == RuleSettingsMode.CONFIG_FILE) {
+            // Mode 1: Load rule statuses directly from the JSON file
+            OptimusConfigFileService.getInstance().reloadFromConfigFile()
+        } else {
+            // Mode 2: IDE_CONFIG mode - Apply manual user preferences
+            val allRules = registry.getAllRules()
+            for (rule in allRules) {
+                val isEnabled = getRuleStatusBySettingsState(rule)
+                registry.setEnabled(rule.id, isEnabled)
+            }
         }
-        for (ruleId in myState.enabledRuleIds) {
-            registry.setEnabled(ruleId, true)
+        restartAnalysis()
+    }
+
+    fun getRuleStatusBySettingsState(rule: AccessibilityRule): Boolean {
+        return when (rule.id) {
+            in myState.disabledRuleIds -> false
+            in myState.enabledRuleIds -> true
+            else -> rule.enabledByDefault // Reset to default if not explicitly customized
         }
     }
 
@@ -75,9 +102,23 @@ class RuleSettingsState : PersistentStateComponent<RuleSettingsState.SettingsDat
         }
     }
 
-    fun setLinterEnabled(){
-        myState.isLinterCheckEnabled = !myState.isLinterCheckEnabled
-        restartAnalysis()
+    fun generateConfigurationFileContent(): JsonObject {
+        return buildJsonObject {
+            put("enabled", myState.isLinterCheckEnabled)
+            putJsonObject("rules") {
+                val allRules = RuleRegistryService.getInstance().getAllRules()
+                for (rule in allRules) {
+                    put(rule.id, getRuleStatusBySettingsState(rule))
+                }
+            }
+        }
+    }
+
+    fun setLinterEnabled(enabled: Boolean) {
+        if (myState.isLinterCheckEnabled != enabled) {
+            myState.isLinterCheckEnabled = enabled
+            restartAnalysis()
+        }
     }
 
 }

@@ -2,8 +2,6 @@ package com.github.artemkacreate.optimusplugin.toolWindow
 
 import com.github.artemkacreate.optimusplugin.MyBundle
 import com.github.artemkacreate.optimusplugin.services.RuleRegistryService
-import com.intellij.codeInsight.daemon.impl.DaemonCodeAnalyzerEx
-import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
@@ -16,10 +14,6 @@ import javax.swing.BoxLayout
 import javax.swing.JCheckBox
 
 class MyToolWindowFactory : ToolWindowFactory {
-
-    init {
-        thisLogger().warn("Don't forget to remove all non-needed sample code files with their corresponding registration entries in `plugin.xml`.")
-    }
 
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
         val myToolWindow = MyToolWindow(project)

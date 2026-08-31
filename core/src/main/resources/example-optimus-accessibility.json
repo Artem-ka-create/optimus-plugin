@@ -1,0 +1,32 @@
+{
+  "enabled": true,
+  "rules": {
+    "missingAlt": false,
+    "inputWithoutLabel": false,
+    "anchorHasContent": false,
+    "anchorIsValid": false,
+    "iframeHasTitle": false,
+    "htmlHasLangRule": false,
+    "headingHasContent": false,
+    "imgRedundantAlt": false,
+    "noAutofocus": false,
+    "noAccessKey": false,
+    "tabIndexNoPositive": false,
+    "ariaProps": false,
+    "ariaRoles": false,
+    "noAriaHiddenOnFocusable": false,
+    "langValid": false,
+    "labelHasForRule": false,
+    "controlHasAssociatedLabel": false,
+    "ariaActiveDescendantRule": false,
+    "anchorAmbiguousText": false,
+    "noDistractingElements": false,
+    "nonIntElementToNonIntRoleRule": true,
+    "noNonIntElementToIntRoleRule": true,
+    "noRedudantRolesRule": true,
+    "preferTagOverRole": true,
+    "roleHasRequiredAriaProps": true,
+    "roleSupportsAriaProps": true,
+    "ScopeRule": false
+  }
+}
