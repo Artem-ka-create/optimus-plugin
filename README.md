@@ -1,8 +1,10 @@
 # Optimus Accessibility
 
 ![Build](https://github.com/Artem-ka-create/optimus-plugin/workflows/Build/badge.svg)
+[![Version](https://img.shields.io/jetbrains/plugin/v/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
 
-**Optimus Accessibility** is a real-time web accessibility (a11y) inspection tool for JetBrains IDEs. It performs a single-pass PSI tree traversal to check your HTML, JS, JSX, TS, TSX, and Vue files — including injected template strings — against WCAG/ARIA accessibility rules as you type, with one-click quick fixes.
+**Optimus Accessibility** is a real-time web accessibility (a11y) inspection tool for JetBrains IDEs. It works with **React**, **Angular**, and **Vue**, as well as **vanilla HTML/JS/TS** — performing a single-pass PSI tree traversal to check your HTML, JS, JSX, TS, TSX, and Vue files — including injected template strings — against WCAG/ARIA accessibility rules as you type, with one-click quick fixes.
 
 ---
 
@@ -16,7 +18,7 @@
 - ⚡ **Real-Time Inspection:** One optimized traversal delegates each element to every active rule — no per-rule inspection overhead.
 - 🎯 **27 Accessibility Rules:** Broad set of accessibility checks across General, Anchor, ARIA, and Role categories, covering WCAG & ARIA standards.
 - 🛠️ **Automated Quick Fixes:** One-click IDE quick fixes to add/remove attributes, remove elements, or rename tags.
-- 🌐 **Multi-Framework & Format Support:** Full inspection support for **Angular**, **React** (JSX/TSX), **Vue**, and **Vanilla HTML / JS / TS** (including injected template strings), distinguishing native HTML from framework components so rules aren't misapplied to custom elements.
+- 🌐 **Multi-Framework & Format Support:** Full inspection support for **React** (JSX/TSX), **Angular**, **Vue**, and **Vanilla HTML / JS / TS** (including injected template strings), distinguishing native HTML from framework components so rules aren't misapplied to custom elements.
 - ⚙️ **Flexible Configuration:** Enable/disable rules individually in **Settings > Editor > Optimus Accessibility**, export your configuration to a shareable `optimus-accessibility.json`, or point the plugin at a project-level JSON config file to drive rule state directly (JSON mode takes priority over manual settings).
 
 ---
