@@ -7,7 +7,7 @@
     <description><![CDATA[
         <p><b>Optimus Accessibility</b> is a real-time web accessibility (a11y) inspection tool for JetBrains IDEs. It works with <b>React</b>, <b>Angular</b>, and <b>Vue</b>, as well as <b>vanilla HTML/JS/TS</b> &mdash; performing a single-pass PSI tree traversal to check your HTML, JS, JSX, TS, TSX, and Vue files &mdash; including injected template strings &mdash; against WCAG/ARIA accessibility rules as you type, with one-click quick fixes.</p>
 
-        <p><b>📌 Beta (Phase 1):</b> This release covers static PSI-based inspections, rule configuration, and quick fixes. It is the first part of a larger roadmap &mdash; see below.</p>
+        <p><b>📌 v1.0 Release:</b> This is the 1.0 release of Optimus Accessibility. The real-time accessibility linter described here is just one aspect of the plugin &mdash; it is the first part of a larger roadmap &mdash; see below.</p>
 
         <h3>✨ Core Features</h3>
         <ul>

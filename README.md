@@ -8,8 +8,8 @@
 
 ---
 
-> 📌 **Beta Version Notice (Phase 1):**  
-> This release represents **Phase 1 (Beta)** of Optimus Accessibility. It covers core static PSI-based inspections, rule configuration, and quick fixes — the first part of a larger roadmap (see below).
+> 📌 **v1.0 Release Notice:**  
+> This is the **1.0 release** of Optimus Accessibility. The real-time accessibility linter documented here is just one aspect of the plugin — the first part of a larger roadmap (see below).
 
 ---
 
