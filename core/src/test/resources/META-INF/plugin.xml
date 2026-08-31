@@ -3,7 +3,6 @@
     <name>Optimus Accessibility Core Tests</name>
 
     <depends>com.intellij.modules.xml</depends>
-    <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <localInspection

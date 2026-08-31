@@ -2,19 +2,45 @@
 <idea-plugin>
     <id>com.github.artemkacreate.optimusplugin</id>
     <name>Optimus Accessibility</name>
-    <vendor>artem-ka-create</vendor>
+    <vendor email="petrenkoartem22@gmail.com" url="https://github.com/artem-ka-create">Artem Petrenko</vendor>
+
     <description><![CDATA[
-        <p><b>optimus-plugin</b> is a repository that provides a pure template to make it easier to create a new plugin project.</p>
-        <p>The main goal of this template is to speed up the setup phase of plugin development for both new and experienced developers by preconfiguring the project scaffold and CI, linking to the proper documentation pages, and keeping everything organized.</p>
+        <p><b>Optimus Accessibility</b> is a real-time web accessibility (a11y) inspection tool for JetBrains IDEs. It performs a single-pass PSI tree traversal to check your HTML, JS, JSX, TS, TSX, and Vue files &mdash; including injected template strings &mdash; against WCAG/ARIA accessibility rules as you type, with one-click quick fixes.</p>
+
+        <p><b>📌 Beta (Phase 1):</b> This release covers static PSI-based inspections, rule configuration, and quick fixes. It is the first part of a larger roadmap &mdash; see below.</p>
+
+        <h3>✨ Core Features</h3>
+        <ul>
+            <li><b>Real-Time Inspection:</b> one optimized traversal delegates each element to every active rule &mdash; no per-rule inspection overhead.</li>
+            <li><b>27 Accessibility Rules:</b> across General, Anchor, ARIA, and Role categories, covering WCAG &amp; ARIA standards.</li>
+            <li><b>Quick Fixes:</b> add/remove attributes, remove elements, or rename tags to resolve violations instantly.</li>
+            <li><b>Framework-Aware:</b> distinguishes native HTML from <b>Angular</b>, <b>React</b> (JSX/TSX), and <b>Vue</b> components so rules aren't misapplied to custom elements.</li>
+            <li><b>Flexible Configuration:</b> enable/disable rules individually in <b>Settings > Editor > Optimus Accessibility</b>, grouped by category; export your configuration to a shareable <code>optimus-accessibility.json</code>; or point the plugin at a project-level JSON config file to drive rule state directly (JSON mode takes priority over manual settings).</li>
+        </ul>
+
+        <h3>🚀 Rule Categories</h3>
+        <ul>
+            <li><b>General & Images:</b> Image <code>alt</code> text checks, form label association, heading contents, iframe titles, autofocus/accesskey rules.</li>
+            <li><b>Anchors & Links:</b> Link validity, ambiguous text detection, and content checks.</li>
+            <li><b>ARIA Attributes:</b> ARIA attribute validation, active descendant checks, <code>aria-hidden</code> focus safety.</li>
+            <li><b>Roles & Elements:</b> Semantic tag preference over roles, role-attribute constraints, element-to-role compatibility.</li>
+        </ul>
+
+        <h3>🔮 What's Next</h3>
+        <p>Optimus Accessibility is the first phase of a larger project. Planned for future releases:</p>
+        <ul>
+            <li><b>Deep Project-Level Analysis:</b> Advanced cross-file a11y auditing and compliance summaries.</li>
+            <li><b>AI-Powered Suggestions:</b> Intelligent AI assistance for auto-generating alt text, aria labels, and structural accessibility repairs.</li>
+            <li><b>Framework-Specific Rule Sets:</b> Today's rules are framework-aware but generic (the same 27 checks run everywhere); future rules will target patterns specific to React, Vue, Angular, and common UI design systems.</li>
+            <li><b>Expanded WCAG Coverage:</b> Additional rules to cover more WCAG success criteria beyond the current 27.</li>
+        </ul>
     ]]></description>
 
     <depends>JavaScript</depends>
     <depends>com.intellij.modules.xml</depends>
-    <depends>com.intellij.modules.platform</depends>
 
     <content>
         <module name="optimusplugin.core" loading="required" />
-<!--        <module name="mincssrel.css" loading="optional" />-->
     </content>
 
 </idea-plugin>

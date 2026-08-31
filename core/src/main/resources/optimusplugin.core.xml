@@ -7,7 +7,7 @@
         <postStartupActivity implementation="com.github.artemkacreate.optimusplugin.startup.MyProjectActivity"/>
         <localInspection
                 shortName="GlobalAccessibilityInspection"
-                displayName="Optimus Accessibility: Check a11y rules"
+                displayName="Accessibility Linter"
                 groupName="Accessibility"
                 enabledByDefault="true"
                 level="WARNING"
