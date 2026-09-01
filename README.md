@@ -3,6 +3,7 @@
 ![Build](https://github.com/Artem-ka-create/optimus-plugin/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 **Optimus Accessibility** is a real-time web accessibility (a11y) inspection tool for JetBrains IDEs. It works with **React**, **Angular**, and **Vue**, as well as **vanilla HTML/JS/TS** — performing a single-pass PSI tree traversal to check your HTML, JS, JSX, TS, TSX, and Vue files — including injected template strings — against WCAG/ARIA accessibility rules as you type, with one-click quick fixes.
 
@@ -80,4 +81,6 @@ We are actively working on expanding Optimus Accessibility for future releases:
 
 ## 📄 License
 
-Distributed under the Apache 2.0 License.
+Copyright © 2026 Artem Petrenko
+
+Distributed under the Apache 2.0 License. See [LICENSE](LICENSE) for details.

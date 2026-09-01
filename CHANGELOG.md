@@ -3,8 +3,6 @@
 # optimus-plugin Changelog
 
 ## [Unreleased]
-
-## [1.0.0] - 2026-08-31
 ### Added
 - Real-time accessibility inspection (`GlobalAccessibilityInspection`) via a single PSI tree traversal that checks every active rule in one pass, including elements inside injected template strings.
 - 27 accessibility rules covering WCAG & ARIA standards, grouped into General, Anchor, ARIA, and Role categories.
